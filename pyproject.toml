@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=57.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rlmc"
+dynamic = ["version"]
+description = "Python utils for AI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { "text" = "MIT" }
+keywords = ["machine-learning", "deep-learning", "ML", "DL", "AI"]
+authors = [
+    { name = "Ray Lam" }
+]
+maintainers = [
+    { name = "Ray Lam" }
+]
+
+# 发展时期
+#   3 - Alpha
+#   4 - Beta
+#   5 - Production/Stable
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+
+
+dependencies = [
+    "colorlog", 
+    "pyyaml",
+    "tqdm",
+    "numpy",
+]
+
+# Optional dependencies --------------------
+[project.optional-dependencies]
+dev = [
+    "pytest", 
+    "mypy",
+]
+
+[project.urls]
+"Source" = "https://github.com/RayLam2022/rlmc"
+
+[project.scripts]
+rltest = "rltests.test:main"
+
+
+[tool.setuptools] 
+packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
+package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.html"], "rlmc.configs"=["*.yaml"] }
+
+[tool.setuptools.dynamic]
+version = { attr = "rlmc.__version__" }
+
+
