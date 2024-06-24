@@ -1,0 +1,21 @@
+py_scripts:
+  rlmc:
+   utils:
+   - asynctask
+   - coroutine
+   - logger
+   - mc
+   - multiprocess
+   - multithread
+   - register
+   - sudict
+   fileop:
+   configs:
+   - cfg
+
+asset:
+  rlmc:
+   configs:
+   - cfg.yaml
+
+

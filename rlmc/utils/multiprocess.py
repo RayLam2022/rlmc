@@ -24,7 +24,7 @@ logger = Logger(__name__, level=Logger.DEBUG)
 
 class MultiProcess:
     """
-    多进程在jupyter会报错或无返回数据,要生成py再运行,另外win多进程要有if __name__=='__main__':
+    多进程建议用py运行，在jupyter可能会报错或无返回数据,要生成py再运行,另外win多进程要有if __name__=='__main__':
     """
 
     def __init__(self, func: Callable, worker: int) -> None:

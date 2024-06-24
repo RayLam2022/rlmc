@@ -46,6 +46,21 @@ dev = [
     "mypy",
 ]
 
+tensorflow = [
+    "tensorflow==2.7.0",
+]
+
+torch = [
+    "torch",
+    "torchvision"
+]
+
+paddle = [
+    "paddlepaddle",
+]
+
+
+
 [project.urls]
 "Source" = "https://github.com/RayLam2022/rlmc"
 
