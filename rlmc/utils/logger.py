@@ -100,7 +100,7 @@ class Logger:
 
     def __call__(self) -> logging.Logger:
         return self.logger
-
+        
     def debug(self, msg: str) -> None:
         self.logger.debug(msg)
 
@@ -119,6 +119,7 @@ class Logger:
 
 if __name__ == "__main__":
     logger = Logger("test", logging.DEBUG, is_saveLog=False)
+    print(f'{logger:#}')
     logger.debug("debug")
     logger.info("info")
     logger.warning("warning")

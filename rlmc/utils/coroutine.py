@@ -7,7 +7,7 @@
 
 import sys
 
-sys.path.append(".")
+if '.' not in sys.path: sys.path.append(".")
 
 import time
 from rlmc.utils.logger import Logger

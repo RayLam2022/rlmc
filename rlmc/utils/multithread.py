@@ -7,7 +7,7 @@
 
 import sys
 
-sys.path.append(".")
+if '.' not in sys.path: sys.path.append(".")
 
 from typing import Any, Union, Callable, Iterable, List, Dict, Tuple
 import concurrent.futures as cf

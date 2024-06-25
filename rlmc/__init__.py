@@ -5,11 +5,12 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "0.0.7"
+__version__ = "0.0.9"
 
 import sys
 
-sys.path.append(".")
+if "." not in sys.path:
+    sys.path.append(".")
 
 from rlmc.utils.logger import Logger
 from rlmc.utils.mc import MetaList
@@ -17,12 +18,19 @@ from rlmc.utils.register import Register
 from rlmc.utils.sudict import SuDict
 from rlmc.utils.multiprocess import MultiProcess
 from rlmc.utils.multithread import MultiThread
-from rlmc.utils.asynctask import AsyncTasks, AsyncProducerConsumer, AsyncProducerConsumerTriple
+from rlmc.utils.asynctask import (
+    AsyncTasks,
+    AsyncProducerConsumer,
+    AsyncProducerConsumerTriple,
+)
 from rlmc.utils.coroutine import Abstract_ManMachineChat
+from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
+from rlmc.fileop.utils import FindContent, DatasetSplit
+
 
 from rlmc.fileop import file_processor
 
-# from rlmc.configs.cfg import Configs
+from rlmc.configs import user_setting, model_download_urls, dataset_download_urls
 
 
 reg = Register()
@@ -35,7 +43,18 @@ reg.register(AsyncTasks)
 reg.register(AsyncProducerConsumer)
 reg.register(AsyncProducerConsumerTriple)
 reg.register(Abstract_ManMachineChat)
+reg.register(HfDownload)
+reg.register(MsDownload)
+reg.register(AutodlDownload)
+reg.register(FindContent)
+reg.register(DatasetSplit)
 reg.register(file_processor)
+
+cfg = dict()
+cfg["user_setting"] = user_setting
+cfg["model_download_urls"] = model_download_urls
+cfg["dataset_download_urls"] = dataset_download_urls
+
 
 __all__ = [
     "__version__",
@@ -49,8 +68,14 @@ __all__ = [
     "AsyncProducerConsumer",
     "AsyncProducerConsumerTriple",
     "Abstract_ManMachineChat",
+    "HfDownload",
+    "MsDownload",
+    "AutodlDownload",
+    "FindContent",
+    "DatasetSplit",
     "file_processor",
     "reg",
+    "cfg",
 ]
 
 
