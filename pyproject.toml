@@ -68,6 +68,10 @@ download=[
     "codewithgpu"
 ]
 
+git=[
+    "gitpython"
+]
+
 
 [project.urls]
 "Source" = "https://github.com/RayLam2022/rlmc"
