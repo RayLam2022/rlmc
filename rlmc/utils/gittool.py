@@ -142,7 +142,7 @@ if __name__ == "__main__":
     #gt.git_clone(remote_repo_url)
     #gt.create_branch('test_branch')
     print(gt.get_all_branchs())
-    gt.switch_branch('master')
+    #gt.switch_branch('master')
     #x=gt.get_diff_between_commits('2a68b8e5f9bcc59e211163d5f22ab0a3fe6bbddc','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')[1]
     #x=gt.get_file_content_in_commit(r'rltests/test.py','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')
     #gt.git_pull_repo()
