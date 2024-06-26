@@ -20,6 +20,6 @@ def get_resource(path, returntype="content"):
 
 
 src_dir = osp.dirname(__file__)
-condarc = get_resource(osp.join(src_dir, ".condarc"))
+condarc = get_resource(osp.join(src_dir, "condarc.txt"))
 pip = get_resource(osp.join(src_dir, "pip.ini"))
 cuda = get_resource(osp.join(src_dir, "cudarc.txt"))

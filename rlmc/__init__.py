@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "0.10.0"
+__version__ = "1.0.0"
 
 import sys
 
@@ -21,7 +21,7 @@ from rlmc.utils.multithread import MultiThread
 from rlmc.utils.asynctask import (
     AsyncTasks,
     AsyncProducerConsumer,
-    AsyncProducerConsumerTriple,
+    AsyncProducerConsumerTriple
 )
 from rlmc.utils.coroutine import Abstract_ManMachineChat
 from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
