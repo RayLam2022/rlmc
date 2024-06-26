@@ -78,7 +78,7 @@ rltest = "rltests.test:main"
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
-package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.html"], "rlmc.configs"=["*.yaml"] }
+package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.html", "*.condarc", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"] }
 
 [tool.setuptools.dynamic]
 version = { attr = "rlmc.__version__" }

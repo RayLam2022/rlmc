@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "0.0.9"
+__version__ = "0.10.0"
 
 import sys
 
@@ -25,12 +25,19 @@ from rlmc.utils.asynctask import (
 )
 from rlmc.utils.coroutine import Abstract_ManMachineChat
 from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
+from rlmc.utils.systeminfos import general_info, gpu_info
 from rlmc.fileop.utils import FindContent, DatasetSplit
 
 
 from rlmc.fileop import file_processor
 
-from rlmc.configs import user_setting, model_download_urls, dataset_download_urls
+from rlmc.configs import (
+    user_setting,
+    model_download_urls,
+    dataset_download_urls,
+    common_urls,
+)
+from rlmc.resource import condarc, pip, cuda
 
 
 reg = Register()
@@ -48,12 +55,16 @@ reg.register(MsDownload)
 reg.register(AutodlDownload)
 reg.register(FindContent)
 reg.register(DatasetSplit)
+reg.register(general_info)
+reg.register(gpu_info)
 reg.register(file_processor)
 
-cfg = dict()
+cfg = SuDict()
+cfg["common_urls"] = common_urls
 cfg["user_setting"] = user_setting
 cfg["model_download_urls"] = model_download_urls
 cfg["dataset_download_urls"] = dataset_download_urls
+cfg["source"] = SuDict({"pip": pip, "condarc": condarc, "cuda": cuda})
 
 
 __all__ = [
@@ -74,6 +85,8 @@ __all__ = [
     "FindContent",
     "DatasetSplit",
     "file_processor",
+    "general_info",
+    "gpu_info",
     "reg",
     "cfg",
 ]
