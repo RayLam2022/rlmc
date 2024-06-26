@@ -22,8 +22,13 @@ class Git:
             if osp.isdir(osp.join(self.local_repo_path, ".git")):
                 self.open_local_repo()
 
-    def init_local_repo(self) -> None: 
+    def init_local_repo(self) -> None:  # 待
         self.local_repo = git.Repo.init(self.local_repo_path)
+        origin = self.local_repo.create_remote("origin", self.local_repo.remotes.origin.url)
+        origin.fetch()
+        self.local_repo.create_head("main", origin.refs.main)
+        self.local_repo.heads.master.set_tracking_branch(origin.refs.master)
+        self.local_repo.heads.master.checkout()
 
     def open_local_repo(self) -> None:
         self.local_repo = git.Repo(self.local_repo_path)
@@ -142,7 +147,7 @@ if __name__ == "__main__":
     #x=gt.get_file_content_in_commit(r'rltests/test.py','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')
     #gt.git_pull_repo()
     print(gt.get_repo_status())
-    gt.git_push_repo('somecommit')
+    gt.git_push_repo('some commit')
 
     #print(x)
 
