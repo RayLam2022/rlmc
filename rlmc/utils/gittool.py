@@ -77,9 +77,7 @@ class Git:
     def delete_branch(self, branch_name) -> None: 
         self.local_repo.delete_head(branch_name)
 
-    def switch_branch(self, branch_name, commit_msg="update some modules") -> List: 
-        self.local_repo.git.add(all=True)
-        self.local_repo.git.commit("-m", commit_msg)
+    def switch_branch(self, branch_name, commit_msg="update some modules") -> None: 
         self.local_repo.git.checkout(branch_name)
 
     def get_all_branchs(self) -> List:
@@ -102,6 +100,14 @@ class Git:
         """获取某个文件在某个提交中的内容 要用相对路径例如rltests/test.py"""
         commit = self.local_repo.commit(commit_sha)
         return commit.tree[file_path].data_stream.read().decode("utf-8")
+
+    def get_untracked_files(self) -> List[str]:
+        """获取未跟踪的文件列表"""
+        return self.local_repo.untracked_files
+
+    def get_unstaged_files(self) -> List[str]:
+        """获取未暂存的文件列表"""
+        return self.local_repo.index.unstaged_files
 
     def cancel_uncommit_changes(self):  #
         """撤销未提交的更改"""
@@ -138,21 +144,22 @@ class Git:
 
 
 if __name__ == "__main__":
-    local_repo_path = r'D:\work\rlmc'  #r"C:\Users\RayLam\Desktop\test_git"
+    local_repo_path = r"C:\Users\RayLam\Desktop\test_git"
     remote_repo_url = "https://github.com/RayLam2022/rlmc.git"
 
     gt = Git(local_repo_path)
     #gt.git_clone(remote_repo_url)
     # gt.git_pull_repo()
-    gt.create_branch('test_branch1')
-    print(gt.get_all_branchs())
-    gt.switch_branch('test_branch1')
+    # gt.create_branch('test_branch1')
+    # print(gt.get_all_branchs())
+    gt.switch_branch('test_branch')
     #x=gt.get_diff_between_commits('2a68b8e5f9bcc59e211163d5f22ab0a3fe6bbddc','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')[1]
     #x=gt.get_file_content_in_commit(r'rltests/test.py','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')
     #
     # gt.git_pull_repo()
     print(gt.get_repo_status())
-
+    print(gt.get_untracked_files())
+    print(gt.get_unstaged_files())
     gt.git_push_repo('create g_tools')
     #gt.git_push_one_file(r'D:\work\rlmc\rlmc\utils\gittool.py','modify g_tools')
 
