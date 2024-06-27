@@ -92,9 +92,6 @@ vision=[
 ]
 
 
-[project.urls]
-"Homepage" = "https://github.com/RayLam2022/rlmc"
-"Bug Tracker" = "https://github.com/RayLam2022/rlmc/issues"
 
 [project.urls]
 "Source" = "https://github.com/RayLam2022/rlmc"
