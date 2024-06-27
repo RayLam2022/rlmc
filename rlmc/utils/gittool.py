@@ -17,6 +17,15 @@ class Git:
     Not used, assist to remember the git command.
     """
 
+    def __init__(self, local_repo_path=None):
+        self.local_repo_path = local_repo_path
+        self.local_repo = None
+        self.remote_url = None
+        self.remote_branchs = None
+        if local_repo_path != None:
+            if osp.isdir(osp.join(self.local_repo_path, ".git")):
+                self.open_local_repo()
+
     def init_local_repo(self, remote_url: str) -> None:
         """
         Initialize a local repository.
@@ -27,18 +36,6 @@ class Git:
         origin = self.local_repo.create_remote("origin", remote_url)
         origin.fetch()
         self.get_remote_info()
-
-    def __init__(self, local_repo_path=None):
-        self.local_repo_path = local_repo_path
-        self.local_repo = None
-        self.remote_url = None
-        self.remote_branchs = None
-        if local_repo_path != None:
-            if osp.isdir(osp.join(self.local_repo_path, ".git")):
-                self.open_local_repo()
-
-    def init_local_repo(self) -> None: 
-        self.local_repo = git.Repo.init(self.local_repo_path)
 
 
     def open_local_repo(self) -> None:
@@ -65,9 +62,6 @@ class Git:
         elif type == "view":
             self.local_repo.git.stash("list")
 
-
-    def git_stash_pop(self) -> None:
-        self.local_repo.git.stash("pop")
 
     def get_repo_history(self) -> str:
         return self.local_repo.git.log()
@@ -165,21 +159,18 @@ class Git:
     def git_commit(self, commit_msg="update some modules"):
         self.local_repo.git.commit("-m", commit_msg)
 
-    def git_merge(self, branch_name):
+    def git_merge(self, branch_name):  # "--allow-unrelated-histories"
         self.local_repo.git.merge(branch_name)
 
     def git_push_repo(self, commit_msg="update some modules"):  #
         self.git_add()
         self.git_commit(commit_msg)
-
-    def git_push_repo(self, commit_msg="update some modules"):  #
-        self.local_repo.git.add(all=True)
-        self.local_repo.git.commit("-m", commit_msg)
         self.local_repo.remotes.origin.push()
 
+
     def git_pull_repo(self, commit_msg="update some modules"):  #
-        self.local_repo.git.add(all=True)
-        self.local_repo.git.commit("-m", commit_msg)
+        self.git_add()
+        self.git_commit(commit_msg)
         self.local_repo.remotes.origin.pull()
 
     def git_clone(self, remote_repo_url):
@@ -189,8 +180,8 @@ class Git:
 
 
     def git_push_one_file(self, file_path, commit_msg="update some modules"):  #
-        self.local_repo.git.add(file_path)
-        self.local_repo.git.commit("-m", commit_msg)
+        self.git_add(file_path)
+        self.git_commit(commit_msg)
         self.local_repo.remotes.origin.push()
 
 
