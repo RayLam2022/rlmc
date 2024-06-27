@@ -13,6 +13,23 @@ if __name__=='__main__':
     file_processor=reg['file_processor']
     yamlobj = file_processor("rlmc/configs/common_urls.yaml")
     yaml_content = yamlobj.read()
-    print(yaml_content)
+    # print(yaml_content)
     #print(cfg['source']['cuda'])
-    print(cfg.source.cuda)
+    # print(cfg.source.cuda)
+
+    class A:
+        def __init__(self,a,b):
+            self.a=a
+            self.b=b
+
+        
+        def __call__(self):
+            print(self.a)
+            self.run()
+            return self
+        def run(self):
+            print(self.b)
+
+    a=A(1,2)
+    # print(a)
+    # print(a.b)
