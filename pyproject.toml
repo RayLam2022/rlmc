@@ -40,6 +40,10 @@ dependencies = [
     "huggingface-hub",
     "pandas",
     "scikit-learn",
+    "opencv-python",
+    "pillow",
+    "requests",
+    "aiohttp"
 ]
 
 # Optional dependencies --------------------
@@ -50,17 +54,27 @@ dev = [
 ]
 
 tensorflow = [
-    "tensorflow==2.7.0",
-    "keras",
+    "h5py",
+    "tensorflow-gpu==2.7.0",
+    "keras"
 ]
 
 torch = [
+    "soundfile",
     "torch",
-    "torchvision"
+    "torchvision",
+    "torchaudio",
+    "transformers"
 ]
 
 paddle = [
     "paddlepaddle",
+    "paddlehub"
+]
+
+jax=[
+    "jax",
+    "jaxlib"
 ]
 
 download=[
@@ -71,6 +85,16 @@ download=[
 git=[
     "gitpython",
 ]
+
+vision=[
+    "matplotlib",
+    "pyecharts",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/RayLam2022/rlmc"
+"Bug Tracker" = "https://github.com/RayLam2022/rlmc/issues"
 
 [project.urls]
 "Source" = "https://github.com/RayLam2022/rlmc"
