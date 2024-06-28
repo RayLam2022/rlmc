@@ -5,6 +5,7 @@ if '.' not in sys.path: sys.path.append(".")
 from typing import Dict
 
 import rlmc
+from rlmc import Tainer
 
 
 def test_unit(a, b):

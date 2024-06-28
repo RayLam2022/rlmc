@@ -58,8 +58,8 @@ if __name__ == "__main__":
     trainset = DatasetExample(data[:60], transform_train)
     valset = DatasetExample(data[60:], transform_val)
 
-    trainloader = DataLoader(trainset, batch_size=10, num_workers=4, shuffle=True)
-    valloader = DataLoader(valset, batch_size=10, num_workers=4, shuffle=False)
+    trainloader = DataLoader(trainset, batch_size=10, shuffle=True)
+    valloader = DataLoader(valset, batch_size=10, shuffle=False)
 
     for features, labels in trainloader:
         print(features)

@@ -64,7 +64,8 @@ torch = [
     "torch",
     "torchvision",
     "torchaudio",
-    "transformers"
+    "transformers",
+    "timm"
 ]
 
 paddle = [
@@ -102,7 +103,7 @@ rltest = "rltests.test:main"
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
-package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"]}
+package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"], "rlmc.configs.trainval"=["*.yaml"]}
 
 [tool.setuptools.dynamic]
 version = { attr = "rlmc.__version__" }

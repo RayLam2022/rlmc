@@ -186,7 +186,7 @@ class Git:
 
 
 if __name__ == "__main__":
-    local_repo_path = r"C:\Users\RayLam\Desktop\test_git"
+    local_repo_path = r"test_git"
     remote_repo_url = "https://github.com/RayLam2022/rlmc.git"
 
     gt = Git(local_repo_path)
@@ -205,7 +205,7 @@ if __name__ == "__main__":
     gt.delete_branch("remotes/origin/main")
 
     gt.git_push_repo("create g_tools")
-    # gt.git_push_one_file(r'D:\work\rlmc\rlmc\utils\gittool.py','modify g_tools')
+    # gt.git_push_one_file(r'','modify g_tools')
 
     #gt.git_clone(remote_repo_url)
     #gt.create_branch('test_branch')
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     #x=gt.get_file_content_in_commit(r'rltests/test.py','2a0dc428868e7fbd3a0128876b8ef221a4f4ff23')
     #gt.git_pull_repo()
     print(gt.get_repo_status())
-    gt.git_push_one_file(r'D:\work\rlmc\rlmc\utils\gittool.py')
+    gt.git_push_one_file(r'')
 
     #print(x)
 
