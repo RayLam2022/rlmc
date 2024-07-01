@@ -21,14 +21,13 @@ from rlmc.utils.multithread import MultiThread
 from rlmc.utils.asynctask import (
     AsyncTasks,
     AsyncProducerConsumer,
-    AsyncProducerConsumerTriple
+    AsyncProducerConsumerTriple,
 )
 from rlmc.utils.coroutine import Abstract_ManMachineChat
 from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
 from rlmc.utils.systeminfos import general_info, gpu_info
+
 from rlmc.fileop.utils import FindContent, DatasetSplit
-
-
 from rlmc.fileop import file_processor
 
 from rlmc.configs import (
@@ -39,6 +38,16 @@ from rlmc.configs import (
 )
 from rlmc.resource import condarc, pip, cuda
 
+
+from rlmc.model.predictor import (
+    ClsPredictor,
+    SemanticSegmentationPredictor,
+    PosePredictor,
+    ObjDetectPredictor,
+    ObbPredictor,
+    RegressorPredictor,
+    SequencePredictor,
+)
 
 reg = Register()
 reg.register(MetaList)

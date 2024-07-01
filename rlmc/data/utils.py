@@ -1,6 +1,36 @@
+from typing import List
+
 import cv2
 import numpy as np
+import torch
+from torchvision.transforms import Normalize
 
+__all__=['invert_transform', 'onehot2mask', 'mask2onehot', 'letterbox_image','metrics_all']
+
+def invert_transform(torch_normalize_tensor,mean:List[float],std:List[float]): 
+    """
+    反归一化同时调整成 h,w,c 
+    """
+    mean_ = torch.tensor(mean)
+    std_= torch.tensor(std)
+    MEAN = [-mean/std for mean, std in zip(mean_, std_)]
+    STD = [1/std for std in std_]
+    denormalize = Normalize(mean=MEAN, std=STD)
+    tensor=denormalize(torch_normalize_tensor) *255
+    tensor=tensor.permute(1,2,0).long()
+    return tensor
+
+def onehot2mask(torch_tensor,axis=0):
+    mask = torch.argmax(torch_tensor, axis=axis)
+    return mask
+
+def mask2onehot(mask, num_classes):
+    """
+    (H,W) to (K,H,W) 
+    """
+    mask_ = [mask == i for i in range(num_classes)]
+    mask_=np.array(mask_)
+    return mask_
 
 def letterbox_image(image, resize_width, resize_height):
     """
@@ -28,3 +58,4 @@ def letterbox_image(image, resize_width, resize_height):
     ] = image
     # print(new_image.shape)
     return new_image
+

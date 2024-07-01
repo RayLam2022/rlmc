@@ -1,0 +1,86 @@
+
+dataset:
+  datatype: seg
+  name: coco
+  train_dir: /root/autodl-tmp/VOC2007
+  val_dir: /root/autodl-tmp/VOC2007
+  split: 
+      train
+      val
+      test
+  num_classes: 21  #voc数据集20分类，语义要包含background
+  transformNormalize:
+      mean:
+          - 0.48145466
+          - 0.4578275
+          - 0.40821073
+      std:
+          - 0.26862954
+          - 0.26130258
+          - 0.27577711
+  input_size: 
+      height: 256
+      width: 256
+    
+
+model:
+  modeltype: DeepLabV3Plus
+  backbone: resnet101
+  encoder_weights: imagenet
+  activation: sigmoid
+  pretrained: True
+  in_channels: 3
+  num_classes: 21
+  hidden_dim: 8
+  is_add_predictor: False
+  predictor: seg
+  show_model: True
+  
+
+train:
+  show_model_summary: False
+  max_epochs: 100
+  gpus: 
+      - 0
+  is_eval: True
+  log_interval: 10
+  eval_interval: 10
+  save_interval: 20
+  save_dir: ./ckpt/
+  resume_from:
+  dataloader:
+    batch_size: 16
+    num_workers: 8
+    shuffle: True
+    drop_last: True
+    pin_memory: False
+  optimizer:
+    name: RMSprop
+    lr: 0.0001
+    momentum: 0.0  #
+    weight_decay: 0.0001
+  lr_scheduler:
+    gamma: 0.1
+    milestones: 
+        - 60
+        - 80
+        - 100
+  loss: BCELoss
+  metrics: SegmetationMetric
+
+eval:
+  restore_model_path: ./ckpt/2024_06_30_15_35/model_0020.pth
+  log_interval: 10
+  metrics: SegmetationMetric
+  dataloader:
+    batch_size: 8
+    num_workers: 4
+    shuffle: False
+    drop_last: True
+    pin_memory: False
+  
+
+predict:
+  restore_model_path: ./ckpt/2024_07_01_11_19/model_0099.pth
+  model_summary: False
+  save_dir: ./predict_results/

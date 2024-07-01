@@ -65,7 +65,10 @@ torch = [
     "torchvision",
     "torchaudio",
     "transformers",
-    "timm"
+    "timm",
+    "segmentation-models-pytorch",
+    "torchsummary",
+    "thop"
 ]
 
 paddle = [

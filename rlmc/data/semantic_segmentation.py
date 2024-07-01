@@ -1,69 +1,82 @@
-import random
+"""
+@File    :   semantic_segmentation.py
+@Time    :   2024/06/30 00:25:55
+@Author  :   RayLam
+@Contact :   1027196450@qq.com
+"""
 
+import sys
+
+if "." not in sys.path:
+    sys.path.append(".")
+
+import random
+import os
+import os.path as osp
+from glob import glob
+
+import cv2
 from PIL import Image
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
-from torchvision import datasets, transforms, InterpolationMode
-
-random.seed(123)
-np.random.seed(123)
-torch.manual_seed(123)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed(123)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-transform_train = transforms.Compose(
-    [
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.RandomRotation(90),
-        transforms.ToTensor(),
-    ]
+from torchvision import datasets, transforms
+from torchvision.transforms import (
+    Compose,
+    Resize,
+    ToTensor,
+    Normalize,
+    InterpolationMode,
 )
 
-transform_val = transforms.Compose([transforms.ToTensor()])
+from rlmc.data.utils import mask2onehot
+
+__all__ = ["SemanticSegmentationDataset"]
 
 
-class DatasetExample(Dataset):
-    def __init__(self, data, img_transform):
-        self.data = torch.from_numpy(data)
-        self.transform = img_transform
+
+class SemanticSegmentationDataset(Dataset):
+    def __init__(self, configs, data_dir):
+        self.args = configs
+        self.data_dir = data_dir
+        self.imgs = glob(osp.join(data_dir, "images", "*.jpg"))
+        self.input_size = configs.dataset.input_size
+        self.transform_img = transforms.Compose(
+            [
+                ToTensor(), #转为torch.Tensor,变0~1
+                Resize(
+                    (self.input_size.height, self.input_size.width),
+                    interpolation=InterpolationMode.BICUBIC,
+                ),
+                Normalize(
+                    self.args.dataset.transformNormalize.mean,
+                    self.args.dataset.transformNormalize.std,
+                ),
+            ]
+        )
+
 
     def __len__(
         self,
     ):
-        return self.data.shape[0]
+        return len(self.imgs)
 
     def __getitem__(self, item):
+        file_name = osp.splitext(osp.basename(self.imgs[item]))[0]
+        img = Image.open(self.imgs[item])
+        img = self.transform_img(img)
+        mask = Image.open(osp.join(self.data_dir, "masks", file_name + ".png"))
+        mask=np.array(mask)
+        mask[np.where(mask==255)]=0 # 剔除voc的255边
 
-        # img = Image.open(file_i)
-        # tensor = self.transform(img)
-        tensor = self.data[item][0]
-        label = self.data[item][1]
-        return tensor, label
-
-
-if __name__ == "__main__":
-
-    sample_x = np.linspace(0, 1, 100)
-    sample_y = np.linspace(0, 1, 100) + 1
-    data = np.concatenate(
-        (sample_x[np.newaxis, :].T, sample_y[np.newaxis, :].T), axis=-1
-    )
-    np.random.shuffle(data)
-    print(data[:10])
-
-    trainset = DatasetExample(data[:60], transform_train)
-    valset = DatasetExample(data[60:], transform_val)
-
-    trainloader = DataLoader(trainset, batch_size=10, shuffle=True)
-    valloader = DataLoader(valset, batch_size=10, shuffle=False)
-
-    for features, labels in trainloader:
-        print(features)
-        print(labels)
-        print(features.shape)
-        print(labels.shape)
-        break
+        mask=cv2.resize(mask,(self.input_size.width, self.input_size.height),interpolation =cv2.INTER_NEAREST)
+        
+        mask=torch.from_numpy(mask).long()
+        mask=torch.unsqueeze(mask, dim=0)
+        # mask_=mask2onehot(mask,self.args.dataset.num_classes)
+        
+        mask_=torch.zeros(self.args.dataset.num_classes,self.input_size.height,self.input_size.width)
+        mask_=mask_.scatter(0, mask,1)  # scatter(dim , label ,1 )  # one-hot
+        
+        mask_=mask_.float()
+        return img, mask_

@@ -5,31 +5,30 @@ if '.' not in sys.path: sys.path.append(".")
 from typing import Dict
 
 import rlmc
-from rlmc import Tainer
+import os
+
+import shutil
+
+def iter_files(rootDir, keyword_a='', keyword_b=''):
+    for root, dirs, files in os.walk(rootDir):
+        for file in files:
+            file_name = os.path.join(root, file)
+            if keyword_a in file_name and keyword_b in file_name:
+                os.remove(file_name)
+                print(file_name)
+
+        for di in dirs:
+            di_name = os.path.join(root, di)
+            if keyword_a in di_name and keyword_b in di_name:
+                shutil.rmtree(di_name)
+                print(di_name)
 
 
-def test_unit(a, b):
-    return a + b, b
+def ipyclear(rootDir=r'/root/Pyramid-Attention-Networks/DIV2K', keyword='.ipynb_checkpoints'):
+    iter_files(rootDir, keyword)
 
 
-def test_unit_no_return(a, b):
-    print(a + b, b)
-
-
-def main(): ...
-
-
-if __name__ == "__main__":
-
-    a = [i for i in range(100)]
-    b = [i + 1 for i in range(100)]
-    task_list = list(zip(a, b))
-
-    task_list = []
-    for i in range(10):
-        task_list.append({"a": i, "b": i + 1})
-    # print(task_list)
-
-    mut = rlmc.MultiThread(test_unit, 4)
-    res = mut.run(task_list)
-    print(res)
+if __name__ == '__main__':
+    rootDir = r'D:\work\rlmc'
+    keyword='.ipynb_checkpoints'
+    ipyclear(rootDir, keyword)

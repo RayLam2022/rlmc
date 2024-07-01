@@ -18,9 +18,10 @@ __all__ = ["Yaml"]
 
 
 class Yaml(AbstractFile):
-    def __init__(self, file_path: str) -> None: 
-        self.file_path = file_path
-        self.data=self.read()
+    def __init__(self, file_path:str="") -> None: 
+        if not file_path=="":
+            self.file_path = file_path
+            self.data=self.read()
 
     def read(self):
         with open(self.file_path, "r", encoding="utf-8") as f:

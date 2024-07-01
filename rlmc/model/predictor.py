@@ -1,3 +1,10 @@
+'''
+@File    :   predictor.py
+@Time    :   2024/06/30 00:24:58
+@Author  :   RayLam
+@Contact :   1027196450@qq.com
+'''
+
 import torch
 import torch.nn as nn
 
@@ -13,34 +20,49 @@ __all__ = [
 
 
 class ClsPredictor(nn.Module):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
 
 class SemanticSegmentationPredictor(nn.Module):
-    def __init__(self, dim, num_classes, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.mlp_head = nn.Sequential(nn.LayerNorm(dim), nn.Linear(dim, num_classes))
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
+        self.mlp_head = nn.Sequential(
+            nn.LayerNorm(self.args.model.hidden_dim),
+            nn.Linear(self.args.model.hidden_dim, self.args.model.num_classes),
+        )
+        self.act_fn = nn.Softmax(dim=1)
 
     def forward(self, x):
-        return self.mlp_head(x)
+        return self.act_fn(self.mlp_head(x))
 
 
 class PosePredictor(nn.Module):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
 
 
 class ObjDetectPredictor(nn.Module):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
+
+
+class ObbPredictor(nn.Module):
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
 
 
 class RegressorPredictor(nn.Module):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
 
 
 class SequencePredictor(torch.nn.Module):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, configs):
+        super().__init__()
+        self.args = configs
