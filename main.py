@@ -10,12 +10,12 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+import warnings
 import os
 import os.path as osp
 from glob import glob
 from pprint import pprint
 import random
-import warnings
 
 import numpy as np
 import torch
@@ -37,7 +37,7 @@ file_processor = reg["file_processor"]
 warnings.filterwarnings("ignore")
 logger = Logger(__name__, level=Logger.DEBUG)
 
-SEED=123
+SEED = 123
 
 random.seed(SEED)
 np.random.seed(SEED)
@@ -87,12 +87,11 @@ if __name__ == "__main__":
     if mode == "train":
         trainer = Trainer(args, model, train_dataset, val_dataset, device)
         trainer.train()
-    elif mode == "eval": 
+    elif mode == "eval":
         trainer = Trainer(args, model, train_dataset, val_dataset, device)
         trainer.evaluate()
     elif mode == "predict":
-        files = glob(osp.join(predict_dir,'*.jpg'))
+        files = glob(osp.join(predict_dir, "*.jpg"))
         predict = Predict(args, model, device)
         for file in files:
             predict.predict(file, is_save=True, is_show=True)
-

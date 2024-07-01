@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.2"
 
 import sys
 

@@ -1,6 +1,7 @@
 import sys
 
-if '.' not in sys.path: sys.path.append(".")
+if "." not in sys.path:
+    sys.path.append(".")
 
 from typing import Dict
 
@@ -9,7 +10,8 @@ import os
 
 import shutil
 
-def iter_files(rootDir, keyword_a='', keyword_b=''):
+
+def iter_files(rootDir, keyword_a="", keyword_b=""):
     for root, dirs, files in os.walk(rootDir):
         for file in files:
             file_name = os.path.join(root, file)
@@ -24,11 +26,13 @@ def iter_files(rootDir, keyword_a='', keyword_b=''):
                 print(di_name)
 
 
-def ipyclear(rootDir=r'/root/Pyramid-Attention-Networks/DIV2K', keyword='.ipynb_checkpoints'):
+def ipyclear(
+    rootDir=r"/root/Pyramid-Attention-Networks/DIV2K", keyword=".ipynb_checkpoints"
+):
     iter_files(rootDir, keyword)
 
 
-if __name__ == '__main__':
-    rootDir = r'D:\work\rlmc'
-    keyword='.ipynb_checkpoints'
+if __name__ == "__main__":
+    rootDir = r"D:\work\rlmc"
+    keyword = ".ipynb_checkpoints"
     ipyclear(rootDir, keyword)

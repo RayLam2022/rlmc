@@ -34,7 +34,6 @@ from rlmc.data.utils import mask2onehot
 __all__ = ["SemanticSegmentationDataset"]
 
 
-
 class SemanticSegmentationDataset(Dataset):
     def __init__(self, configs, data_dir):
         self.args = configs
@@ -43,7 +42,7 @@ class SemanticSegmentationDataset(Dataset):
         self.input_size = configs.dataset.input_size
         self.transform_img = transforms.Compose(
             [
-                ToTensor(), #转为torch.Tensor,变0~1
+                ToTensor(),  # 转为torch.Tensor,变0~1
                 Resize(
                     (self.input_size.height, self.input_size.width),
                     interpolation=InterpolationMode.BICUBIC,
@@ -55,7 +54,6 @@ class SemanticSegmentationDataset(Dataset):
             ]
         )
 
-
     def __len__(
         self,
     ):
@@ -66,17 +64,23 @@ class SemanticSegmentationDataset(Dataset):
         img = Image.open(self.imgs[item])
         img = self.transform_img(img)
         mask = Image.open(osp.join(self.data_dir, "masks", file_name + ".png"))
-        mask=np.array(mask)
-        mask[np.where(mask==255)]=0 # 剔除voc的255边
+        mask = np.array(mask)
+        mask[np.where(mask == 255)] = 0  # 剔除voc的255边
 
-        mask=cv2.resize(mask,(self.input_size.width, self.input_size.height),interpolation =cv2.INTER_NEAREST)
-        
-        mask=torch.from_numpy(mask).long()
-        mask=torch.unsqueeze(mask, dim=0)
+        mask = cv2.resize(
+            mask,
+            (self.input_size.width, self.input_size.height),
+            interpolation=cv2.INTER_NEAREST,
+        )
+
+        mask = torch.from_numpy(mask).long()
+        mask = torch.unsqueeze(mask, dim=0)
         # mask_=mask2onehot(mask,self.args.dataset.num_classes)
-        
-        mask_=torch.zeros(self.args.dataset.num_classes,self.input_size.height,self.input_size.width)
-        mask_=mask_.scatter(0, mask,1)  # scatter(dim , label ,1 )  # one-hot
-        
-        mask_=mask_.float()
+
+        mask_ = torch.zeros(
+            self.args.dataset.num_classes, self.input_size.height, self.input_size.width
+        )
+        mask_ = mask_.scatter(0, mask, 1)  # scatter(dim , label ,1 )  # one-hot
+
+        mask_ = mask_.float()
         return img, mask_

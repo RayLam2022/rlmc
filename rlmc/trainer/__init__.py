@@ -5,5 +5,3 @@ if "." not in sys.path:
 
 
 from rlmc.trainer.trainer import Trainer, Predict
-
-
