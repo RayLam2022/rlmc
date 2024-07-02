@@ -10,6 +10,7 @@ parser.add_argument(
     "-r", "--root", required=True, help="scan the temp dirs in the path"
 )
 parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
+parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")
 args = parser.parse_args()
 
 
@@ -29,4 +30,4 @@ def del_jupyter_temp(
 
 
 if __name__ == "__main__":
-    del_jupyter_temp(args.root, op=args.op)
+    del_jupyter_temp(args.root, name=args.name, op=args.op)
