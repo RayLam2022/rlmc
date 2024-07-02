@@ -101,7 +101,11 @@ vision=[
 "Source" = "https://github.com/RayLam2022/rlmc"
 
 [project.scripts]
-rltest = "rltests.test:main"
+deltemp = "rltests.del_jupyter_temp:del_jupyter_temp"
+testcuda = "rltests.cuda_test:cudatest"
+sysinfo= "rltests.systeminfos:general_info"
+gpuinfo= "rltests.systeminfos:gpu_info"
+
 
 
 [tool.setuptools] 

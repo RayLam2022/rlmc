@@ -14,10 +14,9 @@ parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key wor
 args = parser.parse_args()
 
 
-def del_jupyter_temp(
-    root: str, name: str = ".*ipynb_checkpoints", op: str = "show"
-) -> None:
-    iters = glob(osp.join(root, "**", name), recursive=True)
+def del_jupyter_temp() -> None:
+    op = args.op
+    iters = glob(osp.join(args.root, "**", args.name), recursive=True)
     if op == "show":
         print(iters)
     elif op == "del":
@@ -30,4 +29,4 @@ def del_jupyter_temp(
 
 
 if __name__ == "__main__":
-    del_jupyter_temp(args.root, name=args.name, op=args.op)
+    del_jupyter_temp()

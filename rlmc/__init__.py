@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.0.2"
+__version__ = "1.0.8"
 
 import sys
 
@@ -25,7 +25,6 @@ from rlmc.utils.asynctask import (
 )
 from rlmc.utils.coroutine import Abstract_ManMachineChat
 from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
-from rlmc.utils.systeminfos import general_info, gpu_info
 
 from rlmc.fileop.utils import FindContent, DatasetSplit
 from rlmc.fileop import file_processor
@@ -64,8 +63,6 @@ reg.register(MsDownload)
 reg.register(AutodlDownload)
 reg.register(FindContent)
 reg.register(DatasetSplit)
-reg.register(general_info)
-reg.register(gpu_info)
 reg.register(file_processor)
 
 cfg = SuDict()
@@ -94,8 +91,6 @@ __all__ = [
     "FindContent",
     "DatasetSplit",
     "file_processor",
-    "general_info",
-    "gpu_info",
     "reg",
     "cfg",
 ]
