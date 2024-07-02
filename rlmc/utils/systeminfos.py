@@ -10,6 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import List
 import os
 import os.path as osp
 import time
@@ -28,7 +29,7 @@ except:
 __all__ = ["general_info", "gpu_info"]
 
 
-def general_info():
+def general_info() -> None:
     print("#" * 25 + " System Info " + "#" * 25)
     print(f"platform:{platform.uname()}")
     print(f"cwd:{os.getcwd()}")
@@ -54,7 +55,7 @@ def general_info():
         print(f"{s}")
 
 
-def get_gpu_device():
+def get_gpu_device() -> List:
     deviceCount = pynvml.nvmlDeviceGetCount()
     gpu_list = []
     for i in range(deviceCount):
@@ -64,7 +65,7 @@ def get_gpu_device():
     return gpu_list
 
 
-def get_gpu_info(gpu_id):
+def get_gpu_info(gpu_id: int) -> str:
     handle = pynvml.nvmlDeviceGetHandleByIndex(gpu_id)
     info = pynvml.nvmlDeviceGetMemoryInfo(handle)
     M = 1024**2
@@ -74,19 +75,19 @@ def get_gpu_info(gpu_id):
     return gpu_info
 
 
-def release():
+def release() -> None:
     # 最后要关闭管理工具
     pynvml.nvmlShutdown()
 
 
-def get_free_rate(gpu_id):
+def get_free_rate(gpu_id: int) -> int:
     handle = pynvml.nvmlDeviceGetHandleByIndex(gpu_id)
     info = pynvml.nvmlDeviceGetMemoryInfo(handle)
     free_rate = int((info.free / info.total) * 100)
     return free_rate
 
 
-def gpu_info(keeptime=0.001, interval_per_verbose=0.2):
+def gpu_info(keeptime: float = 0.001, interval_per_verbose: float = 0.2) -> None:
     """
     :param keeptime: minutes
     :return:

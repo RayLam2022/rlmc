@@ -10,7 +10,6 @@ __all__ = [
     "onehot2mask",
     "mask2onehot",
     "letterbox_image",
-    "metrics_all",
 ]
 
 
