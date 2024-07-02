@@ -7,18 +7,31 @@
 
 import sys
 
-if '.' not in sys.path: sys.path.append(".")
+if "." not in sys.path:
+    sys.path.append(".")
 
 from rlmc.fileop.yaml_op import Yaml
-
+from rlmc.fileop.json_op import Json
+from rlmc.fileop.numpy_op import Numpy
+from rlmc.fileop.pickle_op import Pickle
 
 __all__ = ["file_processor"]
 
-files_op_dict = {"yaml": Yaml, "yml": Yaml}
+files_op_dict = {
+    "yaml": Yaml,
+    "yml": Yaml,
+    "json": Json,
+    "npy": Numpy,
+    "pkl": Pickle,
+    "pickle": Pickle,
+}
 
 
-def file_processor(file_path):
-    file_type = file_path.split(".")[-1]
+def file_processor(file_path: str = "", file_ext: str = None):
+    if file_ext == None:
+        file_type = file_path.split(".")[-1]
+    else:
+        file_type = file_ext
     return files_op_dict.get(file_type)(file_path)
 
 
