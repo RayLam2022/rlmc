@@ -51,6 +51,8 @@ dependencies = [
 dev = [
     "pytest", 
     "mypy",
+    "build",
+    "twine"
 ]
 
 tensorflow = [
