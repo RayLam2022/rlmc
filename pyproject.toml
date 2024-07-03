@@ -97,7 +97,12 @@ vision=[
     "pyecharts",
 ]
 
-
+video=[
+    "av",
+    "pyaudio",
+    "wave",
+    "moviepy"
+]
 
 
 

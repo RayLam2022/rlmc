@@ -1,38 +1,42 @@
-import sys
+import time
 
-if "." not in sys.path:
-    sys.path.append(".")
+import av
+import av.datasets
 
-from typing import Dict
+print("Decoding with default (slice) threading...")
 
-import rlmc
-import os
+container = av.open(
+    av.datasets.curated("pexels/time-lapse-video-of-night-sky-857195.mp4")
+)
 
-import shutil
+start_time = time.time()
+for packet in container.demux():
+    print(packet)
+    for frame in packet.decode():
+        print(frame)
 
-
-def iter_files(rootDir, keyword_a="", keyword_b=""):
-    for root, dirs, files in os.walk(rootDir):
-        for file in files:
-            file_name = os.path.join(root, file)
-            if keyword_a in file_name and keyword_b in file_name:
-                os.remove(file_name)
-                print(file_name)
-
-        for di in dirs:
-            di_name = os.path.join(root, di)
-            if keyword_a in di_name and keyword_b in di_name:
-                shutil.rmtree(di_name)
-                print(di_name)
+default_time = time.time() - start_time
+container.close()
 
 
-def ipyclear(
-    rootDir=r"/root/Pyramid-Attention-Networks/DIV2K", keyword=".ipynb_checkpoints"
-):
-    iter_files(rootDir, keyword)
+print("Decoding with auto threading...")
+
+container = av.open(
+    av.datasets.curated("pexels/time-lapse-video-of-night-sky-857195.mp4")
+)
+print('ss',container.streams.video[0].thread_type)
+# !!! This is the only difference.
+# container.streams.video[0].thread_type = "AUTO"
+
+# start_time = time.time()
+# for packet in container.demux():
+#     print(packet)
+#     for frame in packet.decode():
+#         print(frame)
+
+# auto_time = time.time() - start_time
+# container.close()
 
 
-if __name__ == "__main__":
-    rootDir = r"D:\work\rlmc"
-    keyword = ".ipynb_checkpoints"
-    ipyclear(rootDir, keyword)
+print("Decoded with default threading in {:.2f}s.".format(default_time))
+print("Decoded with auto threading in {:.2f}s.".format(auto_time))
