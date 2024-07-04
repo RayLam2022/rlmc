@@ -42,8 +42,6 @@ dependencies = [
     "scikit-learn",
     "opencv-python",
     "pillow",
-    "requests",
-    "aiohttp"
 ]
 
 # Optional dependencies --------------------
@@ -100,6 +98,19 @@ vision=[
 video=[
     "av",
     "pyaudio",
+]
+
+spider=[
+    "requests",
+    "aiohttp",
+    "beautifulsoup4",
+    "lxml"
+]
+
+assistant=[
+    "pyaudio",
+    "faster_whisper",
+    "pyttsx3"
 ]
 
 
