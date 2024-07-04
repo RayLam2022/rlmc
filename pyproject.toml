@@ -100,8 +100,6 @@ vision=[
 video=[
     "av",
     "pyaudio",
-    "wave",
-    "moviepy"
 ]
 
 

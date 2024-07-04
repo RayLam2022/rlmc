@@ -1,13 +1,18 @@
-# ref: https://blog.csdn.net/LuohenYJ/article/details/132405814
-# demo, not used in the project
+'''
+@File    :   assistant.py
+@Time    :   2024/07/04 12:21:43
+@Author  :   RayLam
+@Contact :   1027196450@qq.com
+'''
+
+
 import pyaudio
 
 RECORD_SECONDS = 5
-CHUNK = 1024
+CHUNK = 4096
 RATE = 16000
 
 p = pyaudio.PyAudio()
-# frames_per_buffer设置音频每个缓冲区的大小
 stream = p.open(
     format=p.get_format_from_width(2),
     channels=1,
@@ -17,11 +22,11 @@ stream = p.open(
     frames_per_buffer=CHUNK,
 )
 
-print("recording")
+print("Start Recording")
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-    # read读取音频然后writer播放音频
     stream.write(stream.read(CHUNK))
-print("done")
 
 stream.close()
 p.terminate()
+
+print("Done")
