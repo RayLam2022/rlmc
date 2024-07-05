@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.1.2"
+__version__ = "1.1.6"
 
 import sys
 
@@ -57,10 +57,10 @@ reg.register(DatasetSplit)
 reg.register(file_processor)
 
 cfg = SuDict()
-cfg["common_urls"] = common_urls
-cfg["user_setting"] = user_setting
-cfg["model_download_urls"] = model_download_urls
-cfg["dataset_download_urls"] = dataset_download_urls
+cfg["common_urls"] = SuDict(common_urls)
+cfg["user_setting"] = SuDict(user_setting)
+cfg["model_download_urls"] = SuDict(model_download_urls)
+cfg["dataset_download_urls"] = SuDict(dataset_download_urls)
 cfg["source"] = SuDict({"pip": pip, "condarc": condarc, "cuda": cuda})
 
 
