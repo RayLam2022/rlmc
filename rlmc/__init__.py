@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 import sys
 
@@ -38,15 +38,6 @@ from rlmc.configs import (
 from rlmc.resource import condarc, pip, cuda
 
 
-from rlmc.model.predictor import (
-    ClsPredictor,
-    SemanticSegmentationPredictor,
-    PosePredictor,
-    ObjDetectPredictor,
-    ObbPredictor,
-    RegressorPredictor,
-    SequencePredictor,
-)
 
 reg = Register()
 reg.register(MetaList)
