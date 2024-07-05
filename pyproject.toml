@@ -123,6 +123,7 @@ deltemp = "rltests.del_jupyter_temp:del_jupyter_temp"
 testcuda = "rltests.cuda_test:cudatest"
 sysinfo= "rltests.systeminfos:general_info"
 gpuinfo= "rltests.systeminfos:gpu_info"
+findtool= "rltests.findtool:find"
 
 
 
