@@ -46,7 +46,7 @@ class HfDownload:
         repo_id: str,
         local_dir: str,
         local_dir_use_symlinks: bool = False,
-        is_login: bool = True,
+        is_login: bool = False,
         hf_token: str = "hf_JiIBOPMbYRjssOTAsdWo",
         repo_type: Literal["model", "dataset"] = "model",
         ignore_patterns: List[str] = ["*.h5", "*safetensors", "*msgpack"],
