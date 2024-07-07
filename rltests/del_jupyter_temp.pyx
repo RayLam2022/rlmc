@@ -9,8 +9,8 @@ parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")
 parser.add_argument(
     "-r", "--root", required=True, help="scan the temp dirs in the path"
 )
-parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
-parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")
+parser.add_argument("-o", "--op", default="del", help="operation:show or del")
+parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")
 args = parser.parse_args()
 
 

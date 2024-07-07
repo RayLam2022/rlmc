@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=57.0.0", "wheel"]
+requires = ["setuptools>=57.0.0", "wheel", "cython"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -129,7 +129,8 @@ findtool= "rltests.findtool:find"
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
-package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"], "rlmc.configs.trainval"=["*.yaml"]}
+package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"], "rlmc.configs.trainval"=["*.yaml"],"rlmc.tutorial.c_packages.cython_test"=["*.pyx"]}
+
 
 [tool.setuptools.dynamic]
 version = { attr = "rlmc.__version__" }

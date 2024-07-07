@@ -10,15 +10,15 @@ def pi_py(N):
 if __name__ == "__main__":
     print(hello_cython())
     
-    stime = time.time()
-    for _ in range(100):
-        out1 = pi_py(1000000)
-    etime = time.time()
+    # stime = time.time()
+    # for _ in range(100):
+    #     out1 = pi_py(1000000)
+    # etime = time.time()
 
     stime2 = time.time()
     for _ in range(100):
         out2 = pi_cy(1000000)
     etime2 = time.time()
 
-    print("pi_py result {} time cost {} s".format(out1, etime - stime))
+    # print("pi_py result {} time cost {} s".format(out1, etime - stime))
     print("pi_cy result {} time cost {} s".format(out2, etime2 - stime2))
