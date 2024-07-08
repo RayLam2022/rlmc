@@ -124,7 +124,8 @@ testcuda = "rltests.cuda_test:cudatest"
 sysinfo= "rltests.systeminfos:general_info"
 gpuinfo= "rltests.systeminfos:gpu_info"
 findtool= "rltests.findtool:find"
-
+clearcache= "rltests.clear_cache:clear_cache"
+managesource= "rltests.manage_source:manage_source"
 
 
 [tool.setuptools] 
