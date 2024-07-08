@@ -42,6 +42,7 @@ dependencies = [
     "scikit-learn",
     "opencv-python",
     "pillow",
+    "rich"
 ]
 
 # Optional dependencies --------------------
@@ -126,6 +127,7 @@ gpuinfo= "rltests.systeminfos:gpu_info"
 findtool= "rltests.findtool:find"
 clearcache= "rltests.clear_cache:clear_cache"
 managesource= "rltests.manage_source:manage_source"
+genhash= "rltests.gen_hash:gen_hash"
 
 
 [tool.setuptools] 
