@@ -101,7 +101,7 @@ class MsDownload:
         logger.info(f"************ Start downloading {self.repo_id} ************")
         model_dir = ms_snapshot_download(self.repo_id)
         logger.info(f"************ {self.repo_id} Download finish ************")
-        logger.info(f"Models saved in {self.local_dir}")
+        logger.info(f"Models saved in {model_dir}")
 
 
 class AutodlDownload:

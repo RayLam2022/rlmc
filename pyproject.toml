@@ -111,7 +111,10 @@ spider=[
 assistant=[
     "pyaudio",
     "faster_whisper",
-    "pyttsx3"
+    "pyttsx3",
+    "pynput",
+    "pyperclip",
+    "easyocr"
 ]
 
 
@@ -128,6 +131,9 @@ findtool= "rltests.findtool:find"
 clearcache= "rltests.clear_cache:clear_cache"
 managesource= "rltests.manage_source:manage_source"
 genhash= "rltests.gen_hash:gen_hash"
+ocr= "rltests.ocr:main"
+stt="rltests.stt:main"
+
 
 
 [tool.setuptools] 

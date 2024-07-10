@@ -59,7 +59,7 @@ def speech_to_text():
         audio_data = stream.read(CHUNK)
         audio_collector.append(audio_data)
         counter += 1
-        if counter % (unit * SECONDS) == 0:
+        if counter % (int(unit * SECONDS)+1) == 0:
             # 将音频数据转换为numpy数组
             audio_collector = np.frombuffer(b"".join(audio_collector), dtype=np.int16)
             audio_collector = audio_collector.astype(np.float32) / INT16_MAX_ABS_VALUE
