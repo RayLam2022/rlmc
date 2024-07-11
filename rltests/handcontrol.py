@@ -13,6 +13,7 @@ import copy
 import cv2
 import pynput
 from pynput.mouse import Button
+from pynput.keyboard import Key
 import numpy as np
 import mediapipe as md
 from PIL import ImageGrab
@@ -39,12 +40,12 @@ class Command:
     def __init__(self):
         self.mouse = pynput.mouse.Controller()
         self.keyboard = pynput.keyboard.Controller()
-        
-    def _distance(self, point1, point2):
-        return ((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2) 
 
-    def condition(self,collector,img,screen_width,screen_height):
-        """  judge the condition to do which command
+    def _distance(self, point1, point2):
+        return (point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2
+
+    def condition(self, collector, img, screen_width, screen_height):
+        """judge the condition to do which command
 
         Args:
             collector (Dict):dict collected mediapipe results, including hand landmarks
@@ -59,58 +60,106 @@ class Command:
         Returns:
             img (np.ndarray)
         """
-        if len(collector)>=2:   # two hands catched by the camera
+        if len(collector) >= 2:  # two hands catched by the camera
             ...
 
-        else:   # only one hand catched by the camera
-            key=list(collector.keys())[0]
-            collector=collector[key]
-            wrist= collector[0][1:]
-            index_finger_mcp= collector[5][1:]
-            thumb_tip= collector[4][1:]
-            index_finger_tip= collector[8][1:]
-            middle_finger_tip= collector[12][1:]
-            middle_finger_pip= collector[10][1:]
-            ring_finger_tip= collector[16][1:]
-            #pinky_tip= collector[20][1:]
+        else:  # only one hand catched by the camera
+            key = list(collector.keys())[0]
+            collector = collector[key]
+            wrist = collector[0][1:]
+            index_finger_mcp = collector[5][1:]
+            thumb_tip = collector[4][1:]
+            index_finger_tip = collector[8][1:]
+            middle_finger_tip = collector[12][1:]
+            middle_finger_pip = collector[10][1:]
+            ring_finger_tip = collector[16][1:]
+            # pinky_tip= collector[20][1:]
 
-            base= self._distance(wrist,index_finger_mcp) *0.75 # 基准距离
-            if self._distance(thumb_tip, middle_finger_pip)*1.5 < base and self._distance(index_finger_tip,index_finger_mcp) < base and self._distance(middle_finger_tip,index_finger_mcp) *0.85 <base and self._distance(ring_finger_tip,index_finger_mcp)*0.7< base:  
-                # 握拳 移鼠标
+            base = self._distance(wrist, index_finger_mcp) * 0.75  # 基准距离
+            if (
+                self._distance(thumb_tip, middle_finger_pip) * 1.5 < base
+                and self._distance(index_finger_tip, index_finger_mcp) < base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 0.85 < base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.7 < base
+            ):
+                # 握拳 移动
                 self._move(wrist)
 
-            elif self._distance(thumb_tip, middle_finger_pip)*1.5 >= base and self._distance(index_finger_tip,index_finger_mcp) < base and self._distance(middle_finger_tip,index_finger_mcp)*0.85 <base and self._distance(ring_finger_tip,index_finger_mcp)*0.7< base:
+            elif (
+                self._distance(thumb_tip, middle_finger_pip) * 1.5 >= base
+                and self._distance(index_finger_tip, index_finger_mcp) < base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 0.85 < base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.7 < base
+            ):
                 # 竖拇指 滚动 手腕在屏幕下方1/4处往下滾动，否则往上滚动
-                self._scroll(wrist,screen_height)
+                self._scroll(wrist, screen_height)
 
-            elif self._distance(thumb_tip, index_finger_mcp)*1.3 > base and self._distance(thumb_tip, index_finger_tip)*1.5 < base and self._distance(index_finger_tip,index_finger_mcp) >= base and self._distance(middle_finger_tip,index_finger_mcp)*0.9 >=base and self._distance(ring_finger_tip,index_finger_mcp)*0.75>= base:
-                # 五指头合抓 拖拽
+            elif (
+                self._distance(thumb_tip, index_finger_mcp) * 1.5 > base
+                and self._distance(thumb_tip, index_finger_tip) * 1.5 < base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.8 >= base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 1.3 >= base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 1.1 >= base
+            ):
+                # 五指头合抓 压下按键（用于拖拽，要用移动和释放配合）  不灵敏待调整
                 self._drag(wrist)
 
-            elif self._distance(thumb_tip, index_finger_mcp)*1.3 > base and self._distance(thumb_tip, index_finger_tip)> base and self._distance(index_finger_tip,index_finger_mcp) >= base and self._distance(middle_finger_tip,index_finger_mcp)*0.9 >=base and self._distance(ring_finger_tip,index_finger_mcp)*0.75>= base:
-                # 五指头分开 释放
+            elif (
+                self._distance(thumb_tip, index_finger_mcp) * 1.5 > base
+                and self._distance(thumb_tip, index_finger_tip) * 1.2 > base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.5 >= base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 1.1 >= base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.9 >= base
+            ):
+                # 五指头分开 释放 不灵敏待调整
                 self._release()
 
-            elif self._distance(thumb_tip, middle_finger_pip)*1.3 < base and self._distance(index_finger_tip,index_finger_mcp) >= base and self._distance(middle_finger_tip,index_finger_mcp)*0.85 <base and self._distance(ring_finger_tip,index_finger_mcp)*0.7< base:
+            elif (
+                self._distance(thumb_tip, middle_finger_pip) * 1.3 < base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.3 >= base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 0.85 < base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.7 < base
+            ):
                 # 竖食指 单击
                 self._lclick()
 
-            elif self._distance(thumb_tip, index_finger_mcp)*1.3 > base and self._distance(thumb_tip, index_finger_tip)> base and self._distance(index_finger_tip,index_finger_mcp) >= base and self._distance(middle_finger_tip,index_finger_mcp)*0.9 <base and self._distance(ring_finger_tip,index_finger_mcp)*0.75< base:
-                # 竖拇指，食指 双击 
-                self._double_click()             
+            elif (
+                self._distance(thumb_tip, index_finger_mcp) * 1.5 > base
+                and self._distance(thumb_tip, index_finger_tip) * 1.2 > base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.5 > base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 0.85 < base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.7 < base
+            ):
+                # 竖拇指，食指 双击
+                self._double_click()
 
-            elif self._distance(thumb_tip, middle_finger_pip)*1.3 < base and self._distance(index_finger_tip,index_finger_mcp) >= base and self._distance(middle_finger_tip,index_finger_mcp)*0.85 >=base and self._distance(ring_finger_tip,index_finger_mcp)*0.7< base:
+            elif (
+                self._distance(thumb_tip, middle_finger_pip) * 1.2 < base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.5 >= base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 1.2 >= base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.7 < base
+            ):
                 # 竖食指中指 右击
-                self._rclick()  
+                self._rclick()
+
+            elif (
+                self._distance(thumb_tip, index_finger_mcp) * 1.3 > base
+                and self._distance(thumb_tip, index_finger_tip) > base
+                and self._distance(index_finger_tip, index_finger_mcp) * 1.5 >= base
+                and self._distance(middle_finger_tip, index_finger_mcp) * 0.9 > base
+                and self._distance(ring_finger_tip, index_finger_mcp) * 0.75 < base
+            ):
+                # 竖拇指，食指，中指 按alt + tab
+                self._switch()
 
             else:
                 pass
 
         return img
 
-    def _move(self,point):
-        self.mouse.position=(point[0], point[1])
-        #time.sleep(1)
+    def _move(self, point):
+        self.mouse.position = (point[0], point[1])
+        # time.sleep(1)
 
     def _lclick(self):
         self.mouse.click(Button.left)
@@ -121,20 +170,29 @@ class Command:
         time.sleep(1)
 
     def _double_click(self):
-        self.mouse.click(Button.left,2)
+        self.mouse.click(Button.left, 2)
         time.sleep(1)
 
-    def _drag(self,point):
+    def _drag(self, point):
         self.mouse.press(Button.left)
+        time.sleep(1)
 
     def _release(self):
         self.mouse.release(Button.left)
+        time.sleep(1)
 
-    def _scroll(self,point,screen_height):
+    def _scroll(self, point, screen_height):
         if point[1] > screen_height * 0.75:
             self.mouse.scroll(0, -1)
         else:
             self.mouse.scroll(0, 1)
+
+    def _switch(self):
+        self.keyboard.press(Key.alt)
+        self.keyboard.press(Key.tab)
+        self.keyboard.release(Key.alt)
+        self.keyboard.release(Key.tab)
+        time.sleep(1)
 
     def _sound_control(self):
         pass
@@ -150,11 +208,18 @@ class HandControl(Command):
         self.hand_detector = md.solutions.hands.Hands(max_num_hands=2)
         self.md_hands = md.solutions.hands
 
-        self.zone_size = 0.5
-        action_zone_width=int(self.cap_width * self.zone_size)
-        action_zone_height=int(self.cap_height * self.zone_size)
-        self.action_zone=[self.cap_width-action_zone_width, self.cap_height -action_zone_height, self.cap_width, self.cap_height ]
-
+        self.zone_size = 0.6
+        self.bias = 0.1
+        self.width_bias = int(self.cap_width * self.bias)
+        self.height_bias = int(self.cap_height * self.bias)
+        action_zone_width = int(self.cap_width * self.zone_size)
+        action_zone_height = int(self.cap_height * self.zone_size)
+        self.action_zone = [
+            self.cap_width - action_zone_width - self.width_bias,
+            self.cap_height - action_zone_height - self.height_bias,
+            self.cap_width - self.width_bias,
+            self.cap_height - self.height_bias,
+        ]
 
         self.screen_width, self.screen_height = self._get_screen_size()
         self.area_radius = int(min(self.screen_width, self.screen_height) * 0.1)
@@ -206,7 +271,14 @@ class HandControl(Command):
 
     def _hand(self, img):
         self.hand_data = self.hand_detector.process(img)
-        cv2.rectangle(img,self.action_zone[:2],self.action_zone[2:],(170,234,242),5,lineType=cv2.LINE_AA)
+        cv2.rectangle(
+            img,
+            self.action_zone[:2],
+            self.action_zone[2:],
+            (170, 234, 242),
+            5,
+            lineType=cv2.LINE_AA,
+        )
         if self.hand_data.multi_hand_landmarks:
             hands_collector = dict()
             for i, handlms in enumerate(self.hand_data.multi_hand_landmarks):
@@ -222,13 +294,15 @@ class HandControl(Command):
                         # hand_dict[md.solutions.hands.HandLandmark(idx).name] = idx
                         # print(hand_dict)
                         if idx in self.hand_collector.keys():
-                            x,y=int(lm.x*self.cap_width),int(lm.y*self.cap_height)
-                            #cv2.putText(img, 'left', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
+                            x, y = int(lm.x * self.cap_width), int(
+                                lm.y * self.cap_height
+                            )
+                            # cv2.putText(img, 'left', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
                             x, y = self._mapping(x, y)
                             left_hand_collector[idx] = [self.hand_collector[idx], x, y]
 
-                    if len(self.hand_collector)==len(left_hand_collector):
-                        hands_collector['left']=left_hand_collector
+                    if len(self.hand_collector) == len(left_hand_collector):
+                        hands_collector["left"] = left_hand_collector
                 elif i == 0:
                     right_hand_collector = dict()
                     # hand_dict = dict()
@@ -236,34 +310,40 @@ class HandControl(Command):
                         # hand_dict[md.solutions.hands.HandLandmark(idx).name] = idx
                         # print(hand_dict)
                         if idx in self.hand_collector.keys():
-                            x,y=int(lm.x*self.cap_width),int(lm.y*self.cap_height)
+                            x, y = int(lm.x * self.cap_width), int(
+                                lm.y * self.cap_height
+                            )
                             # cv2.putText(img, 'right', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
-                            x, y = self._mapping(x,y)
+                            x, y = self._mapping(x, y)
                             # print(x,y)
                             right_hand_collector[idx] = [self.hand_collector[idx], x, y]
-                    if len(self.hand_collector)==len(right_hand_collector):
-                        hands_collector['right']=right_hand_collector
+                    if len(self.hand_collector) == len(right_hand_collector):
+                        hands_collector["right"] = right_hand_collector
                 else:
                     print("too many hands")
 
             # 因后续以wrist作为移动点，将wrist超屏幕范围的剔除
-            if 'left' in hands_collector.keys():
-                point=hands_collector['left'][0][1:]
+            if "left" in hands_collector.keys():
+                point = hands_collector["left"][0][1:]
                 if not self._check_screen_xy(point[0], point[1]):
-                    del hands_collector['left']
+                    del hands_collector["left"]
 
-            if 'right' in hands_collector.keys():
-                point=hands_collector['right'][0][1:]
+            if "right" in hands_collector.keys():
+                point = hands_collector["right"][0][1:]
                 if not self._check_screen_xy(point[0], point[1]):
-                    del hands_collector['right']
-            # command  
-            if len(hands_collector)>=1:
-                img=self.condition(hands_collector,img, self.screen_width, self.screen_height)
+                    del hands_collector["right"]
+            # command
+            if len(hands_collector) >= 1:
+                img = self.condition(
+                    hands_collector, img, self.screen_width, self.screen_height
+                )
 
         return img
 
     def _mapping(self, x, y):
-        return int((x-self.action_zone[0]) * self.scale[0]), int((y-self.action_zone[1]) * self.scale[1])
+        return int((x - self.action_zone[0]) * self.scale[0]), int(
+            (y - self.action_zone[1]) * self.scale[1]
+        )
 
     def _check_is_in_area(self, point, area_center_point, area_radius):
         distance = (point[0] - area_center_point[0]) ** 2 + (
@@ -276,7 +356,6 @@ class HandControl(Command):
             return True
         else:
             return False
-
 
     def run(self):
         while True:
@@ -299,7 +378,6 @@ class HandControl(Command):
 
 def main():
     handcontrol = HandControl()
-
     handcontrol.run()
 
 

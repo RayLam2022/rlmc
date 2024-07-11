@@ -18,7 +18,4 @@
 #     # print(cfg['source']['cuda'])
 #     print(cfg.source.cuda)
 
-y={2:None, 8:None,9:1}
-x=[9,10]
-print(None in list(y.values()))
-print(len(y))
+
