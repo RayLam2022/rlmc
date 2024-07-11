@@ -121,6 +121,7 @@ handcontrol=[
     "pycaw",
     "mediapipe",
     "comtypes"
+    "pynput",
 ]
 
 

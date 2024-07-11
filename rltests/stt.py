@@ -22,6 +22,7 @@ parser.add_argument(
     "-r",
     "--record_time",
     default=5,
+    type=int,
     help="record time(second)",
 )
 parser.add_argument(

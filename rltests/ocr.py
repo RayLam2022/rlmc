@@ -31,7 +31,11 @@ parser.add_argument(
     help="ch_sim, en, ko, ja and so on",
 )
 parser.add_argument(
-    "-tl", "--tolerance", default=0.30, help="the tolerance to divide the line"
+    "-tl",
+    "--tolerance",
+    type=float,
+    default=0.30,
+    help="the tolerance to divide the line",
 )
 parser.add_argument("-i", "--is_translate", action="store_true", help="is_translate")
 parser.add_argument(
@@ -158,8 +162,8 @@ def main():
                 elif (
                     y_top_val - (y_top_compare - gap) >= 0
                     and (y_bot_compare + gap) - y_bot_val >= 0
-                ) :
-                    text += " " + result[idx][1] 
+                ):
+                    text += " " + result[idx][1]
                 else:
                     text += "\n" + result[idx][1]
 
@@ -171,7 +175,7 @@ def main():
             if args.is_translate:
                 for tl in translator(text):
                     translated_text += tl["translation_text"]
-                print('sequence is translated')
+                print("sequence is translated")
                 pyperclip.copy(text + "\n" + translated_text)
             else:
                 pyperclip.copy(text)

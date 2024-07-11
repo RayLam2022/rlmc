@@ -29,6 +29,7 @@ parser.add_argument(
 parser.add_argument(
     "-d",
     "--delay",
+    type=float,
     default=0.2,
     help="delay seconds",
 )
