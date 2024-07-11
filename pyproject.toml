@@ -120,7 +120,7 @@ assistant=[
 handcontrol=[
     "pycaw",
     "mediapipe",
-    "comtypes"
+    "comtypes",
     "pynput",
 ]
 
