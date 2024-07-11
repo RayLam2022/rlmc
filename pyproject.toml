@@ -117,6 +117,12 @@ assistant=[
     "easyocr"
 ]
 
+handcontrol=[
+    "pycaw",
+    "mediapipe",
+    "comtypes"
+]
+
 
 
 [project.urls]
@@ -133,6 +139,7 @@ managesource= "rltests.manage_source:manage_source"
 genhash= "rltests.gen_hash:gen_hash"
 ocr= "rltests.ocr:main"
 stt="rltests.stt:main"
+handcontrol="rltests.handcontrol:main"
 
 
 
