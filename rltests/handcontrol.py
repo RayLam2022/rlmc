@@ -27,6 +27,11 @@ parser.add_argument(
     help="show or not",
 )
 parser.add_argument(
+    "-f",
+    "--is_show_face",
+    action="store_true",
+)
+parser.add_argument(
     "-d",
     "--delay",
     type=float,
@@ -209,6 +214,8 @@ class HandControl(Command):
         self.hand_detector = md.solutions.hands.Hands(max_num_hands=2)
         self.md_hands = md.solutions.hands
 
+        self.face_mesh = md.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+
         self.zone_size = 0.6
         self.bias = 0.1
         self.width_bias = int(self.cap_width * self.bias)
@@ -228,7 +235,6 @@ class HandControl(Command):
             self.screen_width / action_zone_width,
             self.screen_height / action_zone_height,
         )
-        self.show = args.is_show
 
         self.hand_collector = {
             0: "WRIST",
@@ -340,6 +346,31 @@ class HandControl(Command):
                 )
 
         return img
+    
+    def _face(self, img):
+        results = self.face_mesh.process(img)
+        if results.multi_face_landmarks:
+            for face_landmarks in results.multi_face_landmarks:
+                # 脸网格
+                md.solutions.drawing_utils.draw_landmarks(image=img,
+                                        landmark_list=face_landmarks,
+                                        connections=md.solutions.face_mesh.FACEMESH_TESSELATION,
+                                        landmark_drawing_spec=None,
+                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_tesselation_style())
+                # 人脸
+                md.solutions.drawing_utils.draw_landmarks(image=img,
+                                        landmark_list=face_landmarks,
+                                        connections=md.solutions.face_mesh.FACEMESH_CONTOURS,
+                                        landmark_drawing_spec=None,
+                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_contours_style())
+                # 瞳孔
+                md.solutions.drawing_utils.draw_landmarks(image=img,
+                                        landmark_list=face_landmarks,
+                                        connections=md.solutions.face_mesh.FACEMESH_IRISES,
+                                        landmark_drawing_spec=None,
+                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_iris_connections_style())
+
+        return img
 
     def _mapping(self, x, y):
         return int((x - self.action_zone[0]) * self.scale[0]), int(
@@ -365,7 +396,10 @@ class HandControl(Command):
             img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             img_rgb = self._hand(img_rgb)
 
-            if self.show:
+            if args.is_show_face:
+                img_rgb=self._face(img_rgb)
+
+            if args.is_show:
                 img = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
                 cv2.imshow("Camera", img)
                 if cv2.waitKey(1) & 0xFF == 27:
