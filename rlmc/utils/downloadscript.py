@@ -18,8 +18,10 @@ import shutil
 from rlmc.configs import user_setting, model_download_urls, dataset_download_urls
 from rlmc.utils.logger import Logger
 
-os.environ["XDG_CACHE_HOME"] = user_setting["XDG_CACHE_HOME"]
-os.environ["MODELSCOPE_CACHE"] = f"{user_setting['XDG_CACHE_HOME']}/modelscope"
+
+# os.environ["XDG_CACHE_HOME"] = user_setting["XDG_CACHE_HOME"]
+# os.environ["MODELSCOPE_CACHE"] = f"{user_setting['XDG_CACHE_HOME']}/modelscope"
+
 os.environ["HF_ENDPOINT"] = user_setting["HF_ENDPOINT"]
 
 from huggingface_hub import snapshot_download, login

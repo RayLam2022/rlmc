@@ -141,6 +141,7 @@ genhash= "rltests.gen_hash:gen_hash"
 ocr= "rltests.ocr:main"
 stt="rltests.stt:main"
 handcontrol="rltests.handcontrol:main"
+downloadmodel="rltests.download_model:main"
 
 
 

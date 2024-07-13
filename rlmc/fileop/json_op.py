@@ -42,7 +42,7 @@ class Json(AbstractFile):
             data = json.load(f)
         return data
 
-    def write(self, data, file_path: str, mode: str = "w", encoding: str = "utf-8", indent: int = 2):
+    def write(self, data, file_path: str, mode: str = "w", encoding: str = "utf-8", indent: int = 2) -> None:
         with open(file_path, mode, encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False, indent=indent)
 
