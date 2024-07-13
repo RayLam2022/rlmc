@@ -20,8 +20,8 @@ import numpy as np
 
 
 MODE = "screen"  # 'screen' or 'camera'
-IS_DISPLAY = True
-IS_SAVE = False
+IS_DISPLAY = False
+IS_SAVE = True
 CHUNK_SIZE = 4096
 CHANNELS = 1
 FORMAT = pyaudio.paFloat32  # pyaudio.paInt16
@@ -62,15 +62,16 @@ def record_screen(mgr_dict, mgr_audio_data, output_path):
     start = time.time()
     im = ImageGrab.grab()
     im = np.array(im)
-    fps = 25
+    fps = 30
     h, w, c = im.shape
 
     if IS_SAVE:
-        container = av.open(output_path, mode="w")
-        stream = container.add_stream("mpeg4", rate=fps)
+        container = av.open(output_path, mode="w", format="mp4")
+        stream = container.add_stream("h264", rate=fps) 
         stream.width = int(w)
         stream.height = int(h)
-        stream.pix_fmt = "yuv420p"
+        stream.pix_fmt = "yuv420p" # 'nv16'   #
+        stream.bit_rate=2_000_000
         stream.codec_context.time_base = Fraction(1, int(fps))
 
         audio_stream = container.add_stream("mp3", rate=RATE)
@@ -128,11 +129,12 @@ def record_cam(mgr_dict, mgr_audio_data, output_path):
     fps = cap.get(cv2.CAP_PROP_FPS)
 
     if IS_SAVE:
-        container = av.open(output_path, mode="w")
-        stream = container.add_stream("mpeg4", rate=fps)
+        container = av.open(output_path, mode="w",format="mp4")
+        stream = container.add_stream("h264", rate=fps)
         stream.width = frame_width
         stream.height = frame_height
         stream.pix_fmt = "yuv420p"
+        stream.bit_rate=2_000_000
         stream.codec_context.time_base = Fraction(1, int(fps))
 
         audio_stream = container.add_stream("mp3", rate=RATE)
@@ -187,7 +189,7 @@ def record_cam(mgr_dict, mgr_audio_data, output_path):
 
 root = r"C:\Users\RayLam\Desktop\temp_file"
 now = str(datetime.now())[:19].replace(":", "_")
-video_output = join(root, "%s.avi" % now)
+video_output = join(root, "%s.mp4" % now)
 
 
 if __name__ == "__main__":

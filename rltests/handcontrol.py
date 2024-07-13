@@ -32,6 +32,11 @@ parser.add_argument(
     action="store_true",
 )
 parser.add_argument(
+    "-p",
+    "--is_show_pose",
+    action="store_true",
+)
+parser.add_argument(
     "-d",
     "--delay",
     type=float,
@@ -215,6 +220,7 @@ class HandControl(Command):
         self.md_hands = md.solutions.hands
 
         self.face_mesh = md.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+        self.pose = md.solutions.pose.Pose()
 
         self.zone_size = 0.6
         self.bias = 0.1
@@ -346,29 +352,47 @@ class HandControl(Command):
                 )
 
         return img
-    
+
     def _face(self, img):
         results = self.face_mesh.process(img)
         if results.multi_face_landmarks:
             for face_landmarks in results.multi_face_landmarks:
                 # 脸网格
-                md.solutions.drawing_utils.draw_landmarks(image=img,
-                                        landmark_list=face_landmarks,
-                                        connections=md.solutions.face_mesh.FACEMESH_TESSELATION,
-                                        landmark_drawing_spec=None,
-                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_tesselation_style())
+                md.solutions.drawing_utils.draw_landmarks(
+                    image=img,
+                    landmark_list=face_landmarks,
+                    connections=md.solutions.face_mesh.FACEMESH_TESSELATION,
+                    landmark_drawing_spec=None,
+                    connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_tesselation_style(),
+                )
                 # 人脸
-                md.solutions.drawing_utils.draw_landmarks(image=img,
-                                        landmark_list=face_landmarks,
-                                        connections=md.solutions.face_mesh.FACEMESH_CONTOURS,
-                                        landmark_drawing_spec=None,
-                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_contours_style())
+                md.solutions.drawing_utils.draw_landmarks(
+                    image=img,
+                    landmark_list=face_landmarks,
+                    connections=md.solutions.face_mesh.FACEMESH_CONTOURS,
+                    landmark_drawing_spec=None,
+                    connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_contours_style(),
+                )
                 # 瞳孔
-                md.solutions.drawing_utils.draw_landmarks(image=img,
-                                        landmark_list=face_landmarks,
-                                        connections=md.solutions.face_mesh.FACEMESH_IRISES,
-                                        landmark_drawing_spec=None,
-                                        connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_iris_connections_style())
+                md.solutions.drawing_utils.draw_landmarks(
+                    image=img,
+                    landmark_list=face_landmarks,
+                    connections=md.solutions.face_mesh.FACEMESH_IRISES,
+                    landmark_drawing_spec=None,
+                    connection_drawing_spec=md.solutions.drawing_styles.get_default_face_mesh_iris_connections_style(),
+                )
+
+        return img
+
+    def _pose(self, img):
+        results = self.pose.process(img)
+        if results.pose_landmarks:
+            for pose_landmarks in results.pose_landmarks.landmark:
+                md.solutions.drawing_utils.draw_landmarks(
+                    image=img,
+                    landmark_list=results.pose_landmarks,
+                    connections=md.solutions.pose.POSE_CONNECTIONS,
+                )
 
         return img
 
@@ -397,7 +421,10 @@ class HandControl(Command):
             img_rgb = self._hand(img_rgb)
 
             if args.is_show_face:
-                img_rgb=self._face(img_rgb)
+                img_rgb = self._face(img_rgb)
+
+            if args.is_show_pose:
+                img_rgb = self._pose(img_rgb)
 
             if args.is_show:
                 img = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)

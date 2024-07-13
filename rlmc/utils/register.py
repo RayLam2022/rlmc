@@ -7,7 +7,8 @@
 
 import sys
 
-if '.' not in sys.path: sys.path.append(".")
+if "." not in sys.path:
+    sys.path.append(".")
 
 from typing import Any, NoReturn, Union, Callable, Iterable, List, Dict
 
@@ -19,7 +20,7 @@ __all__ = ["Register"]
 logger = Logger(__name__, level=Logger.WARNING)
 
 
-class Register(dict):
+class Register:
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._dict: Dict[str, Callable] = dict()
@@ -30,7 +31,8 @@ class Register(dict):
                 raise Exception(f"注册对象必须可调用，接收:{val}为非法对象")
             if key in self._dict:
                 logger.warning(f"曾注册 {val.__name__}，现执行覆盖操作")
-            self[key] = val
+            self._dict[key] = val
+            setattr(self, key, val)
             return val
 
         if callable(obj):
