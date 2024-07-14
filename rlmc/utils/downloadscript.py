@@ -73,7 +73,6 @@ class HfDownload:
         snapshot_download(
             repo_id=self.repo_id,
             cache_dir=self.local_dir,
-            # filename=filename,
             local_dir=self.local_dir,
             local_dir_use_symlinks=self.local_dir_use_symlinks,
             ignore_patterns=self.ignore_patterns,
