@@ -94,14 +94,15 @@ class MsDownload:
         ms_download.run()
     """
 
-    def __init__(self, repo_id) -> None:
+    def __init__(self, repo_id, cache_dir) -> None:
         self.repo_id = repo_id
+        self.cache_dir=cache_dir
 
     def run(self) -> None:
         from modelscope import snapshot_download as ms_snapshot_download
 
         logger.info(f"************ Start downloading {self.repo_id} ************")
-        model_dir = ms_snapshot_download(self.repo_id)
+        model_dir = ms_snapshot_download(self.repo_id, cache_dir=self.cache_dir)
         logger.info(f"************ {self.repo_id} Download finish ************")
         logger.info(f"Models saved in {model_dir}")
 
