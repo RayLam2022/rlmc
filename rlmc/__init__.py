@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.1.17"
+__version__ = "1.1.18"
 
 import sys
 
@@ -25,6 +25,7 @@ from rlmc.utils.asynctask import (
 )
 from rlmc.utils.coroutine import Abstract_ManMachineChat
 from rlmc.utils.downloadscript import HfDownload, MsDownload, AutodlDownload
+from rlmc.utils.login_module import user_login
 
 from rlmc.fileop.utils import FindContent, DatasetSplit
 from rlmc.fileop import file_processor
@@ -36,7 +37,6 @@ from rlmc.configs import (
     common_urls,
 )
 from rlmc.resource import condarc, pip, cuda
-
 
 
 reg = Register()
@@ -55,6 +55,7 @@ reg.register(AutodlDownload)
 reg.register(FindContent)
 reg.register(DatasetSplit)
 reg.register(file_processor)
+reg.register(user_login)
 
 cfg = SuDict()
 cfg["common_urls"] = SuDict(common_urls)
