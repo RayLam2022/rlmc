@@ -128,9 +128,7 @@ class VideoFile:
         self.pixformat = self.container.streams.video[0].codec_context.pix_fmt
         self.width = self.container.streams.video[0].codec_context.width
         self.height = self.container.streams.video[0].codec_context.height
-        self.audio_sample_rate = self.container.streams.audio[
-            0
-        ].codec_context.sample_rate
+        self.audio_sample_rate = self.container.streams.audio[0].codec_context.sample_rate
         self.audio_channels = self.container.streams.audio[0].codec_context.channels
         self.audio_sample_fmt = self.container.streams.audio[0].format.name
         return self.container

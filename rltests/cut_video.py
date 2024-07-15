@@ -50,6 +50,10 @@ def main():
     video_stream = container.streams.video[0]
     audio_stream = container.streams.audio[0]
 
+    layout = "stereo" if audio_stream.codec_context.channels > 1 else "mono"
+    audio_sample_fmt = audio_stream.format.name
+    audio_sample_rate = audio_stream.codec_context.sample_rate
+
     # 创建输出容器
     output_container = av.open(args.output_file, "w")
 
@@ -61,6 +65,21 @@ def main():
         "aac", audio_stream.codec_context.rate
     )
 
+    if args.bbox:
+        x, y, w, h = args.bbox
+        if (
+            x + w <= frame_width
+            and y + h <= frame_height
+            and x < frame_width
+            and y < frame_height
+            and x >= 0
+            and y >= 0
+        ):
+            output_video_stream.width = w
+            output_video_stream.height = h
+        else:
+            raise ValueError("bbox out of range")
+
     # 设置剪辑的起始时间和结束时间
     start_time = args.start
     end_time = args.end
@@ -70,25 +89,11 @@ def main():
             if packet.stream == video_stream:
                 # 如果在剪辑的时间范围内，则编码并写入输出容器
                 img_ndarray = frame.to_rgb().to_ndarray()
-                ih, iw, ic = img_ndarray.shape
-                new_frame = frame
 
                 if args.bbox:
-                    x, y, w, h = args.bbox
-                    if (
-                        x + w <= iw
-                        and y + h <= ih
-                        and x < iw
-                        and y < ih
-                        and x >= 0
-                        and y >= 0
-                    ):
-                        img_ndarray = img_ndarray[y : y + h, x : x + w, :]
-                        new_frame = av.VideoFrame.from_ndarray(
-                            img_ndarray, format="rgb24"
-                        )
-                    else:
-                        print("bbox out of range")
+                    img_ndarray = img_ndarray[y : y + h, x : x + w, :]
+
+                new_frame = av.VideoFrame.from_ndarray(img_ndarray, format="rgb24")
 
                 if end_time != -1.0:
                     if frame.time >= start_time and frame.time <= end_time:
@@ -96,19 +101,23 @@ def main():
                         output_container.mux(output_packet)
                 else:
                     if frame.time >= start_time:
-                        output_packet = output_video_stream.encode(frame)
+                        output_packet = output_video_stream.encode(new_frame)
                         output_container.mux(output_packet)
 
             elif packet.stream == audio_stream:
                 # 处理音频帧
                 # 如果在剪辑的时间范围内，则编码并写入输出容器
+                new_frame = av.AudioFrame.from_ndarray(
+                    frame.to_ndarray(), format=audio_sample_fmt, layout=layout
+                )
+                new_frame.sample_rate = audio_sample_rate
                 if end_time != -1.0:
                     if frame.time >= start_time and frame.time <= end_time:
-                        output_packet = output_audio_stream.encode(frame)
+                        output_packet = output_audio_stream.encode(new_frame)
                         output_container.mux(output_packet)
                 else:
                     if frame.time >= start_time:
-                        output_packet = output_video_stream.encode(frame)
+                        output_packet = output_audio_stream.encode(new_frame)
                         output_container.mux(output_packet)
 
     output_container.close()
