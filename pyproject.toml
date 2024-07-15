@@ -143,6 +143,7 @@ stt="rltests.stt:main"
 handcontrol="rltests.handcontrol:main"
 downloadmodel="rltests.download_model:main"
 chatbot="rltests.call_qianfan:main"
+cutvideo="rltests.cut_video:main"
 
 
 

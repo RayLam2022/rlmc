@@ -32,7 +32,7 @@ def main():
             args.repo_id, args.cache_dir, ignore_patterns=args.ignore_patterns, hf_token=args.hf_token, is_login=args.is_login
         )
     elif args.method == "ms":
-        dl = MsDownload(args.repo_id, args.cache_dir)
+        dl = MsDownload(args.repo_id, args.cache_dir,ignore_file_pattern=args.ignore_patterns)
     else:
-        dl = AutodlDownload(args.repo_id)
+        dl = AutodlDownload(args.repo_id, args.cache_dir)
     dl.run()

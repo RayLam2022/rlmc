@@ -45,7 +45,7 @@ class VideoFile:
         fps: int = 30,
         duration: float = 0.0,
         acodec: Literal["aac", "mp3"] = "aac",  #
-        bit_rate: int = 2000000,
+        bit_rate: int = 2_000_000,
         audio_channels: int = 1,
         audio_sample_rate: int = 44100,
         audio_sample_fmt: str = "",
@@ -101,12 +101,6 @@ class VideoFile:
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    # def __iter__(self):
-    #     self.read()
-    #     return self.container.demux()
-
-    # def __next__(self):
-    #     return self.file.__next__()
 
     def add_vid_stream(self):
         output_stream = self.output_container.add_stream(self.vcodec, rate=self.fps)
