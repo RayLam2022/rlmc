@@ -14,6 +14,7 @@ from rlmc.fileop.yaml_op import Yaml
 from rlmc.fileop.json_op import Json
 from rlmc.fileop.numpy_op import Numpy
 from rlmc.fileop.pickle_op import Pickle
+from rlmc.fileop.mat_op import Mat
 
 __all__ = ["file_processor"]
 
@@ -24,6 +25,7 @@ files_op_dict = {
     "npy": Numpy,
     "pkl": Pickle,
     "pickle": Pickle,
+    "mat": Mat,
 }
 
 

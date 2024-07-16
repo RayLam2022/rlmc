@@ -39,6 +39,7 @@ dependencies = [
     "numpy",
     "huggingface-hub",
     "pandas",
+    "scipy",
     "scikit-learn",
     "opencv-python",
     "pillow",
