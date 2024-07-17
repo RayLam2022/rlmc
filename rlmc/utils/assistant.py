@@ -14,6 +14,7 @@ import os
 import os.path as osp
 import time
 import copy
+import argparse
 
 import cv2
 import pyaudio
@@ -23,6 +24,30 @@ import torch
 from PIL import ImageGrab
 from faster_whisper import WhisperModel
 
+import qianfan
+
+parser = argparse.ArgumentParser("assistant")
+parser.add_argument(
+    "-a",
+    "--access_key",
+    required=True,
+)
+parser.add_argument(
+    "-s",
+    "--secret_key",
+    required=True,
+)
+parser.add_argument(
+    "-m",
+    "--model",
+    default="ERNIE-Bot-turbo",  # ERNIE-4.0-8K ChatLaw
+    help="ERNIE-4.0-8K, ChatLaw, ERNIE-Bot-turbo...",
+)
+
+args = parser.parse_args()
+
+os.environ["QIANFAN_ACCESS_KEY"] = args.access_key
+os.environ["QIANFAN_SECRET_KEY"] = args.secret_key
 
 SECONDS = 2
 INT16_MAX_ABS_VALUE = 32768.0
@@ -116,10 +141,20 @@ def camera():
     cv2.destroyAllWindows()
 
 
-def call_qianfan():
+def call_qianfan():  # 待测试
+    chat_comp = qianfan.ChatCompletion()
+    msgs = qianfan.Messages()
     msg = ""
     while True:
-        msg = yield "你好" + msg
+        if msg != "":
+            msgs.append(msg)
+            resp = chat_comp.do(model=args.model, messages=msgs)
+            # print("assistant:", resp["result"])
+            msgs.append(resp)
+            msg= yield resp["result"]
+        else:
+            msg = yield ""
+
 
 
 def execute_instructions(): ...
