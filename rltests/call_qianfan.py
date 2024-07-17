@@ -2,6 +2,7 @@
 # https://demo.ragflow.io/
 import argparse
 import os
+import pyttsx3
 
 import qianfan
 
@@ -23,6 +24,12 @@ parser.add_argument(
     help="ERNIE-4.0-8K, ChatLaw, ERNIE-Bot-turbo...",
 )
 
+parser.add_argument(
+    "-sp",
+    "--is_speak",
+    action="store_true",
+)
+
 args = parser.parse_args()
 
 
@@ -37,7 +44,12 @@ def main():
 
     msgs = qianfan.Messages()
     while True:
-        msgs.append(input())
+        msgs.append(input('master:'))
         resp = chat_comp.do(model=args.model, messages=msgs)
         print("assistant:", resp["result"])
+        if args.is_speak:
+            pyttsx3.speak(resp["result"])
         msgs.append(resp)
+
+if __name__ == "__main__":
+    main()
