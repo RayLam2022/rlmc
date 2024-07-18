@@ -1,5 +1,5 @@
 """
-@File    :   assistant.py
+@File    :   assistant_v1.py
 @Time    :   2024/07/04 12:21:43
 @Author  :   RayLam
 @Contact :   1027196450@qq.com
@@ -10,12 +10,14 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+import multiprocess as mp
 import os
 import os.path as osp
 import time
 import copy
 import argparse
 
+import pynput
 import cv2
 import pyaudio
 import pyttsx3
@@ -70,6 +72,17 @@ model_size = "large-v3"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = WhisperModel(model_size, device=device, compute_type="float16")
 
+def screenshot():
+    # 获取屏幕截图
+    screenshot = ImageGrab.grab()
+
+
+def camera():
+    # 打开摄像头
+    ...
+
+
+def execute_instructions(): ...
 
 def chatfuc(stream, chat_comp, msgs):
     msg = ""
@@ -116,18 +129,6 @@ def chatfuc(stream, chat_comp, msgs):
             audio_collector = []
             counter = 0
 
-
-def screenshot():
-    # 获取屏幕截图
-    screenshot = ImageGrab.grab()
-
-
-def camera():
-    # 打开摄像头
-    ...
-
-
-def execute_instructions(): ...
 
 
 def runchat():
