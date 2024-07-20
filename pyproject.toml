@@ -116,7 +116,8 @@ assistant=[
     "pyttsx3",
     "pynput",
     "pyperclip",
-    "easyocr"
+    "easyocr",
+    "wave"
 ]
 
 handcontrol=[
