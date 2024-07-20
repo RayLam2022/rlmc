@@ -63,8 +63,8 @@ def kb_listener(signal):
     listener.join()
 
 
-if __name__ == "__main__":
-
+# if __name__ == "__main__":
+def main():
     p = pyaudio.PyAudio()
     # 打开麦克风流
     stream = p.open(
@@ -116,3 +116,6 @@ if __name__ == "__main__":
     wf.writeframes(b"".join(audio_collector))
     # 关闭文件
     wf.close()
+
+if __name__ == "__main__":
+    main()

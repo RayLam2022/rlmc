@@ -147,6 +147,7 @@ handcontrol="rltests.handcontrol:main"
 downloadmodel="rltests.download_model:main"
 chatbot="rltests.call_qianfan:main"
 cutvideo="rltests.moviepy_cut_video:main"
+takephoto="rltests.take_photo:main"
 
 
 
