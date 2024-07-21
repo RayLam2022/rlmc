@@ -22,7 +22,7 @@ args = parser.parse_args()
 rc = Console()
 
 
-def main():
+def main() -> None:
 
     rc.print(
         "[green]###  f: 拍摄图片",
