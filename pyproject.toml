@@ -70,7 +70,8 @@ torch = [
     "timm",
     "segmentation-models-pytorch",
     "torchsummary",
-    "thop"
+    "thop",
+    "supervision"
 ]
 
 paddle = [
@@ -92,7 +93,7 @@ git=[
     "gitpython",
 ]
 
-vision=[
+chart=[
     "matplotlib",
     "pyecharts",
 ]
