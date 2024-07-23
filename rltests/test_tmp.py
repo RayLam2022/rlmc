@@ -17,4 +17,3 @@
 #     print(yaml_content)
 #     # print(cfg['source']['cuda'])
 #     print(cfg.source.cuda)
-

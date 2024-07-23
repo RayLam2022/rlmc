@@ -52,7 +52,7 @@ if __name__ == "__main__":
     predict_dir = r"./samples"
 
     # configs
-    CONFIG_PATH = "/root/rlmc/rlmc/configs/trainval/trainval.yaml"
+    CONFIG_PATH = "/root/rlmc/rlmc/configs/trainval/segmantic_segmentation.yaml"
 
     args = SuDict(file_processor(CONFIG_PATH).read())
     print(args)
