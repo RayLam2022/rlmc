@@ -13,7 +13,7 @@
 #     # ms_download.run()
 #     file_processor = reg["file_processor"]
 #     yamlobj = file_processor("rlmc/configs/common_urls.yaml")
-#     yaml_content = yamlobj.read()
+#     yaml_content = yamlobj.data
 #     print(yaml_content)
 #     # print(cfg['source']['cuda'])
 #     print(cfg.source.cuda)

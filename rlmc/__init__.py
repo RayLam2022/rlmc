@@ -5,7 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
-__version__ = "1.1.33"
+__version__ = "1.1.34"
 
 import sys
 
@@ -95,5 +95,5 @@ __all__ = [
 if __name__ == "__main__":
     print(reg.keys())
     yamlobj = reg["file_processor"]("rlmc/configs/script_paths.yaml")
-    yaml_content = yamlobj.read()
+    yaml_content = yamlobj.data
     print(yaml_content)

@@ -27,7 +27,7 @@ class Yaml(AbstractFile):
         self.mode = mode
         
         if file_path != "":
-            self.data = self.read()
+            self.data = self.read(file_path)
 
     def __enter__(self):
         self.file = open(self.file_path, self.mode, encoding=self.encoding)
@@ -38,8 +38,8 @@ class Yaml(AbstractFile):
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    def read(self):
-        with open(self.file_path, self.mode, encoding=self.encoding) as f:
+    def read(self, file_path: str = ""):
+        with open(file_path, self.mode, encoding=self.encoding) as f:
             data = yaml.safe_load(f)
         return data
 

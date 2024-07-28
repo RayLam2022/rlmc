@@ -22,7 +22,7 @@ class Numpy(AbstractFile):
     def __init__(self, file_path: str = "") -> None:
         self.file_path = file_path
         if file_path != "":
-            self.data = self.read()
+            self.data = self.read(file_path)
 
     def __enter__(self):
         return self
@@ -31,8 +31,8 @@ class Numpy(AbstractFile):
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    def read(self):
-        data = np.load(self.file_path)
+    def read(self,file_path:str=""):
+        data = np.load(file_path)
         return data
 
     def write(self, data, file_path: str, allow_pickle: bool = True):

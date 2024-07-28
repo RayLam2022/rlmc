@@ -29,8 +29,8 @@ files_op_dict = {
 }
 
 
-def file_processor(file_path: str = "", file_ext: str = None):
-    if file_ext == None:
+def file_processor(file_path: str = "", file_ext: str = ""):
+    if file_ext == "":
         file_type = file_path.split(".")[-1]
     else:
         file_type = file_ext
@@ -39,5 +39,6 @@ def file_processor(file_path: str = "", file_ext: str = None):
 
 if __name__ == "__main__":
     yamlobj = file_processor("rlmc/configs/script_paths.yaml")
-    yaml_content = yamlobj.read()
+    yaml_content = yamlobj.data
+    # yaml_content = yamlobj.read("rlmc/configs/script_paths.yaml")
     print(yaml_content)

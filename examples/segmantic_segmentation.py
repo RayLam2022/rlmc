@@ -54,7 +54,7 @@ if __name__ == "__main__":
     # configs
     CONFIG_PATH = "/root/rlmc/rlmc/configs/trainval/segmantic_segmentation.yaml"
 
-    args = SuDict(file_processor(CONFIG_PATH).read())
+    args = SuDict(file_processor(CONFIG_PATH).data)
     print(args)
     train_data_dir = args.dataset.train_dir
     val_data_dir = args.dataset.val_dir

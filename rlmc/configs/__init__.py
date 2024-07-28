@@ -18,12 +18,12 @@ __all__ = [
 config_root = osp.dirname(__file__)
 
 
-user_setting = file_processor(osp.join(config_root, "user_setting.yaml")).read()
-common_urls = file_processor(osp.join(config_root, "common_urls.yaml")).read()
+user_setting = file_processor(osp.join(config_root, "user_setting.yaml")).data
+common_urls = file_processor(osp.join(config_root, "common_urls.yaml")).data
 model_download_urls = file_processor(
     osp.join(config_root, "models/model_download_urls.yaml")
-).read()
+).data
 dataset_download_urls = file_processor(
     osp.join(config_root, "datasets/dataset_download_urls.yaml")
-).read()
+).data
 # print(user_setting)
