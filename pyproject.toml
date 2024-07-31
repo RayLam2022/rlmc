@@ -133,27 +133,27 @@ handcontrol=[
 "Source" = "https://github.com/RayLam2022/rlmc"
 
 [project.scripts]
-deltemp = "rltests.del_jupyter_temp:del_jupyter_temp"
-testcuda = "rltests.cuda_test:cudatest"
-sysinfo= "rltests.systeminfos:general_info"
-gpuinfo= "rltests.systeminfos:gpu_info"
-findtool= "rltests.findtool:find"
-clearcache= "rltests.clear_cache:clear_cache"
-managesource= "rltests.manage_source:manage_source"
-genhash= "rltests.gen_hash:gen_hash"
-ocr= "rltests.ocr:main"
-stt="rltests.stt:main"
-handcontrol="rltests.handcontrol:main"
-downloadmodel="rltests.download_model:main"
-chatbot="rltests.call_qianfan:main"
-cutvideo="rltests.moviepy_cut_video:main"
-takephoto="rltests.take_photo:main"
+deltemp = "rltools.del_jupyter_temp:del_jupyter_temp"
+testcuda = "rltools.cuda_test:cudatest"
+sysinfo= "rltools.systeminfos:general_info"
+gpuinfo= "rltools.systeminfos:gpu_info"
+findtool= "rltools.findtool:find"
+clearcache= "rltools.clear_cache:clear_cache"
+managesource= "rltools.manage_source:manage_source"
+genhash= "rltools.gen_hash:gen_hash"
+ocr= "rltools.ocr:main"
+stt="rltools.stt:main"
+handcontrol="rltools.handcontrol:main"
+downloadmodel="rltools.download_model:main"
+chatbot="rltools.call_qianfan:main"
+cutvideo="rltools.moviepy_cut_video:main"
+takephoto="rltools.take_photo:main"
 
 
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
-package-data = {"rlmc"=["*","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"], "rlmc.configs.trainval"=["*.yaml"],"rlmc.tutorial.c_packages.cython_test"=["*.pyx"]}
+package-data = {"rlmc"=["*","../rltools/*.py","../rltests/*.py"], "rlmc.resource"=["*.json", "*.conf", "*.ini","*.txt"], "rlmc.configs"=["*.yaml"], "rlmc.configs.datasets"=["*.yaml"], "rlmc.configs.models"=["*.yaml"], "rlmc.configs.trainval"=["*.yaml"],"rlmc.tutorial.c_packages.cython_test"=["*.pyx"]}
 
 
 [tool.setuptools.dynamic]
