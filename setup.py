@@ -4,7 +4,7 @@ from distutils.core import Extension
 
 setup(
     # ext_modules=cythonize(
-    #                   "rltests/del_jupyter_temp.pyx"
+    #                   "rltools/del_jupyter_temp.pyx"
     #         )
-    ext_modules=[Extension("rltests.del_jupyter_temp", ["rltests/del_jupyter_temp.c"])]
+    ext_modules=[Extension("rltools.del_jupyter_temp", ["rltools/del_jupyter_temp.c"])]
 )

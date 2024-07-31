@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "rltests.del_jupyter_temp",
+        "name": "rltools.del_jupyter_temp",
         "sources": [
-            "rltests/del_jupyter_temp.pyx"
+            "rltools/del_jupyter_temp.pyx"
         ]
     },
-    "module_name": "rltests.del_jupyter_temp"
+    "module_name": "rltools.del_jupyter_temp"
 }
 END: Cython Metadata */
 
@@ -1228,8 +1228,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__rltests__del_jupyter_temp
-#define __PYX_HAVE_API__rltests__del_jupyter_temp
+#define __PYX_HAVE__rltools__del_jupyter_temp
+#define __PYX_HAVE_API__rltools__del_jupyter_temp
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -1479,7 +1479,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char *__pyx_f[] = {
-  "rltests\\\\del_jupyter_temp.pyx",
+  "rltools\\\\del_jupyter_temp.pyx",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* ForceInitThreads.proto */
@@ -2054,14 +2054,14 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* #### Code section: module_declarations ### */
 
-/* Module declarations from "rltests.del_jupyter_temp" */
+/* Module declarations from "rltools.del_jupyter_temp" */
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "rltests.del_jupyter_temp"
-extern int __pyx_module_is_main_rltests__del_jupyter_temp;
-int __pyx_module_is_main_rltests__del_jupyter_temp = 0;
+#define __Pyx_MODULE_NAME "rltools.del_jupyter_temp"
+extern int __pyx_module_is_main_rltools__del_jupyter_temp;
+int __pyx_module_is_main_rltools__del_jupyter_temp = 0;
 
-/* Implementation of "rltests.del_jupyter_temp" */
+/* Implementation of "rltools.del_jupyter_temp" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_print;
 /* #### Code section: string_decls ### */
@@ -2106,23 +2106,24 @@ static const char __pyx_k_default[] = "default";
 static const char __pyx_k_os_path[] = "os.path";
 static const char __pyx_k_argparse[] = "argparse";
 static const char __pyx_k_required[] = "required";
-static const char __pyx_k_key_words[] = "key words";
 static const char __pyx_k_recursive[] = "recursive";
 static const char __pyx_k_parse_args[] = "parse_args";
 static const char __pyx_k_add_argument[] = "add_argument";
 static const char __pyx_k_initializing[] = "_initializing";
 static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_ArgumentParser[] = "ArgumentParser";
+static const char __pyx_k_name_key_words[] = "name key words";
 static const char __pyx_k_del_jupyter_temp[] = "del_jupyter_temp";
 static const char __pyx_k_ipynb_checkpoints[] = ".*ipynb_checkpoints";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_operation_show_or_del[] = "operation:show or del";
 static const char __pyx_k_delete_jupyter_temp_dirs[] = "delete_jupyter_temp_dirs";
-static const char __pyx_k_rltests_del_jupyter_temp[] = "rltests.del_jupyter_temp";
-static const char __pyx_k_rltests_del_jupyter_temp_pyx[] = "rltests\\del_jupyter_temp.pyx";
+static const char __pyx_k_rltools_del_jupyter_temp[] = "rltools.del_jupyter_temp";
+static const char __pyx_k_rltools_del_jupyter_temp_pyx[] = "rltools\\del_jupyter_temp.pyx";
 static const char __pyx_k_scan_the_temp_dirs_in_the_path[] = "scan the temp dirs in the path";
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_7rltools_16del_jupyter_temp_del_jupyter_temp(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2177,15 +2178,16 @@ typedef struct {
   PyObject *__pyx_n_s_isfile;
   PyObject *__pyx_n_s_iters;
   PyObject *__pyx_n_s_join;
-  PyObject *__pyx_kp_s_key_words;
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_kp_s_n;
   PyObject *__pyx_n_s_name;
   PyObject *__pyx_n_s_name_2;
   PyObject *__pyx_kp_s_name_3;
+  PyObject *__pyx_kp_s_name_key_words;
   PyObject *__pyx_kp_s_o;
   PyObject *__pyx_n_s_op;
   PyObject *__pyx_kp_s_op_2;
+  PyObject *__pyx_kp_s_operation_show_or_del;
   PyObject *__pyx_n_s_os;
   PyObject *__pyx_n_s_os_path;
   PyObject *__pyx_n_s_osp;
@@ -2198,8 +2200,8 @@ typedef struct {
   PyObject *__pyx_n_s_remove;
   PyObject *__pyx_n_s_required;
   PyObject *__pyx_n_s_return;
-  PyObject *__pyx_n_s_rltests_del_jupyter_temp;
-  PyObject *__pyx_kp_s_rltests_del_jupyter_temp_pyx;
+  PyObject *__pyx_n_s_rltools_del_jupyter_temp;
+  PyObject *__pyx_kp_s_rltools_del_jupyter_temp_pyx;
   PyObject *__pyx_n_s_rmtree;
   PyObject *__pyx_n_s_root;
   PyObject *__pyx_kp_s_root_2;
@@ -2282,15 +2284,16 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_isfile);
   Py_CLEAR(clear_module_state->__pyx_n_s_iters);
   Py_CLEAR(clear_module_state->__pyx_n_s_join);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_key_words);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_kp_s_n);
   Py_CLEAR(clear_module_state->__pyx_n_s_name);
   Py_CLEAR(clear_module_state->__pyx_n_s_name_2);
   Py_CLEAR(clear_module_state->__pyx_kp_s_name_3);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_name_key_words);
   Py_CLEAR(clear_module_state->__pyx_kp_s_o);
   Py_CLEAR(clear_module_state->__pyx_n_s_op);
   Py_CLEAR(clear_module_state->__pyx_kp_s_op_2);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_operation_show_or_del);
   Py_CLEAR(clear_module_state->__pyx_n_s_os);
   Py_CLEAR(clear_module_state->__pyx_n_s_os_path);
   Py_CLEAR(clear_module_state->__pyx_n_s_osp);
@@ -2303,8 +2306,8 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_remove);
   Py_CLEAR(clear_module_state->__pyx_n_s_required);
   Py_CLEAR(clear_module_state->__pyx_n_s_return);
-  Py_CLEAR(clear_module_state->__pyx_n_s_rltests_del_jupyter_temp);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_rltests_del_jupyter_temp_pyx);
+  Py_CLEAR(clear_module_state->__pyx_n_s_rltools_del_jupyter_temp);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_rltools_del_jupyter_temp_pyx);
   Py_CLEAR(clear_module_state->__pyx_n_s_rmtree);
   Py_CLEAR(clear_module_state->__pyx_n_s_root);
   Py_CLEAR(clear_module_state->__pyx_kp_s_root_2);
@@ -2365,15 +2368,16 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_isfile);
   Py_VISIT(traverse_module_state->__pyx_n_s_iters);
   Py_VISIT(traverse_module_state->__pyx_n_s_join);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_key_words);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_kp_s_n);
   Py_VISIT(traverse_module_state->__pyx_n_s_name);
   Py_VISIT(traverse_module_state->__pyx_n_s_name_2);
   Py_VISIT(traverse_module_state->__pyx_kp_s_name_3);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_name_key_words);
   Py_VISIT(traverse_module_state->__pyx_kp_s_o);
   Py_VISIT(traverse_module_state->__pyx_n_s_op);
   Py_VISIT(traverse_module_state->__pyx_kp_s_op_2);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_operation_show_or_del);
   Py_VISIT(traverse_module_state->__pyx_n_s_os);
   Py_VISIT(traverse_module_state->__pyx_n_s_os_path);
   Py_VISIT(traverse_module_state->__pyx_n_s_osp);
@@ -2386,8 +2390,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_remove);
   Py_VISIT(traverse_module_state->__pyx_n_s_required);
   Py_VISIT(traverse_module_state->__pyx_n_s_return);
-  Py_VISIT(traverse_module_state->__pyx_n_s_rltests_del_jupyter_temp);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_rltests_del_jupyter_temp_pyx);
+  Py_VISIT(traverse_module_state->__pyx_n_s_rltools_del_jupyter_temp);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_rltools_del_jupyter_temp_pyx);
   Py_VISIT(traverse_module_state->__pyx_n_s_rmtree);
   Py_VISIT(traverse_module_state->__pyx_n_s_root);
   Py_VISIT(traverse_module_state->__pyx_kp_s_root_2);
@@ -2458,15 +2462,16 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_isfile __pyx_mstate_global->__pyx_n_s_isfile
 #define __pyx_n_s_iters __pyx_mstate_global->__pyx_n_s_iters
 #define __pyx_n_s_join __pyx_mstate_global->__pyx_n_s_join
-#define __pyx_kp_s_key_words __pyx_mstate_global->__pyx_kp_s_key_words
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_kp_s_n __pyx_mstate_global->__pyx_kp_s_n
 #define __pyx_n_s_name __pyx_mstate_global->__pyx_n_s_name
 #define __pyx_n_s_name_2 __pyx_mstate_global->__pyx_n_s_name_2
 #define __pyx_kp_s_name_3 __pyx_mstate_global->__pyx_kp_s_name_3
+#define __pyx_kp_s_name_key_words __pyx_mstate_global->__pyx_kp_s_name_key_words
 #define __pyx_kp_s_o __pyx_mstate_global->__pyx_kp_s_o
 #define __pyx_n_s_op __pyx_mstate_global->__pyx_n_s_op
 #define __pyx_kp_s_op_2 __pyx_mstate_global->__pyx_kp_s_op_2
+#define __pyx_kp_s_operation_show_or_del __pyx_mstate_global->__pyx_kp_s_operation_show_or_del
 #define __pyx_n_s_os __pyx_mstate_global->__pyx_n_s_os
 #define __pyx_n_s_os_path __pyx_mstate_global->__pyx_n_s_os_path
 #define __pyx_n_s_osp __pyx_mstate_global->__pyx_n_s_osp
@@ -2479,8 +2484,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_remove __pyx_mstate_global->__pyx_n_s_remove
 #define __pyx_n_s_required __pyx_mstate_global->__pyx_n_s_required
 #define __pyx_n_s_return __pyx_mstate_global->__pyx_n_s_return
-#define __pyx_n_s_rltests_del_jupyter_temp __pyx_mstate_global->__pyx_n_s_rltests_del_jupyter_temp
-#define __pyx_kp_s_rltests_del_jupyter_temp_pyx __pyx_mstate_global->__pyx_kp_s_rltests_del_jupyter_temp_pyx
+#define __pyx_n_s_rltools_del_jupyter_temp __pyx_mstate_global->__pyx_n_s_rltools_del_jupyter_temp
+#define __pyx_kp_s_rltools_del_jupyter_temp_pyx __pyx_mstate_global->__pyx_kp_s_rltools_del_jupyter_temp_pyx
 #define __pyx_n_s_rmtree __pyx_mstate_global->__pyx_n_s_rmtree
 #define __pyx_n_s_root __pyx_mstate_global->__pyx_n_s_root
 #define __pyx_kp_s_root_2 __pyx_mstate_global->__pyx_kp_s_root_2
@@ -2498,7 +2503,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__10 __pyx_mstate_global->__pyx_codeobj__10
 /* #### Code section: module_code ### */
 
-/* "rltests/del_jupyter_temp.pyx":17
+/* "rltools/del_jupyter_temp.pyx":17
  * 
  * 
  * def del_jupyter_temp() -> None:             # <<<<<<<<<<<<<<
@@ -2507,22 +2512,22 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7rltests_16del_jupyter_temp_1del_jupyter_temp(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyMethodDef __pyx_mdef_7rltests_16del_jupyter_temp_1del_jupyter_temp = {"del_jupyter_temp", (PyCFunction)__pyx_pw_7rltests_16del_jupyter_temp_1del_jupyter_temp, METH_NOARGS, 0};
-static PyObject *__pyx_pw_7rltests_16del_jupyter_temp_1del_jupyter_temp(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7rltools_16del_jupyter_temp_1del_jupyter_temp(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyMethodDef __pyx_mdef_7rltools_16del_jupyter_temp_1del_jupyter_temp = {"del_jupyter_temp", (PyCFunction)__pyx_pw_7rltools_16del_jupyter_temp_1del_jupyter_temp, METH_NOARGS, 0};
+static PyObject *__pyx_pw_7rltools_16del_jupyter_temp_1del_jupyter_temp(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("del_jupyter_temp (wrapper)", 0);
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
-  __pyx_r = __pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(__pyx_self);
+  __pyx_r = __pyx_pf_7rltools_16del_jupyter_temp_del_jupyter_temp(__pyx_self);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_7rltools_16del_jupyter_temp_del_jupyter_temp(CYTHON_UNUSED PyObject *__pyx_self) {
   PyObject *__pyx_v_op = NULL;
   PyObject *__pyx_v_iters = NULL;
   PyObject *__pyx_v_i = NULL;
@@ -2543,7 +2548,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("del_jupyter_temp", 1);
 
-  /* "rltests/del_jupyter_temp.pyx":18
+  /* "rltools/del_jupyter_temp.pyx":18
  * 
  * def del_jupyter_temp() -> None:
  *     op = args.op             # <<<<<<<<<<<<<<
@@ -2558,7 +2563,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   __pyx_v_op = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":19
+  /* "rltools/del_jupyter_temp.pyx":19
  * def del_jupyter_temp() -> None:
  *     op = args.op
  *     iters = glob(osp.join(args.root, "**", args.name), recursive=True)             # <<<<<<<<<<<<<<
@@ -2622,7 +2627,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   __pyx_v_iters = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":20
+  /* "rltools/del_jupyter_temp.pyx":20
  *     op = args.op
  *     iters = glob(osp.join(args.root, "**", args.name), recursive=True)
  *     if op == "show":             # <<<<<<<<<<<<<<
@@ -2632,7 +2637,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   __pyx_t_8 = (__Pyx_PyString_Equals(__pyx_v_op, __pyx_n_s_show, Py_EQ)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 20, __pyx_L1_error)
   if (__pyx_t_8) {
 
-    /* "rltests/del_jupyter_temp.pyx":21
+    /* "rltools/del_jupyter_temp.pyx":21
  *     iters = glob(osp.join(args.root, "**", args.name), recursive=True)
  *     if op == "show":
  *         print(iters)             # <<<<<<<<<<<<<<
@@ -2643,7 +2648,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "rltests/del_jupyter_temp.pyx":20
+    /* "rltools/del_jupyter_temp.pyx":20
  *     op = args.op
  *     iters = glob(osp.join(args.root, "**", args.name), recursive=True)
  *     if op == "show":             # <<<<<<<<<<<<<<
@@ -2653,7 +2658,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
     goto __pyx_L3;
   }
 
-  /* "rltests/del_jupyter_temp.pyx":22
+  /* "rltools/del_jupyter_temp.pyx":22
  *     if op == "show":
  *         print(iters)
  *     elif op == "del":             # <<<<<<<<<<<<<<
@@ -2663,7 +2668,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   __pyx_t_8 = (__Pyx_PyString_Equals(__pyx_v_op, __pyx_n_s_del, Py_EQ)); if (unlikely((__pyx_t_8 < 0))) __PYX_ERR(0, 22, __pyx_L1_error)
   if (__pyx_t_8) {
 
-    /* "rltests/del_jupyter_temp.pyx":23
+    /* "rltools/del_jupyter_temp.pyx":23
  *         print(iters)
  *     elif op == "del":
  *         for i in iters:             # <<<<<<<<<<<<<<
@@ -2725,7 +2730,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "rltests/del_jupyter_temp.pyx":24
+      /* "rltools/del_jupyter_temp.pyx":24
  *     elif op == "del":
  *         for i in iters:
  *             if osp.isfile(i):             # <<<<<<<<<<<<<<
@@ -2763,7 +2768,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_8) {
 
-        /* "rltests/del_jupyter_temp.pyx":25
+        /* "rltools/del_jupyter_temp.pyx":25
  *         for i in iters:
  *             if osp.isfile(i):
  *                 os.remove(i)             # <<<<<<<<<<<<<<
@@ -2799,7 +2804,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "rltests/del_jupyter_temp.pyx":24
+        /* "rltools/del_jupyter_temp.pyx":24
  *     elif op == "del":
  *         for i in iters:
  *             if osp.isfile(i):             # <<<<<<<<<<<<<<
@@ -2809,7 +2814,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
         goto __pyx_L6;
       }
 
-      /* "rltests/del_jupyter_temp.pyx":27
+      /* "rltools/del_jupyter_temp.pyx":27
  *                 os.remove(i)
  *             else:
  *                 shutil.rmtree(i)             # <<<<<<<<<<<<<<
@@ -2848,7 +2853,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
       }
       __pyx_L6:;
 
-      /* "rltests/del_jupyter_temp.pyx":28
+      /* "rltools/del_jupyter_temp.pyx":28
  *             else:
  *                 shutil.rmtree(i)
  *             print(i)             # <<<<<<<<<<<<<<
@@ -2859,7 +2864,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "rltests/del_jupyter_temp.pyx":23
+      /* "rltools/del_jupyter_temp.pyx":23
  *         print(iters)
  *     elif op == "del":
  *         for i in iters:             # <<<<<<<<<<<<<<
@@ -2869,7 +2874,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "rltests/del_jupyter_temp.pyx":22
+    /* "rltools/del_jupyter_temp.pyx":22
  *     if op == "show":
  *         print(iters)
  *     elif op == "del":             # <<<<<<<<<<<<<<
@@ -2879,7 +2884,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   }
   __pyx_L3:;
 
-  /* "rltests/del_jupyter_temp.pyx":17
+  /* "rltools/del_jupyter_temp.pyx":17
  * 
  * 
  * def del_jupyter_temp() -> None:             # <<<<<<<<<<<<<<
@@ -2897,7 +2902,7 @@ static PyObject *__pyx_pf_7rltests_16del_jupyter_temp_del_jupyter_temp(CYTHON_UN
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("rltests.del_jupyter_temp.del_jupyter_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rltools.del_jupyter_temp.del_jupyter_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_op);
@@ -2949,15 +2954,16 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_isfile, __pyx_k_isfile, sizeof(__pyx_k_isfile), 0, 0, 1, 1},
     {&__pyx_n_s_iters, __pyx_k_iters, sizeof(__pyx_k_iters), 0, 0, 1, 1},
     {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
-    {&__pyx_kp_s_key_words, __pyx_k_key_words, sizeof(__pyx_k_key_words), 0, 0, 1, 0},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
     {&__pyx_kp_s_n, __pyx_k_n, sizeof(__pyx_k_n), 0, 0, 1, 0},
     {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
     {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
     {&__pyx_kp_s_name_3, __pyx_k_name_3, sizeof(__pyx_k_name_3), 0, 0, 1, 0},
+    {&__pyx_kp_s_name_key_words, __pyx_k_name_key_words, sizeof(__pyx_k_name_key_words), 0, 0, 1, 0},
     {&__pyx_kp_s_o, __pyx_k_o, sizeof(__pyx_k_o), 0, 0, 1, 0},
     {&__pyx_n_s_op, __pyx_k_op, sizeof(__pyx_k_op), 0, 0, 1, 1},
     {&__pyx_kp_s_op_2, __pyx_k_op_2, sizeof(__pyx_k_op_2), 0, 0, 1, 0},
+    {&__pyx_kp_s_operation_show_or_del, __pyx_k_operation_show_or_del, sizeof(__pyx_k_operation_show_or_del), 0, 0, 1, 0},
     {&__pyx_n_s_os, __pyx_k_os, sizeof(__pyx_k_os), 0, 0, 1, 1},
     {&__pyx_n_s_os_path, __pyx_k_os_path, sizeof(__pyx_k_os_path), 0, 0, 1, 1},
     {&__pyx_n_s_osp, __pyx_k_osp, sizeof(__pyx_k_osp), 0, 0, 1, 1},
@@ -2970,8 +2976,8 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_remove, __pyx_k_remove, sizeof(__pyx_k_remove), 0, 0, 1, 1},
     {&__pyx_n_s_required, __pyx_k_required, sizeof(__pyx_k_required), 0, 0, 1, 1},
     {&__pyx_n_s_return, __pyx_k_return, sizeof(__pyx_k_return), 0, 0, 1, 1},
-    {&__pyx_n_s_rltests_del_jupyter_temp, __pyx_k_rltests_del_jupyter_temp, sizeof(__pyx_k_rltests_del_jupyter_temp), 0, 0, 1, 1},
-    {&__pyx_kp_s_rltests_del_jupyter_temp_pyx, __pyx_k_rltests_del_jupyter_temp_pyx, sizeof(__pyx_k_rltests_del_jupyter_temp_pyx), 0, 0, 1, 0},
+    {&__pyx_n_s_rltools_del_jupyter_temp, __pyx_k_rltools_del_jupyter_temp, sizeof(__pyx_k_rltools_del_jupyter_temp), 0, 0, 1, 1},
+    {&__pyx_kp_s_rltools_del_jupyter_temp_pyx, __pyx_k_rltools_del_jupyter_temp_pyx, sizeof(__pyx_k_rltools_del_jupyter_temp_pyx), 0, 0, 1, 0},
     {&__pyx_n_s_rmtree, __pyx_k_rmtree, sizeof(__pyx_k_rmtree), 0, 0, 1, 1},
     {&__pyx_n_s_root, __pyx_k_root, sizeof(__pyx_k_root), 0, 0, 1, 1},
     {&__pyx_kp_s_root_2, __pyx_k_root_2, sizeof(__pyx_k_root_2), 0, 0, 1, 0},
@@ -2997,7 +3003,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "rltests/del_jupyter_temp.pyx":3
+  /* "rltools/del_jupyter_temp.pyx":3
  * import argparse
  * import os
  * import os.path as osp             # <<<<<<<<<<<<<<
@@ -3008,7 +3014,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "rltests/del_jupyter_temp.pyx":8
+  /* "rltools/del_jupyter_temp.pyx":8
  * 
  * 
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")             # <<<<<<<<<<<<<<
@@ -3019,7 +3025,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "rltests/del_jupyter_temp.pyx":9
+  /* "rltools/del_jupyter_temp.pyx":9
  * 
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")
  * parser.add_argument(             # <<<<<<<<<<<<<<
@@ -3030,21 +3036,21 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "rltests/del_jupyter_temp.pyx":12
+  /* "rltools/del_jupyter_temp.pyx":12
  *     "-r", "--root", required=True, help="scan the temp dirs in the path"
  * )
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")             # <<<<<<<<<<<<<<
- * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")             # <<<<<<<<<<<<<<
+ * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")
  * args = parser.parse_args()
  */
   __pyx_tuple__7 = PyTuple_Pack(2, __pyx_kp_s_o, __pyx_kp_s_op_2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "rltests/del_jupyter_temp.pyx":13
+  /* "rltools/del_jupyter_temp.pyx":13
  * )
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
- * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")             # <<<<<<<<<<<<<<
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")
+ * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")             # <<<<<<<<<<<<<<
  * args = parser.parse_args()
  * 
  */
@@ -3052,7 +3058,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "rltests/del_jupyter_temp.pyx":17
+  /* "rltools/del_jupyter_temp.pyx":17
  * 
  * 
  * def del_jupyter_temp() -> None:             # <<<<<<<<<<<<<<
@@ -3062,7 +3068,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_op, __pyx_n_s_iters, __pyx_n_s_i); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_rltests_del_jupyter_temp_pyx, __pyx_n_s_del_jupyter_temp, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_rltools_del_jupyter_temp_pyx, __pyx_n_s_del_jupyter_temp, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3401,14 +3407,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_rltests__del_jupyter_temp) {
+  if (__pyx_module_is_main_rltools__del_jupyter_temp) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name_2, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "rltests.del_jupyter_temp")) {
-      if (unlikely((PyDict_SetItemString(modules, "rltests.del_jupyter_temp", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "rltools.del_jupyter_temp")) {
+      if (unlikely((PyDict_SetItemString(modules, "rltools.del_jupyter_temp", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -3429,7 +3435,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "rltests/del_jupyter_temp.pyx":1
+  /* "rltools/del_jupyter_temp.pyx":1
  * import argparse             # <<<<<<<<<<<<<<
  * import os
  * import os.path as osp
@@ -3439,7 +3445,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_argparse, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":2
+  /* "rltools/del_jupyter_temp.pyx":2
  * import argparse
  * import os             # <<<<<<<<<<<<<<
  * import os.path as osp
@@ -3450,7 +3456,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_2) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":3
+  /* "rltools/del_jupyter_temp.pyx":3
  * import argparse
  * import os
  * import os.path as osp             # <<<<<<<<<<<<<<
@@ -3462,7 +3468,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_osp, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":4
+  /* "rltools/del_jupyter_temp.pyx":4
  * import os
  * import os.path as osp
  * from glob import glob             # <<<<<<<<<<<<<<
@@ -3483,7 +3489,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":5
+  /* "rltools/del_jupyter_temp.pyx":5
  * import os.path as osp
  * from glob import glob
  * import shutil             # <<<<<<<<<<<<<<
@@ -3495,7 +3501,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_shutil, __pyx_t_3) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":8
+  /* "rltools/del_jupyter_temp.pyx":8
  * 
  * 
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")             # <<<<<<<<<<<<<<
@@ -3513,7 +3519,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_parser, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":9
+  /* "rltools/del_jupyter_temp.pyx":9
  * 
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")
  * parser.add_argument(             # <<<<<<<<<<<<<<
@@ -3526,19 +3532,19 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":10
+  /* "rltools/del_jupyter_temp.pyx":10
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")
  * parser.add_argument(
  *     "-r", "--root", required=True, help="scan the temp dirs in the path"             # <<<<<<<<<<<<<<
  * )
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_required, Py_True) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_help, __pyx_kp_s_scan_the_temp_dirs_in_the_path) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "rltests/del_jupyter_temp.pyx":9
+  /* "rltools/del_jupyter_temp.pyx":9
  * 
  * parser = argparse.ArgumentParser("delete_jupyter_temp_dirs")
  * parser.add_argument(             # <<<<<<<<<<<<<<
@@ -3551,11 +3557,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":12
+  /* "rltools/del_jupyter_temp.pyx":12
  *     "-r", "--root", required=True, help="scan the temp dirs in the path"
  * )
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")             # <<<<<<<<<<<<<<
- * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")             # <<<<<<<<<<<<<<
+ * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")
  * args = parser.parse_args()
  */
   __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_parser); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
@@ -3566,17 +3572,17 @@ if (!__Pyx_RefNanny) {
   __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_default, __pyx_n_s_del) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_help, __pyx_kp_s_scan_the_temp_dirs_in_the_path) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_help, __pyx_kp_s_operation_show_or_del) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__7, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":13
+  /* "rltools/del_jupyter_temp.pyx":13
  * )
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
- * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")             # <<<<<<<<<<<<<<
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")
+ * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")             # <<<<<<<<<<<<<<
  * args = parser.parse_args()
  * 
  */
@@ -3588,16 +3594,16 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_default, __pyx_kp_s_ipynb_checkpoints) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_help, __pyx_kp_s_key_words) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_help, __pyx_kp_s_name_key_words) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__8, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":14
- * parser.add_argument("-o", "--op", default="del", help="scan the temp dirs in the path")
- * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="key words")
+  /* "rltools/del_jupyter_temp.pyx":14
+ * parser.add_argument("-o", "--op", default="del", help="operation:show or del")
+ * parser.add_argument("-n", "--name", default=".*ipynb_checkpoints", help="name key words")
  * args = parser.parse_args()             # <<<<<<<<<<<<<<
  * 
  * 
@@ -3613,7 +3619,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_args, __pyx_t_3) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":17
+  /* "rltools/del_jupyter_temp.pyx":17
  * 
  * 
  * def del_jupyter_temp() -> None:             # <<<<<<<<<<<<<<
@@ -3623,14 +3629,14 @@ if (!__Pyx_RefNanny) {
   __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, __pyx_n_s_None) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7rltests_16del_jupyter_temp_1del_jupyter_temp, 0, __pyx_n_s_del_jupyter_temp, NULL, __pyx_n_s_rltests_del_jupyter_temp, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7rltools_16del_jupyter_temp_1del_jupyter_temp, 0, __pyx_n_s_del_jupyter_temp, NULL, __pyx_n_s_rltools_del_jupyter_temp, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_del_jupyter_temp, __pyx_t_2) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rltests/del_jupyter_temp.pyx":31
+  /* "rltools/del_jupyter_temp.pyx":31
  * 
  * 
  * if __name__ == "__main__":             # <<<<<<<<<<<<<<
@@ -3642,7 +3648,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
 
-    /* "rltests/del_jupyter_temp.pyx":32
+    /* "rltools/del_jupyter_temp.pyx":32
  * 
  * if __name__ == "__main__":
  *     del_jupyter_temp()             # <<<<<<<<<<<<<<
@@ -3654,7 +3660,7 @@ if (!__Pyx_RefNanny) {
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "rltests/del_jupyter_temp.pyx":31
+    /* "rltools/del_jupyter_temp.pyx":31
  * 
  * 
  * if __name__ == "__main__":             # <<<<<<<<<<<<<<
@@ -3662,7 +3668,7 @@ if (!__Pyx_RefNanny) {
  */
   }
 
-  /* "rltests/del_jupyter_temp.pyx":1
+  /* "rltools/del_jupyter_temp.pyx":1
  * import argparse             # <<<<<<<<<<<<<<
  * import os
  * import os.path as osp
@@ -3681,7 +3687,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init rltests.del_jupyter_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init rltools.del_jupyter_temp", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -3695,7 +3701,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init rltests.del_jupyter_temp");
+    PyErr_SetString(PyExc_ImportError, "init rltools.del_jupyter_temp");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
