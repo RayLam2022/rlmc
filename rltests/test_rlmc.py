@@ -7,7 +7,7 @@ from rlmc import cfg
 from rlmc import reg
 
 def test_yaml():
-    file_processor = reg["file_processor"]
+    file_processor = reg.file_processor
     yamlobj = file_processor("rlmc/configs/common_urls.yaml")
     yaml_content = yamlobj.data
     assert yaml_content != "", "yaml content is empty"

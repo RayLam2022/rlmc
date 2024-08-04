@@ -93,24 +93,33 @@ class MsDownload:
         ms_download.run()
     """
 
-    def __init__(self, repo_id, cache_dir, ignore_file_pattern) -> None:
+    def __init__(
+        self,
+        repo_id: str,
+        cache_dir: str,
+        ignore_file_pattern: List[str] = ["*.h5", "*safetensors", "*msgpack"],
+    ) -> None:
         self.repo_id = repo_id
-        self.cache_dir=cache_dir
-        self.ignore_file_pattern=ignore_file_pattern
+        self.cache_dir = cache_dir
+        self.ignore_file_pattern = ignore_file_pattern
 
     def run(self) -> None:
         from modelscope import snapshot_download as ms_snapshot_download
 
         logger.info(f"************ Start downloading {self.repo_id} ************")
-        model_dir = ms_snapshot_download(self.repo_id, cache_dir=self.cache_dir,ignore_file_pattern=self.ignore_file_pattern)
+        model_dir = ms_snapshot_download(
+            self.repo_id,
+            cache_dir=self.cache_dir,
+            ignore_file_pattern=self.ignore_file_pattern,
+        )
         logger.info(f"************ {self.repo_id} Download finish ************")
         logger.info(f"Models saved in {model_dir}")
 
 
 class AutodlDownload:
-    def __init__(self, repo_id, target_directory) -> None:
+    def __init__(self, repo_id: str, target_directory: str) -> None:
         self.repo_id = repo_id
-        self.target_directory=target_directory
+        self.target_directory = target_directory
 
     def run(self) -> None:
         import codewithgpu as cg

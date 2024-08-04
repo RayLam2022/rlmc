@@ -1,15 +1,16 @@
-'''
+"""
 @File    :   json_op.py
 @Time    :   2024/07/02 22:13:11
 @Author  :   RayLam
 @Contact :   1027196450@qq.com
-'''
+"""
 
 import sys
 
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Union, Dict, List
 import os
 import json
 
@@ -37,15 +38,18 @@ class Json(AbstractFile):
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    def read(self,file_path: str = ""):
+    def read(self, file_path: str = "") -> Union[Dict, List]:
         with open(file_path, self.mode, encoding=self.encoding) as f:
             data = json.load(f)
         return data
 
-    def write(self, data, file_path: str, mode: str = "w", encoding: str = "utf-8", indent: int = 2) -> None:
+    def write(
+        self,
+        data: Union[Dict, List],
+        file_path: str,
+        mode: str = "w",
+        encoding: str = "utf-8",
+        indent: int = 2,
+    ) -> None:
         with open(file_path, mode, encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False, indent=indent)
-
-
-
-    

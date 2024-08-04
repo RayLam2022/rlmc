@@ -3,13 +3,17 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Literal, Optional, Union
+
 import os
 import os.path as osp
 
 __all__ = ["condarc", "pip", "cuda"]
 
 
-def get_resource(path, returntype="content"):
+def get_resource(
+    path: str, returntype: Literal["content", "list"] = "content"
+) -> Optional[str]:
     with open(path, "r", encoding="utf-8") as f:
         if returntype == "list":
             return f.readlines()

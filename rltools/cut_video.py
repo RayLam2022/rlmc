@@ -30,7 +30,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def main():
+def main() -> None:
     # 打开音视频文件
     container = av.open(args.input_file)
 

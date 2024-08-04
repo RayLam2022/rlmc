@@ -1,5 +1,6 @@
 # ref: https://juejin.cn/post/7374055681890795555
 
+from typing import Callable, Any
 import random
 import time
 
@@ -12,18 +13,18 @@ users_db = {"user-a": "123password", "user-b": "456password", "user-c": "789pass
 login_counter = {}
 
 
-def generate_captcha():
+def generate_captcha() -> str:
     """生成四位数字的验证码"""
     return str(random.randint(1000, 9999))
 
 
-def verify_captcha(captcha_input, captcha_actual):
+def verify_captcha(captcha_input: str, captcha_actual: str) -> bool:
     """验证用户输入的验证码是否正确"""
     return captcha_input == captcha_actual
 
 
-def user_login(func):
-    def wrapper(*args, **kwargs):
+def user_login(func: Callable) -> Callable:
+    def wrapper(*args, **kwargs) -> Any:
         while True:
             """输入用户登录信息"""
             username = input("请输入用户名：")

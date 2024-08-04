@@ -25,7 +25,7 @@ if args.XDG_CACHE_HOME:
     os.environ["MODELSCOPE_CACHE"] = os.path.join(args.XDG_CACHE_HOME, "modelscope")
 
 
-def main():
+def main() -> None:
     print("sys XDG_CACHE_HOME: ", os.environ.get("XDG_CACHE_HOME"))
     if args.method == "hf":
         dl = HfDownload(

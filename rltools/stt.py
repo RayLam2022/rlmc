@@ -5,6 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
+from typing import Optional, Union, List, Dict
 import argparse
 import time
 
@@ -53,7 +54,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-signal=0
+signal = 0
 INT16_MAX_ABS_VALUE = 32768.0
 CHUNK = 512
 FORMAT = pyaudio.paInt16
@@ -66,7 +67,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 stt_model = WhisperModel(model_size, device=device, compute_type="float16")
 
 
-def on_press(key):
+def on_press(key: pynput.keyboard.Key) -> Optional[bool]:
     if key == pynput.keyboard.Key.esc:
         global signal
         signal = 1
@@ -77,13 +78,13 @@ def on_press(key):
     # print("Key {0} pressed".format(key))
 
 
-def kb_listener():
+def kb_listener() -> None:
     listener = pynput.keyboard.Listener(on_press=on_press)
     listener.start()
     listener.join()
 
 
-def speech_to_text():
+def speech_to_text() -> str:
     # 创建一个PyAudio对象
     p = pyaudio.PyAudio()
 
@@ -101,16 +102,16 @@ def speech_to_text():
     counter = 0
     unit = RATE // CHUNK
     text = ""
-    start=time.time()
-    print('start record...')
+    start = time.time()
+    print("start record...")
     while True:
         audio_data = stream.read(CHUNK)
         audio_collector.append(audio_data)
         counter += 1
-        if counter % (int(unit * args.record_time)+1) == 0:
+        if counter % (int(unit * args.record_time) + 1) == 0:
             audio_collector = np.frombuffer(b"".join(audio_collector), dtype=np.int16)
             audio_collector = audio_collector.astype(np.float32) / INT16_MAX_ABS_VALUE
-            print('record time: ', time.time()-start)
+            print("record time: ", time.time() - start)
             segments, info = stt_model.transcribe(
                 audio_collector,
                 language=args.record_src_language,
@@ -132,11 +133,11 @@ def speech_to_text():
     stream.stop_stream()
     stream.close()
     p.terminate()
-    
+
     return text
 
 
-def main():
+def main() -> None:
     global signal
 
     print("record_lang: ", args.record_src_language)
@@ -165,13 +166,13 @@ def main():
         kb_listener()
         if signal == 1:
             break
-        text=speech_to_text()
-        print('record is done')
-        translated_text=''
-        if args.is_translate and text!='':
+        text = speech_to_text()
+        print("record is done")
+        translated_text = ""
+        if args.is_translate and text != "":
             for tl in translator(text):
                 translated_text += tl["translation_text"]
-            print('sequence is translated')
+            print("sequence is translated")
             text = translated_text
         pyperclip.copy(text)
 

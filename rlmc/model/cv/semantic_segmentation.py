@@ -1,10 +1,11 @@
-'''
+"""
 @File    :   semantic_segmentation.py
 @Time    :   2024/06/30 00:24:37
 @Author  :   RayLam
 @Contact :   1027196450@qq.com
-'''
+"""
 
+from typing import Union, Dict, List
 
 import torch
 import torch.nn as nn
@@ -31,7 +32,7 @@ seg_models = {
 
 
 class SemanticSegmentationModel(nn.Module):
-    def __init__(self, configs):
+    def __init__(self, configs: Dict) -> None:
         super().__init__()
         # model_ref: https://github.com/qubvel/segmentation_models.pytorch
         self.args = configs
@@ -46,6 +47,6 @@ class SemanticSegmentationModel(nn.Module):
             activation=self.args.model.activation,
         )
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         out = self.model(x)
         return out

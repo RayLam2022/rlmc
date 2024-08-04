@@ -7,7 +7,8 @@
 
 import sys
 
-if '.' not in sys.path: sys.path.append(".")
+if "." not in sys.path:
+    sys.path.append(".")
 
 import asyncio
 import contextvars
@@ -15,6 +16,7 @@ import functools
 import time
 import random
 from abc import ABC, abstractmethod
+from typing import Callable, Union, Dict, List, Any
 
 
 from rlmc.utils.logger import Logger
@@ -59,25 +61,25 @@ class AsyncTasks:
         print(time.time() - start)
     """
 
-    def __init__(self, semaphore_num):
+    def __init__(self, semaphore_num: int) -> None:
         self.semaphore_num = semaphore_num
 
-    async def _async_wrapper(self, sync_func, *args, **kwargs):
+    async def _async_wrapper(self, sync_func: Callable, *args, **kwargs):
         coroutine = await async_to_thread(sync_func, *args, **kwargs)
         return coroutine
 
-    async def _semaphore(self, semaphore, task):
+    async def _semaphore(self, semaphore: asyncio.Semaphore, task: asyncio.Task):
         # 控制异步并发数，with semaphore要套每个task
         async with semaphore:
             return await task
 
-    async def create_task(self, sync_func, *args, **kwargs):
+    async def create_task(self, sync_func: Callable, *args, **kwargs) -> asyncio.Task:
         task = await asyncio.create_task(
             self._async_wrapper(sync_func, *args, **kwargs)
         )
         return task
 
-    async def main(self, *tasks):
+    async def main(self, *tasks) -> Any:
         # semaphore初始化要在gather前
         semaphore = asyncio.Semaphore(self.semaphore_num)
         tasks = [self._semaphore(semaphore, task) for task in tasks]
@@ -119,14 +121,14 @@ class AsyncProducerConsumer:
         self.consumer_func = consumer_func
         self.result = {}
 
-    async def producer(self, name, queue, elem_idx, elem, semaphore):
+    async def producer(self, name, queue: asyncio.Queue, elem_idx, elem, semaphore):
         async with semaphore:
             coroutine = async_to_thread(self.producer_func, elem)
             item = await asyncio.create_task(coroutine)
             await queue.put((elem_idx, elem, item))
             logger.info(f"{name} is produced item: {item}")
 
-    async def consumer(self, name, queue):
+    async def consumer(self, name, queue: asyncio.Queue):
         while True:
             elem_idx, elem, item = await queue.get()
             res = await asyncio.create_task(async_to_thread(self.consumer_func, item))

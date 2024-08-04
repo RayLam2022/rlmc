@@ -44,7 +44,7 @@ class MyDataSet(Data.Dataset):
         self.dec_inputs = dec_inputs
         self.dec_outputs = dec_outputs
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.enc_inputs.shape[0]
 
     def __getitem__(self, idx):

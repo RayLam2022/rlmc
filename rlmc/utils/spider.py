@@ -18,6 +18,7 @@ import functools
 import os
 import os.path as osp
 import re
+from typing import Callable, List, Tuple, Dict, Union, Optional, Generator
 
 import requests
 import aiohttp
@@ -67,10 +68,10 @@ class Spider:
 
     def __init__(
         self,
-        url_list,
-        producer_semaphore_num,
-        consumer_func,
-        consumer_semaphore_num,
+        url_list: List,
+        producer_semaphore_num: int,
+        consumer_func: Callable,
+        consumer_semaphore_num: int,
     ):
         self.__dict__.update(self._default)
         self.url_list = url_list
@@ -80,7 +81,7 @@ class Spider:
         self.result = {}
 
     @classmethod
-    def _get_contents(cls, res):
+    def _get_contents(cls, res: requests.Response) -> Optional[str]:
         """
         从response decode内容，编码处理
         """
@@ -94,7 +95,9 @@ class Spider:
         return decodedata
 
     @classmethod
-    def _gen_next_page(cls, host_url, start_url, end_url, next_page_xpath):
+    def _gen_next_page(
+        cls, host_url: str, start_url: str, end_url: str, next_page_xpath: str
+    ) -> Generator:
         current_url = start_url
         while True:
             yield current_url
@@ -135,11 +138,21 @@ class Spider:
             current_url = next_url
 
     @classmethod
-    def get_all_urls(cls, host_url, start_url, end_url, xpath):
+    def get_all_urls(
+        cls, host_url: str, start_url: str, end_url: str, xpath: str
+    ) -> List:
         generator = cls._gen_next_page(host_url, start_url, end_url, xpath)
         return [url for url in generator]
 
-    async def producer(self, name, queue, elem_idx, url, semaphore, session):
+    async def producer(
+        self,
+        name: str,
+        queue: asyncio.Queue,
+        elem_idx: int,
+        url: str,
+        semaphore: asyncio.Semaphore,
+        session: aiohttp.ClientSession,
+    ):
         async with semaphore:
             async with session.get(url) as response:
                 print(response.status)
@@ -149,7 +162,7 @@ class Spider:
                 await queue.put((elem_idx, url, resp))
                 logger.info(f"{name} is produced item: {url}")
 
-    async def consumer(self, name, queue):
+    async def consumer(self, name: str, queue: asyncio.Queue):
         #### 看情况改 ####
         # 异步处理只要改consumer即可
         #### 看情况改 ####
@@ -203,7 +216,7 @@ class Spider:
         await self.run()
 
 
-def sync_co_task(url, resp):
+def sync_co_task(url: str, resp: Dict):
     print("--------------------------")
     # print(type(resp['text']))
     data = etree.HTML(resp["text"])

@@ -9,6 +9,7 @@ import argparse
 import math
 import time
 import copy
+from typing import Union, Optional, Dict, List, Tuple, Sequence
 
 import cv2
 import pynput
@@ -48,14 +49,16 @@ args = parser.parse_args()
 
 
 class Command:
-    def __init__(self):
+    def __init__(self) -> None:
         self.mouse = pynput.mouse.Controller()
         self.keyboard = pynput.keyboard.Controller()
 
-    def _distance(self, point1, point2):
+    def _distance(self, point1: Sequence, point2: Sequence) -> float:
         return (point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2
 
-    def condition(self, collector, img, screen_width, screen_height):
+    def condition(
+        self, collector: Dict, img: np.ndarray, screen_width: int, screen_height: int
+    ) -> np.ndarray:
         """judge the condition to do which command
 
         Args:
@@ -168,49 +171,49 @@ class Command:
 
         return img
 
-    def _move(self, point):
+    def _move(self, point: Sequence) -> None:
         self.mouse.position = (point[0], point[1])
         # time.sleep(1)
 
-    def _lclick(self):
+    def _lclick(self) -> None:
         self.mouse.click(Button.left)
         time.sleep(1)
 
-    def _rclick(self):
+    def _rclick(self) -> None:
         self.mouse.click(Button.right)
         time.sleep(1)
 
-    def _double_click(self):
+    def _double_click(self) -> None:
         self.mouse.click(Button.left, 2)
         time.sleep(1)
 
-    def _drag(self, point):
+    def _drag(self, point: Sequence) -> None:
         self.mouse.press(Button.left)
         time.sleep(1)
 
-    def _release(self):
+    def _release(self) -> None:
         self.mouse.release(Button.left)
         time.sleep(1)
 
-    def _scroll(self, point, screen_height):
+    def _scroll(self, point: Sequence, screen_height: int) -> None:
         if point[1] > screen_height * 0.75:
             self.mouse.scroll(0, -1)
         else:
             self.mouse.scroll(0, 1)
 
-    def _switch(self):
+    def _switch(self) -> None:
         self.keyboard.press(Key.alt)
         self.keyboard.press(Key.tab)
         self.keyboard.release(Key.alt)
         self.keyboard.release(Key.tab)
         time.sleep(1)
 
-    def _sound_control(self):
+    def _sound_control(self) -> None:
         pass
 
 
 class HandControl(Command):
-    def __init__(self, camera_id=0):
+    def __init__(self, camera_id: int = 0) -> None:
         super().__init__()
         self.cap = cv2.VideoCapture(camera_id)
         self.cap_width = int(self.cap.get(3))
@@ -277,12 +280,12 @@ class HandControl(Command):
         #     "PINKY_TIP": 20,
         # }
 
-    def _get_screen_size(self):
+    def _get_screen_size(self) -> Tuple[int, int]:
         screen = ImageGrab.grab()
         screen_width, screen_height = screen.size
         return int(screen_width), int(screen_height)
 
-    def _hand(self, img):
+    def _hand(self, img: np.ndarray) -> np.ndarray:
         self.hand_data = self.hand_detector.process(img)
         cv2.rectangle(
             img,
@@ -353,7 +356,7 @@ class HandControl(Command):
 
         return img
 
-    def _face(self, img):
+    def _face(self, img: np.ndarray) -> np.ndarray:
         results = self.face_mesh.process(img)
         if results.multi_face_landmarks:
             for face_landmarks in results.multi_face_landmarks:
@@ -384,7 +387,7 @@ class HandControl(Command):
 
         return img
 
-    def _pose(self, img):
+    def _pose(self, img: np.ndarray) -> np.ndarray:
         results = self.pose.process(img)
         if results.pose_landmarks:
             for pose_landmarks in results.pose_landmarks.landmark:
@@ -396,24 +399,29 @@ class HandControl(Command):
 
         return img
 
-    def _mapping(self, x, y):
+    def _mapping(self, x: Union[int, float], y: Union[int, float]) -> Tuple[int, int]:
         return int((x - self.action_zone[0]) * self.scale[0]), int(
             (y - self.action_zone[1]) * self.scale[1]
         )
 
-    def _check_is_in_area(self, point, area_center_point, area_radius):
+    def _check_is_in_area(
+        self,
+        point: Sequence,
+        area_center_point: Sequence,
+        area_radius: Union[float, int],
+    ) -> bool:
         distance = (point[0] - area_center_point[0]) ** 2 + (
             point[1] - area_center_point[1]
         ) ** 2
         return distance <= area_radius**2
 
-    def _check_screen_xy(self, x, y):
+    def _check_screen_xy(self, x: Union[int, float], y: Union[int, float]):
         if 0 <= x <= self.screen_width and 0 <= y <= self.screen_height:
             return True
         else:
             return False
 
-    def run(self):
+    def run(self) -> None:
         while True:
             success, img = self.cap.read()
             img = cv2.flip(img, 1)
@@ -438,7 +446,7 @@ class HandControl(Command):
         cv2.destroyAllWindows()
 
 
-def main():
+def main() -> None:
     handcontrol = HandControl()
     handcontrol.run()
 

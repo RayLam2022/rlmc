@@ -10,6 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Union, Dict, List, Tuple, Any
 import os
 import pickle
 
@@ -35,11 +36,11 @@ class Pickle(AbstractFile):
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    def read(self,file_path: str=""):
+    def read(self, file_path: str = "") -> Any:
         with open(file_path, self.mode) as f:
             data = pickle.load(f)
         return data
 
-    def write(self, data, file_path: str, mode: str = "wb"):
+    def write(self, data: Any, file_path: str, mode: str = "wb") -> None:
         with open(file_path, mode) as f:
             pickle.dump(data, f)

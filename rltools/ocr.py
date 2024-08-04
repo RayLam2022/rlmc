@@ -12,6 +12,7 @@ import sys
 import time
 import io
 import argparse
+from typing import Sequence, Union, List, Tuple, Optional, Dict, Any
 
 import cv2
 from PIL import ImageGrab
@@ -62,7 +63,7 @@ args = parser.parse_args()
 signal = 0
 
 
-def check_bbox(bbox):
+def check_bbox(bbox: Sequence) -> bool:
     if bbox[0] < 0 or bbox[1] < 0 or bbox[2] < 0 or bbox[3] < 0:
         return False
     if bbox[0] > bbox[2] or bbox[1] >= bbox[3]:
@@ -70,7 +71,7 @@ def check_bbox(bbox):
     return True
 
 
-def get_screenshot(bbox):
+def get_screenshot(bbox: Sequence) -> np.ndarray:
     byteImgIO = io.BytesIO()
     img = ImageGrab.grab(bbox)
     img.save(byteImgIO, format="PNG")
@@ -79,7 +80,7 @@ def get_screenshot(bbox):
     return img
 
 
-def on_click(x, y, button, pressed):
+def on_click(x, y, button, pressed) -> Optional[bool]:
     global bbox
     if not pressed:
         bbox[2:] = [x, y]
@@ -88,7 +89,7 @@ def on_click(x, y, button, pressed):
         bbox[0:2] = [x, y]
 
 
-def on_press(key):
+def on_press(key: pynput.keyboard.Key) -> Optional[bool]:
     if key == pynput.keyboard.Key.esc:
         global signal
         signal = 1
@@ -100,19 +101,19 @@ def on_press(key):
     # print("Key {0} pressed".format(key))
 
 
-def ms_listener():
+def ms_listener() -> None:
     listener = pynput.mouse.Listener(on_click=on_click)
     listener.start()
     listener.join()
 
 
-def kb_listener():
+def kb_listener() -> None:
     listener = pynput.keyboard.Listener(on_press=on_press)
     listener.start()
     listener.join()
 
 
-def main():
+def main() -> None:
     global signal
     global bbox
     print("lang: ", args.language)

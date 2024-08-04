@@ -10,6 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Callable, Optional, Union, List
 import multiprocessing as mp
 import os
 import os.path as osp
@@ -79,8 +80,8 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 stt_model = WhisperModel(model_size, device=device, compute_type="float16")
 
 
-def on_press_wrapper(signal):
-    def on_press(key):
+def on_press_wrapper(signal: mp.Value) -> Callable:
+    def on_press(key: pynput.keyboard.Key) -> Optional[bool]:
         nonlocal signal
         if key == pynput.keyboard.Key.esc:
             signal.value = -1
@@ -111,7 +112,7 @@ def camera():
 def execute_instructions(): ...
 
 
-def kb_listener(signal):
+def kb_listener(signal: mp.Value) -> None:
     listener = pynput.keyboard.Listener(on_press=on_press_wrapper(signal))
     listener.start()
     listener.join()

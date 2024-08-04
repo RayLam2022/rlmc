@@ -5,6 +5,7 @@
 @Contact :   1027196450@qq.com
 """
 
+from typing import Union, List, Dict
 import os
 import os.path as osp
 import glob
@@ -34,15 +35,15 @@ class DatasetSplit:
 
     def __init__(
         self,
-        img_dir,
-        label_dir,
-        img_exts=["*.jpg"],
-        label_ext="*.png",
-        split={"train": 0.8, "val": 0.1, "test": 0.1},
-        is_shuffle=True,
-        random_seed=123,
-        is_split_name_up=True,
-    ):
+        img_dir: str,
+        label_dir: str,
+        img_exts: List[str] = ["*.jpg"],
+        label_ext: str = "*.png",
+        split: Dict[str, float] = {"train": 0.8, "val": 0.1, "test": 0.1},
+        is_shuffle: bool = True,
+        random_seed: int = 123,
+        is_split_name_up: bool = True,
+    ) -> None:
         if sum(split.values()) != 1:
             raise ValueError("split values must sum to 1")
         self.img_dir = img_dir
@@ -58,13 +59,15 @@ class DatasetSplit:
             random.seed(random_seed)
             random.shuffle(self.pairs)
 
-    def _collect_files(self, directory, exts=["*.jpg", "*.png"]):
+    def _collect_files(
+        self, directory: str, exts: List[str] = ["*.jpg", "*.png"]
+    ) -> List[str]:
         files = []
         for ext in exts:
             files.extend(glob.glob(osp.join(directory, ext)))
         return files
 
-    def _pair_files(self):
+    def _pair_files(self) -> List:
         pairs = []
         for img_file in self.img_files:
             label_file = osp.join(
@@ -75,7 +78,7 @@ class DatasetSplit:
                 pairs.append((img_file, label_file))
         return pairs
 
-    def _split_files(self):
+    def _split_files(self) -> None:
         img_lab = ["images", "labels"]  # 可改此处改目录文件夹名
 
         lenth = len(self.pairs)
@@ -112,7 +115,7 @@ class DatasetSplit:
                 counter += 1
         print("counter:", counter, "  data_total_lenth:", lenth)
 
-    def process(self):
+    def process(self) -> None:
         self._split_files()
         print("Done!")
 
@@ -131,13 +134,13 @@ class FindContent:
 
     def __init__(
         self,
-        content,
-        file_dir,
-        exts=["*.conf", "*.py"],
-        encoding="utf-8",
-        is_use_regex=False,
-        is_recursive=True,
-    ):
+        content: str,
+        file_dir: str,
+        exts: List[str] = ["*.conf", "*.py"],
+        encoding: str = "utf-8",
+        is_use_regex: bool = False,
+        is_recursive: bool = True,
+    ) -> None:
         self.content = content
         self.file_dir = file_dir
         self.exts = exts
@@ -145,7 +148,7 @@ class FindContent:
         self.is_use_regex = is_use_regex
         self.is_recursive = is_recursive
 
-    def find_string_in_file(self, file_path, search_string):
+    def find_string_in_file(self, file_path: str, search_string: str) -> bool:
         with open(file_path, "r", encoding=self.encoding) as file:
             for line in file.readlines():
                 if self.is_use_regex:
@@ -156,7 +159,7 @@ class FindContent:
                         return True
         return False
 
-    def process(self):
+    def process(self) -> List[str]:
         files = []
         for ext in self.exts:
             if self.is_recursive:

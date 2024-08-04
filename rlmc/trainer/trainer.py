@@ -10,6 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Union, Dict, List, Tuple
 import time
 import os
 import os.path as osp
@@ -49,7 +50,7 @@ logger = Logger(__name__, level=Logger.INFO)
 class BaseTrainer:
     def __init__(self): ...
 
-    def model_summary(self):
+    def model_summary(self) -> None:
         print("model summary:")
         summary(
             self.model,
@@ -74,7 +75,14 @@ class BaseTrainer:
 
 
 class Trainer(BaseTrainer):
-    def __init__(self, configs, model, train_dataset, val_dataset, device):
+    def __init__(
+        self,
+        configs: Dict,
+        model: torch.nn.Module,
+        train_dataset: torch.utils.data.Dataset,
+        val_dataset: torch.utils.data.Dataset,
+        device: str,
+    ) -> None:
         self.args = configs
         self.model = model.to(device)
         timestamp = time.time()
@@ -119,7 +127,7 @@ class Trainer(BaseTrainer):
         if self.args.train.show_model_summary:
             self.model_summary()
 
-    def train(self):
+    def train(self) -> None:
         for epoch in range(self.args.train.max_epochs):
             self.model.train()
             for batch_idx, (data, target) in enumerate(self.train_loader):
@@ -183,7 +191,7 @@ class Trainer(BaseTrainer):
                 ) or epoch == self.args.train.max_epochs - 1:
                     self.evaluate(epoch, is_training=True)
 
-    def evaluate(self, epoch=10000000, is_training=False):
+    def evaluate(self, epoch: int = 10000000, is_training: bool = False) -> None:
         if not is_training:
             state_dict = torch.load(self.args.eval.restore_model_path)
             self.model.load_state_dict(state_dict, strict=True)
@@ -245,7 +253,7 @@ class Trainer(BaseTrainer):
 
 
 class Predict(BaseTrainer):
-    def __init__(self, configs, model, device):
+    def __init__(self, configs: Dict, model: torch.nn.Module, device: str) -> None:
         self.args = configs
         self.model = model
         self.device = device
@@ -298,7 +306,9 @@ class Predict(BaseTrainer):
             ]
         ).astype(np.uint8)
 
-    def predict(self, img_path, is_save=False, is_show=True):
+    def predict(
+        self, img_path: str, is_save: bool = False, is_show: bool = True
+    ) -> None:
         filename = osp.splitext(osp.basename(img_path))[0]
         with torch.no_grad():
             img = Image.open(img_path)

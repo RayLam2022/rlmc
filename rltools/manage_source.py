@@ -10,12 +10,12 @@ import os.path as osp
 from rlmc.resource import condarc, pip
 
 parser = argparse.ArgumentParser("manage source")
-parser.add_argument(
-    "-s", "--source", default='pip', help="pip, conda, apt"
-)
+parser.add_argument("-s", "--source", default="pip", help="pip, conda, apt")
 args = parser.parse_args()
 
-codename=os.popen('cat /etc/os-release | grep UBUNTU_CODENAME').read().strip().split("=")[1]
+codename = (
+    os.popen("cat /etc/os-release | grep UBUNTU_CODENAME").read().strip().split("=")[1]
+)
 apt = f"deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ {codename} main restricted\n \
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ {codename}-updates main restricted\n \
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ {codename} universe\n \
@@ -28,7 +28,7 @@ deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ {codename}-security universe\n \
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ {codename}-security multiverse"
 
 
-def manage_source():
+def manage_source() -> None:
     if platform.system() == "Windows":
         pip_src = osp.join(osp.expanduser("~"), "pip/pip.ini")
     elif platform.system() == "Linux":
@@ -56,21 +56,20 @@ def manage_source():
         if command == "y":
             with open(conda_src, "w") as f:
                 f.write(condarc)
-    
+
     elif args.source == "apt":
         if platform.system() == "Linux":
-            apt_src='/etc/apt/sources.list'
+            apt_src = "/etc/apt/sources.list"
             if osp.exists(apt_src):
                 print("####################### apt ori src #######################\n")
                 with open(apt_src, "r") as f:
                     print(f.read())
             command = input("change apt source? (y/n):")
             if command == "y":
-                if not osp.exists('/etc/apt/sources.list.bak'):
-                    os.system(f'cp {apt_src} /etc/apt/sources.list.bak')
+                if not osp.exists("/etc/apt/sources.list.bak"):
+                    os.system(f"cp {apt_src} /etc/apt/sources.list.bak")
                 with open(apt_src, "w") as f:
                     f.write(apt)
-
 
 
 if __name__ == "__main__":

@@ -10,12 +10,12 @@ __all__ = ["metrics"]
 
 
 class SegmentationMetric:
-    def __init__(self, numClass):
+    def __init__(self, numClass: int) -> None:
         self.numClass = numClass
         self.confusionMatrix = np.zeros((self.numClass,) * 2)  # 混淆矩阵n*n，初始值全0
 
     # 像素准确率PA，预测正确的像素/总像素
-    def pixelAccuracy(self):
+    def pixelAccuracy(self) -> float:
         # return all class overall pixel accuracy
         # acc = (TP + TN) / (TP + TN + FP + TN)
         acc = np.diag(self.confusionMatrix).sum() / self.confusionMatrix.sum()
@@ -37,7 +37,7 @@ class SegmentationMetric:
         return meanAcc
 
     # MIoU
-    def meanIntersectionOverUnion(self):
+    def meanIntersectionOverUnion(self) -> float:
         # Intersection = TP Union = TP + FP + FN
         # IoU = TP / (TP + FP + FN)
         intersection = np.diag(self.confusionMatrix)
@@ -52,7 +52,7 @@ class SegmentationMetric:
         return mIoU
 
     # 根据标签和预测图片返回其混淆矩阵
-    def genConfusionMatrix(self, imgPredict, imgLabel):
+    def genConfusionMatrix(self, imgPredict: np.ndarray, imgLabel: np.ndarray):
         # remove classes from unlabeled pixels in gt image and predict
         mask = (imgLabel >= 0) & (imgLabel < self.numClass)
         label = self.numClass * imgLabel[mask].astype(int) + imgPredict[mask]
@@ -60,7 +60,7 @@ class SegmentationMetric:
         confusionMatrix = count.reshape(self.numClass, self.numClass)
         return confusionMatrix
 
-    def Frequency_Weighted_Intersection_over_Union(self):
+    def Frequency_Weighted_Intersection_over_Union(self) -> float:
         # FWIOU = [(TP+FN)/(TP+FP+TN+FN)] *[TP / (TP + FP + FN)]
         freq = np.sum(self.confusionMatrix, axis=1) / np.sum(self.confusionMatrix)
         iu = np.diag(self.confusionMatrix) / (
@@ -71,11 +71,11 @@ class SegmentationMetric:
         FWIoU = (freq[freq > 0] * iu[freq > 0]).sum()
         return FWIoU
 
-    def addBatch(self, imgPredict, imgLabel):
+    def addBatch(self, imgPredict: np.ndarray, imgLabel: np.ndarray) -> None:
         assert imgPredict.shape == imgLabel.shape  # 确认标签和预测值图片大小相等
         self.confusionMatrix += self.genConfusionMatrix(imgPredict, imgLabel)
 
-    def reset(self):
+    def reset(self) -> None:
         self.confusionMatrix = np.zeros((self.numClass, self.numClass))
 
 

@@ -84,7 +84,7 @@ def camera():
 
 def execute_instructions(): ...
 
-def chatfuc(stream, chat_comp, msgs):
+def chatfuc(stream:pyaudio.PyAudio.Stream, chat_comp:qianfan.ChatCompletion, msgs:qianfan.Messages)->None:
     msg = ""
     audio_collector = []
     counter = 0
@@ -131,7 +131,7 @@ def chatfuc(stream, chat_comp, msgs):
 
 
 
-def runchat():
+def runchat()->None:
     # 创建一个PyAudio对象
     p = pyaudio.PyAudio()
 

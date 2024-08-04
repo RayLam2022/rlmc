@@ -31,7 +31,7 @@ parser.add_argument("--encoding", default="utf-8")
 args = parser.parse_args()
 
 
-def find_string_in_file(file_path, search_string):
+def find_string_in_file(file_path: str, search_string: str) -> bool:
     with open(file_path, "r", encoding=args.encoding) as file:
         for line in file.readlines():
             if args.regex:
@@ -43,7 +43,7 @@ def find_string_in_file(file_path, search_string):
     return False
 
 
-def find():
+def find() -> None:
     files = []
     if args.exts:
         for ext in args.exts:
@@ -103,7 +103,7 @@ def find():
                 collector.append(file)
 
         if collector:
-            print('result:', collector)
+            print("result:", collector)
         else:
             print("No files match")
 

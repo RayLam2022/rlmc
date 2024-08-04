@@ -25,7 +25,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-def main():
+def main() -> None:
 
     vid = VideoFileClip(args.input_file, audio=True)
     print(f"duration: {vid.duration}  width: {vid.w}   height: {vid.h}")

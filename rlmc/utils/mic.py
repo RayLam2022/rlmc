@@ -16,6 +16,7 @@ import os.path as osp
 import time
 import copy
 import argparse
+from typing import Callable, Optional, Union
 
 import pynput
 import pyaudio
@@ -39,8 +40,8 @@ RATE = 16000
 unit = RATE // CHUNK
 
 
-def on_press_wrapper(signal):
-    def on_press(key):
+def on_press_wrapper(signal: mp.Value) -> Callable:
+    def on_press(key: pynput.keyboard.Key) -> Optional[bool]:
         nonlocal signal
         if key == pynput.keyboard.Key.esc:
             signal.value = -1
@@ -57,14 +58,13 @@ def on_press_wrapper(signal):
     # print("Key {0} pressed".format(key))
 
 
-def kb_listener(signal):
+def kb_listener(signal: mp.Value) -> None:
     listener = pynput.keyboard.Listener(on_press=on_press_wrapper(signal))
     listener.start()
     listener.join()
 
 
-# if __name__ == "__main__":
-def main():
+def main() -> None:
     p = pyaudio.PyAudio()
     # 打开麦克风流
     stream = p.open(
@@ -116,6 +116,7 @@ def main():
     wf.writeframes(b"".join(audio_collector))
     # 关闭文件
     wf.close()
+
 
 if __name__ == "__main__":
     main()

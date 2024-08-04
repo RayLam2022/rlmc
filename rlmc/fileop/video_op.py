@@ -7,6 +7,8 @@
 
 import sys
 
+import av.stream
+
 if "." not in sys.path:
     sys.path.append(".")
 
@@ -101,7 +103,6 @@ class VideoFile:
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-
     def add_vid_stream(self):
         output_stream = self.output_container.add_stream(self.vcodec, rate=self.fps)
         codec = output_stream.codec_context
@@ -128,7 +129,9 @@ class VideoFile:
         self.pixformat = self.container.streams.video[0].codec_context.pix_fmt
         self.width = self.container.streams.video[0].codec_context.width
         self.height = self.container.streams.video[0].codec_context.height
-        self.audio_sample_rate = self.container.streams.audio[0].codec_context.sample_rate
+        self.audio_sample_rate = self.container.streams.audio[
+            0
+        ].codec_context.sample_rate
         self.audio_channels = self.container.streams.audio[0].codec_context.channels
         self.audio_sample_fmt = self.container.streams.audio[0].format.name
         return self.container

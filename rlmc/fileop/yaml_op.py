@@ -25,7 +25,7 @@ class Yaml(AbstractFile):
         self.file_path = file_path
         self.encoding = encoding
         self.mode = mode
-        
+
         if file_path != "":
             self.data = self.read(file_path)
 
@@ -43,7 +43,9 @@ class Yaml(AbstractFile):
             data = yaml.safe_load(f)
         return data
 
-    def write(self, data, file_path: str, mode: str = "w", encoding: str = "utf-8"):
+    def write(
+        self, data, file_path: str, mode: str = "w", encoding: str = "utf-8"
+    ) -> None:
         with open(file_path, mode, encoding=encoding) as f:
             yaml.safe_dump(data, f, allow_unicode=True)
 
@@ -63,5 +65,5 @@ if __name__ == "__main__":
 
     with Yaml("rlmc/configs/script_paths.yaml") as yl:
         print(yl.data)
- 
+
     # yamlobj.write(nest_dict, "rlmc/configs/cfg1.yaml")

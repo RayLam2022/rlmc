@@ -11,14 +11,14 @@ args = parser.parse_args()
 __all__ = ["cudatest"]
 
 
-def torchtest(th):
+def torchtest(th) -> None:
     print(th.__version__)
     tensor = th.Tensor([1.0])
     tensor = tensor.cuda()
     print(th.backends.cudnn.is_acceptable(tensor))
 
 
-def tftest(tf):
+def tftest(tf) -> None:
 
     print(tf.test.is_gpu_available())
     print(tf.test.is_built_with_cuda())

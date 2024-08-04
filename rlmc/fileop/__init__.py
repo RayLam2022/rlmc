@@ -10,6 +10,8 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import Callable
+
 from rlmc.fileop.yaml_op import Yaml
 from rlmc.fileop.json_op import Json
 from rlmc.fileop.numpy_op import Numpy

@@ -10,6 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
+from typing import List, Tuple, Dict, Union
 import os
 import numpy as np
 
@@ -31,11 +32,13 @@ class Numpy(AbstractFile):
         if exc_type != None:
             print(exc_type, exc_val, exc_tb)
 
-    def read(self,file_path:str=""):
+    def read(self, file_path: str = "") -> np.ndarray:
         data = np.load(file_path)
         return data
 
-    def write(self, data, file_path: str, allow_pickle: bool = True):
+    def write(
+        self, data: np.ndarray, file_path: str, allow_pickle: bool = True
+    ) -> None:
         np.save(file_path, data, allow_pickle=allow_pickle)
 
 

@@ -13,7 +13,9 @@ __all__ = [
 ]
 
 
-def invert_transform(torch_normalize_tensor, mean: List[float], std: List[float]):
+def invert_transform(
+    torch_normalize_tensor: torch.Tensor, mean: List[float], std: List[float]
+) -> torch.Tensor:
     """
     反归一化同时调整成 h,w,c
     """
@@ -27,12 +29,12 @@ def invert_transform(torch_normalize_tensor, mean: List[float], std: List[float]
     return tensor
 
 
-def onehot2mask(torch_tensor, axis=0):
+def onehot2mask(torch_tensor: torch.Tensor, axis: int = 0) -> torch.Tensor:
     mask = torch.argmax(torch_tensor, axis=axis)
     return mask
 
 
-def mask2onehot(mask, num_classes):
+def mask2onehot(mask: np.ndarray, num_classes: int) -> np.ndarray:
     """
     (H,W) to (K,H,W)
     """
@@ -41,7 +43,9 @@ def mask2onehot(mask, num_classes):
     return mask_
 
 
-def letterbox_image(image, resize_width, resize_height):
+def letterbox_image(
+    image: np.ndarray, resize_width: int, resize_height: int
+) -> np.ndarray:
     """
     图片统一尺寸，补灰条操作
     :param: image

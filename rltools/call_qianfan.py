@@ -39,17 +39,18 @@ os.environ["QIANFAN_ACCESS_KEY"] = args.access_key
 os.environ["QIANFAN_SECRET_KEY"] = args.secret_key
 
 
-def main():
+def main() -> None:
     chat_comp = qianfan.ChatCompletion()
 
     msgs = qianfan.Messages()
     while True:
-        msgs.append(input('master:'))
+        msgs.append(input("master:"))
         resp = chat_comp.do(model=args.model, messages=msgs)
         print("assistant:", resp["result"])
         if args.is_speak:
             pyttsx3.speak(resp["result"])
         msgs.append(resp)
+
 
 if __name__ == "__main__":
     main()

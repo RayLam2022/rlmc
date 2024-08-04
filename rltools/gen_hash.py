@@ -17,7 +17,7 @@ def encrypt(fpath: str, algorithm: str) -> str:
         return hash.hexdigest()
 
 
-def gen_hash():
+def gen_hash() -> None:
     hexdigest = encrypt(args.file, args.algorithm)
     print(f"{args.algorithm}: {hexdigest}")
 
