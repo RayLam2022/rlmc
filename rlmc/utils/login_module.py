@@ -1,6 +1,6 @@
 # ref: https://juejin.cn/post/7374055681890795555
 
-from typing import Callable, Any
+from typing import Callable, Any, Dict
 import random
 import time
 
@@ -10,7 +10,7 @@ __all__ = ["user_login"]  # 装饰器
 users_db = {"user-a": "123password", "user-b": "456password", "user-c": "789password"}
 
 # 该字典用于存放各个用户登录密码错误的次数
-login_counter = {}
+login_counter: Dict = {}
 
 
 def generate_captcha() -> str:

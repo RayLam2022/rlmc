@@ -10,7 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
-from typing import Callable
+from typing import Any, Callable, Generic, TypeVar
 
 from rlmc.fileop.yaml_op import Yaml
 from rlmc.fileop.json_op import Json
@@ -19,6 +19,8 @@ from rlmc.fileop.pickle_op import Pickle
 from rlmc.fileop.mat_op import Mat
 
 __all__ = ["file_processor"]
+
+T=TypeVar('T')
 
 files_op_dict = {
     "yaml": Yaml,
@@ -31,7 +33,7 @@ files_op_dict = {
 }
 
 
-def file_processor(file_path: str = "", file_ext: str = ""):
+def file_processor(file_path: str = "", file_ext: str = "") -> Any:
     if file_ext == "":
         file_type = file_path.split(".")[-1]
     else:

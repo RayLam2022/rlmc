@@ -96,7 +96,7 @@ class MsDownload:
     def __init__(
         self,
         repo_id: str,
-        cache_dir: str,
+        cache_dir: str='./MscopeCache',
         ignore_file_pattern: List[str] = ["*.h5", "*safetensors", "*msgpack"],
     ) -> None:
         self.repo_id = repo_id

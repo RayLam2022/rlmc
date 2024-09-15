@@ -39,7 +39,7 @@ class SuDict(dict):
         # print('getitem',self.__class_getitem__(name))
         return super().__getitem__(name)
 
-    def __missing__(self, name):
+    def __missing__(self, name) -> str:
         return ""  # f'missing key:{name}'
 
     def __delattr__(self, name):
@@ -99,7 +99,7 @@ class SuDict(dict):
             self[key] = default
             return default
 
-    def to_dict(self):
+    def to_dict(self) -> Dict:
         base = {}
         for key, value in self.items():
             if isinstance(value, type(self)):
@@ -130,7 +130,7 @@ class SuDict(dict):
             else:
                 self[k].update(v)
 
-    def keystr2keylist(self, key_str, sep=".", digit_symbol="#"):
+    def keystr2keylist(self, key_str:str, sep:str=".", digit_symbol:str="#") -> List:
         lis = key_str.split(sep)
         lis = [int(l[1:]) if l[0] == digit_symbol else l for l in lis]
         return lis

@@ -10,7 +10,7 @@ import sys
 if "." not in sys.path:
     sys.path.append(".")
 
-from typing import Any, NoReturn, Union, Callable, Iterable, List, Dict
+from typing import Any, NoReturn, Union, Callable, Iterable, List, Dict, ValuesView, ItemsView, KeysView
 
 from rlmc.utils.logger import Logger
 
@@ -55,13 +55,13 @@ class Register:
     def __str__(self) -> str:
         return str(self._dict)
 
-    def keys(self):
+    def keys(self) -> KeysView:
         return self._dict.keys()
 
-    def values(self):
+    def values(self) -> ValuesView:
         return self._dict.values()
 
-    def items(self):
+    def items(self) -> ItemsView:
         return self._dict.items()
 
     def meta(self, mt_str: str) -> Callable:
