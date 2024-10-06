@@ -25,7 +25,8 @@ import pyttsx3
 import numpy as np
 import torch
 from PIL import ImageGrab
-from faster_whisper import WhisperModel
+# from faster_whisper import WhisperModel
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 import qianfan
 
@@ -50,7 +51,7 @@ parser.add_argument(
 parser.add_argument(
     "-l",
     "--record_src_language",
-    default="zh",
+    default="chinese", #"zh",
     help="record src language",
 )
 
@@ -75,9 +76,35 @@ CHANNELS = 1
 RATE = 16000
 unit = RATE // CHUNK
 
-model_size = "large-v3"
+# model_id = "large-v3"
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# stt_model = WhisperModel(model_id, device=device, compute_type="float16")
+
+model_id = "openai/whisper-large-v3-turbo"
 device = "cuda" if torch.cuda.is_available() else "cpu"
-stt_model = WhisperModel(model_size, device=device, compute_type="float16")
+torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+stt_model = AutoModelForSpeechSeq2Seq.from_pretrained(
+    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True
+)
+stt_model.to(device)
+
+processor = AutoProcessor.from_pretrained(model_id)
+
+pipe = pipeline(
+    "automatic-speech-recognition",
+    model=stt_model,
+    tokenizer=processor.tokenizer,
+    feature_extractor=processor.feature_extractor,
+    chunk_length_s=30,
+    batch_size=16,  # batch size for inference - set based on your device
+    torch_dtype=torch_dtype,
+    device=device,
+)
+
+generate_kwargs={"language": "chinese",    
+                 "logprob_threshold": -1.0,
+                 "no_speech_threshold": 0.6,
+                 "return_timestamps": False,}
 
 
 def on_press_wrapper(signal: mp.Value) -> Callable:
@@ -149,18 +176,21 @@ if __name__ == "__main__":
             audio_array = np.frombuffer(b"".join(audio_collector), dtype=np.int16)
             audio_array = audio_array.astype(np.float32) / INT16_MAX_ABS_VALUE
 
-            segments, info = stt_model.transcribe(
-                audio_array,
-                language=args.record_src_language,
-                beam_size=5,
-                log_prob_threshold=-0.5,
-            )
+            # segments, info = stt_model.transcribe(
+            #     audio_array,
+            #     language=args.record_src_language,
+            #     beam_size=5,
+            #     log_prob_threshold=-0.5,
+            # )
+            segments = pipe(audio_array, generate_kwargs=generate_kwargs)
+
 
             text = ""
-            for segment in segments:
-                if segment.text != "":
-                    text += segment.text
-
+            # for segment in segments:
+            #     if segment.text != "":
+            #         text += segment.text
+            if segments['text'] != "":
+                text += segments['text']
             print("[master]:", text)
             msgs.append(text)
             resp = chat_comp.do(model=args.model, messages=msgs)
