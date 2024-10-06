@@ -112,8 +112,8 @@ video=[
 
 assistant=[
     "pyaudio",
-    "faster_whisper",
     "pyttsx3",
+    "ChatTTS",
     "pynput",
     "pyperclip",
     "easyocr",
