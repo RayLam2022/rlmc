@@ -133,23 +133,23 @@ handcontrol=[
 "Source" = "https://github.com/RayLam2022/rlmc"
 
 [project.scripts]
-deltemp = "rltools.del_jupyter_temp:del_jupyter_temp"
+chatbot="rltools.call_qianfan:main"
+clearcache= "rltools.clear_cache:clear_cache"
 testcuda = "rltools.cuda_test:cudatest"
+deltemp = "rltools.del_jupyter_temp:del_jupyter_temp"
+downloadmodel="rltools.download_model:main"
+findtool= "rltools.findtool:find"
+genhash= "rltools.gen_hash:gen_hash"
+handcontrol="rltools.handcontrol:main"
+managesource= "rltools.manage_source:manage_source"
+cutvideo="rltools.moviepy_cut_video:main"
+ocr= "rltools.ocr:main"
+stt="rltools.stt_turbo:main"
 sysinfo= "rltools.systeminfos:general_info"
 gpuinfo= "rltools.systeminfos:gpu_info"
-findtool= "rltools.findtool:find"
-clearcache= "rltools.clear_cache:clear_cache"
-managesource= "rltools.manage_source:manage_source"
-genhash= "rltools.gen_hash:gen_hash"
-ocr= "rltools.ocr:main"
-stt="rltools.stt:main"
-handcontrol="rltools.handcontrol:main"
-downloadmodel="rltools.download_model:main"
-chatbot="rltools.call_qianfan:main"
-cutvideo="rltools.moviepy_cut_video:main"
 takephoto="rltools.take_photo:main"
-
-
+findimg= "rltools.tsi:main"
+# image_registration tts
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
