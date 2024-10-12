@@ -3,6 +3,7 @@ import os
 import os.path as osp
 import sqlite3
 import hashlib
+from typing import List
 
 from PIL import ImageTk, Image
 import numpy as np
@@ -12,7 +13,7 @@ from tqdm import tqdm
 import clip
 import faiss
 
-os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 parser = argparse.ArgumentParser("image_search")
 parser.add_argument(
@@ -34,7 +35,8 @@ parser.add_argument(
 parser.add_argument(
     "-f",
     "--is_rebuild_faiss_index",
-    default=True,
+    action="store_true",
+    default=False,
 )
 
 
@@ -45,22 +47,21 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 
-def generate_id(string):
+def generate_id(string: str):
     sha256 = hashlib.sha256()
     sha256.update(string.encode("utf-8"))
-    img_id=int.from_bytes(sha256.digest()[:6], byteorder="big")
+    img_id = int.from_bytes(sha256.digest()[:6], byteorder="big")
     return img_id
 
 
-def clipv():
+def clipv(root: str):
     dimension = 512
     idx_flat = faiss.IndexFlatL2(dimension)
     index = faiss.IndexIDMap(idx_flat)
 
-    root = args.img_root
     faiss_idx_file = osp.join(root, "faissidx.idx")
     db = osp.join(root, "imgsnames.db")
-    img_paths = find_files_with_ext(root) 
+    img_paths = find_files_with_ext(root)
 
     if osp.exists(faiss_idx_file):
         index = faiss.read_index(faiss_idx_file)
@@ -78,9 +79,9 @@ def clipv():
         if image_id not in exist_ids:
             collector.append(img_path)
 
-    counter=1
+    counter = 1
     for img_path in collector:
-        
+
         img_id = generate_id(img_path)
         img = preprocess(Image.open(img_path)).unsqueeze(0).to(device)
         with torch.no_grad():
@@ -94,23 +95,19 @@ def clipv():
                 "INSERT INTO images (id, name) VALUES (?, ?)", (img_id, img_path)
             )
         except Exception as e:
-            print(
-                f"Error {img_path}: {str(e)}"
-            )
-        if counter%200==0:
+            print(f"Error {img_path}: {str(e)}")
+        if counter % 200 == 0:
             conn.commit()
             faiss.write_index(index, faiss_idx_file)
-        counter+=1
+        counter += 1
 
     conn.commit()
     faiss.write_index(index, faiss_idx_file)
     print("clip vectorized." + "\n")
 
 
-def search_vec():
-    text = args.text_for_matching
-    root = args.img_root
-    
+def search_vec(text: str, root: str, alternative: int = 5):
+
     text_tokenized = clip.tokenize([text]).to(device)
     with torch.no_grad():
         text_feat = model.encode_text(text_tokenized)
@@ -121,7 +118,7 @@ def search_vec():
     text_feat_np /= norm
 
     db = os.path.join(root, "imgsnames.db")
-    D, I = index.search(text_feat_np, args.alternative)
+    D, I = index.search(text_feat_np, alternative)
     img_paths = []
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
@@ -133,23 +130,35 @@ def search_vec():
             img_name = res[0]
             img_paths.append(str(img_name))
         else:
-            print(
-                f"{i+1}: Image not found(ID: {img_id}, Distance: {D[0][i]})"
-            )
+            print(f"{i+1}: Image not found(ID: {img_id}, Distance: {D[0][i]})")
     conn.close()
     print(f"Results: {img_paths}")
 
-def find_files_with_ext(folder_root, extensions=[".PNG", ".JPG",".JPEG",".png", ".jpg", ".jpeg", ".gif", ".webp"]):
+
+def find_files_with_ext(
+    folder_root: str,
+    extensions: List[str] = [
+        ".PNG",
+        ".JPG",
+        ".JPEG",
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".gif",
+        ".webp",
+    ],
+):
     file_list = []
-    
+
     for root, dirs, files in os.walk(folder_root):
         for file in files:
             if osp.splitext(file)[-1] in extensions:
                 file_list.append(os.path.join(root, file))
-    
+
     return file_list
 
-def main():
+
+def main() -> None:
     if args.is_rebuild_faiss_index:
         try:
             os.remove(args.img_root + "/faissidx.idx")
@@ -159,13 +168,15 @@ def main():
             os.remove(args.img_root + "/imgsnames.db")
         except:
             pass
-        clipv()
+        clipv(args.img_root)
     else:
-        if not osp.exists(args.img_root + "/faissidx.idx") or not osp.exists(args.img_root + "/imgsnames.db"):
-            clipv()
+        if not osp.exists(args.img_root + "/faissidx.idx") or not osp.exists(
+            args.img_root + "/imgsnames.db"
+        ):
+            clipv(args.img_root)
         else:
             ...
-    search_vec()
+    search_vec(args.text_for_matching, args.img_root, args.alternative)
 
 
 if __name__ == "__main__":

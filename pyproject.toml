@@ -149,7 +149,8 @@ sysinfo= "rltools.systeminfos:general_info"
 gpuinfo= "rltools.systeminfos:gpu_info"
 takephoto="rltools.take_photo:main"
 findimg= "rltools.tsi:main"
-# image_registration tts
+tts="rltools.tts:main"
+# image_registration
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }
