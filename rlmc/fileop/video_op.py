@@ -139,10 +139,10 @@ class VideoFile:
 
 if __name__ == "__main__":
     module_file = r"D:\RLdownload\haarcascade_frontalface_alt2.xml"
-    src_video = r"C:\Users\RayLam\Desktop\ai_design\cctv.mp4"
+    src_video = r"C:\Users\\Desktop\ai_design\cctv.mp4"
     is_show = True
     is_save = True
-    save_path = r"C:\Users\RayLam\Desktop\cctv_new.mp4"
+    save_path = r"C:\Users\\Desktop\cctv_new.mp4"
 
     dectector = FaceDetector(module_file)
 

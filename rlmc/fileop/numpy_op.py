@@ -44,7 +44,7 @@ class Numpy(AbstractFile):
 
 if __name__ == "__main__":
 
-    with Numpy(r"C:\Users\RayLam\Desktop\git_private\n.npy") as yl:
+    with Numpy(r"./n.npy") as yl:
         print(yl.data)
 
     # yamlobj.write(nest_dict, "rlmc/configs/cfg1.yaml")

@@ -187,7 +187,7 @@ def record_cam(mgr_dict, mgr_audio_data, output_path):
         container.close()
 
 
-root = r"C:\Users\RayLam\Desktop\temp_file"
+root = r"C:\Users\\Desktop\temp_file"
 now = str(datetime.now())[:19].replace(":", "_")
 video_output = join(root, "%s.mp4" % now)
 

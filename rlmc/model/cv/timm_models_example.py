@@ -23,7 +23,7 @@ model_names = list_models(pretrained=True)
 # ])
 
 # # 加载图像
-# image_path = r"C:\Users\RayLam\Desktop\ai_design\00019-2600014894.png"
+# image_path = r"C:\Users\\Desktop\ai_design\00019-2600014894.png"
 # image = Image.open(image_path).convert('RGB')
 
 # # 应用预处理变换
@@ -52,7 +52,7 @@ model = create_model("resnet50", pretrained=True)
 model.eval()
 
 # 加载图像并进行预处理
-image = Image.open(r"C:\Users\RayLam\Desktop\ai_design\z2.jpg")
+image = Image.open(r"C:\Users\\Desktop\ai_design\z2.jpg")
 # 定义图像预处理转换
 preprocess = transforms.Compose(
     [

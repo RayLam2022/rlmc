@@ -25,5 +25,5 @@ def gen_hash() -> None:
 if __name__ == "__main__":
     gen_hash()
     # for algorithm in ('md5', 'sha1', 'sha256'):
-    #     hexdigest = encrypt(r"C:\Users\RayLam\Desktop\git_update\git_update.bat", algorithm)
+    #     hexdigest = encrypt(r"C:\Users\\Desktop\git_update\git_update.bat", algorithm)
     #     print(f'{algorithm}: {hexdigest}')
