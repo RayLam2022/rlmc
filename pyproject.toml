@@ -133,6 +133,8 @@ handcontrol=[
 "Source" = "https://github.com/RayLam2022/rlmc"
 
 [project.scripts]
+asr_realtime="rltools.asr_turbo:main"
+asr_file="rltools.asr_media:main"
 chatbot="rltools.call_qianfan:main"
 clearcache= "rltools.clear_cache:clear_cache"
 testcuda = "rltools.cuda_test:cudatest"
@@ -142,15 +144,16 @@ findtool= "rltools.findtool:find"
 genhash= "rltools.gen_hash:gen_hash"
 handcontrol="rltools.handcontrol:main"
 managesource= "rltools.manage_source:manage_source"
+mic= "rltools.mic:main"
 cutvideo="rltools.moviepy_cut_video:main"
 ocr= "rltools.ocr:main"
-stt="rltools.stt_turbo:main"
 sysinfo= "rltools.systeminfos:general_info"
 gpuinfo= "rltools.systeminfos:gpu_info"
 takephoto="rltools.take_photo:main"
 findimg= "rltools.tsi:main"
-tts="rltools.tts:main"
+
 # image_registration
+# asr_speaker_diarization
 
 [tool.setuptools] 
 packages = { find = { where = ["."], include = ["rlmc", "rlmc.*"], exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"]} }

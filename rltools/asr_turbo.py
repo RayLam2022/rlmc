@@ -14,11 +14,12 @@ import torch
 import pyaudio
 import pynput
 import pyperclip
-from faster_whisper import WhisperModel
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+# from faster_whisper import WhisperModel
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 
 
-parser = argparse.ArgumentParser("stt")
+parser = argparse.ArgumentParser("asr")
 parser.add_argument(
     "-r",
     "--record_time",
@@ -62,10 +63,133 @@ CHANNELS = 1
 RATE = 16000
 
 
-model_size = "large-v3"
+model_id = "openai/whisper-large-v3-turbo"
 device = "cuda" if torch.cuda.is_available() else "cpu"
-stt_model = WhisperModel(model_size, device=device, compute_type="float16")
+torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+# stt_model = WhisperModel(model_size, device=device, compute_type="float16")
+stt_model = AutoModelForSpeechSeq2Seq.from_pretrained(
+    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True
+)
+stt_model.to(device)
 
+processor = AutoProcessor.from_pretrained(model_id)
+
+pipe = pipeline(
+    "automatic-speech-recognition",
+    model=stt_model,
+    tokenizer=processor.tokenizer,
+    feature_extractor=processor.feature_extractor,
+    chunk_length_s=30,
+    batch_size=16,  # batch size for inference - set based on your device
+    torch_dtype=torch_dtype,
+    device=device,
+)
+
+generate_kwargs={"language": "chinese",    
+                 "logprob_threshold": -1.0,
+                 "no_speech_threshold": 0.6,
+                 "return_timestamps": False,}
+
+# language:
+#   - en
+#   - zh
+#   - de
+#   - es
+#   - ru
+#   - ko
+#   - fr
+#   - ja
+#   - pt
+#   - tr
+#   - pl
+#   - ca
+#   - nl
+#   - ar
+#   - sv
+#   - it
+#   - id
+#   - hi
+#   - fi
+#   - vi
+#   - he
+#   - uk
+#   - el
+#   - ms
+#   - cs
+#   - ro
+#   - da
+#   - hu
+#   - ta
+#   - 'no'
+#   - th
+#   - ur
+#   - hr
+#   - bg
+#   - lt
+#   - la
+#   - mi
+#   - ml
+#   - cy
+#   - sk
+#   - te
+#   - fa
+#   - lv
+#   - bn
+#   - sr
+#   - az
+#   - sl
+#   - kn
+#   - et
+#   - mk
+#   - br
+#   - eu
+#   - is
+#   - hy
+#   - ne
+#   - mn
+#   - bs
+#   - kk
+#   - sq
+#   - sw
+#   - gl
+#   - mr
+#   - pa
+#   - si
+#   - km
+#   - sn
+#   - yo
+#   - so
+#   - af
+#   - oc
+#   - ka
+#   - be
+#   - tg
+#   - sd
+#   - gu
+#   - am
+#   - yi
+#   - lo
+#   - uz
+#   - fo
+#   - ht
+#   - ps
+#   - tk
+#   - nn
+#   - mt
+#   - sa
+#   - lb
+#   - my
+#   - bo
+#   - tl
+#   - mg
+#   - as
+#   - tt
+#   - haw
+#   - ln
+#   - ha
+#   - ba
+#   - jw
+#   - su
 
 def on_press(key: pynput.keyboard.Key) -> Optional[bool]:
     if key == pynput.keyboard.Key.esc:
@@ -112,18 +236,18 @@ def speech_to_text() -> str:
             audio_collector = np.frombuffer(b"".join(audio_collector), dtype=np.int16)
             audio_collector = audio_collector.astype(np.float32) / INT16_MAX_ABS_VALUE
             print("record time: ", time.time() - start)
-            segments, info = stt_model.transcribe(
-                audio_collector,
-                language=args.record_src_language,
-                beam_size=5,
-                log_prob_threshold=-0.5,
-            )
+            # segments, info = stt_model.transcribe(
+            #     audio_collector,
+            #     language=args.record_src_language,
+            #     beam_size=5,
+            #     log_prob_threshold=-0.5,
+            # )
+            segments = pipe(audio_collector, generate_kwargs=generate_kwargs)
 
             text = ""
-            for segment in segments:
-                # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-                if segment.text != "":
-                    text += segment.text
+            # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
+            if segments['text'] != "":
+                text += segments['text']
             # initial
             audio_collector = []
             counter = 0
