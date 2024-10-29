@@ -172,7 +172,7 @@ def main() -> None:
                 if args.is_translate:
                     text=segment['text']
                     translated_text=""
-                    for tl in translator(text):
+                    for tl in translator(text, max_length=1000):
                         translated_text+=tl["translation_text"]
                     text+= '\n' + translated_text
                 else:
