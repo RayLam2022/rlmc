@@ -48,7 +48,11 @@ dependencies = [
     "aiohttp",
     "aiofiles",
     "beautifulsoup4",
-    "lxml"
+    "lxml",
+    "python-dotenv",
+    "pydantic",
+    "tifffile",
+    "psutil",
 ]
 
 # Optional dependencies --------------------
@@ -67,16 +71,18 @@ tensorflow = [
 ]
 
 torch = [
-    "soundfile",
     "torch",
     "torchvision",
     "torchaudio",
+    "xformers",
+    "soundfile",
     "transformers",
     "timm",
     "segmentation-models-pytorch",
     "torchsummary",
     "thop",
-    "supervision"
+    "supervision",
+    "einops",
 ]
 
 paddle = [
@@ -98,17 +104,31 @@ git=[
     "gitpython",
 ]
 
+web=[
+    "selenium",
+    "streamlit",
+    "streamlit-echarts",
+    "gradio",
+    "fastapi",
+]
+
 chart=[
     "matplotlib",
     "pyecharts",
+    "streamlit",
+    "streamlit-echarts",
 ]
 
 video=[
     "av",
     "pyaudio",
     "moviepy",
+    "srt",
 ]
 
+jupyterlab=[
+    "jupyterlab",
+    ]
 
 assistant=[
     "pyaudio",
@@ -117,7 +137,12 @@ assistant=[
     "pynput",
     "pyperclip",
     "easyocr",
-    "wave"
+    "wave",
+    "pyannote.audio",
+    "faiss-cpu",
+    "qianfan",
+    "onnxruntime-gpu",
+    "funasr",
 ]
 
 handcontrol=[
@@ -127,7 +152,10 @@ handcontrol=[
     "pynput",
 ]
 
-
+game=[
+    "pygame",
+    "gym",
+]
 
 [project.urls]
 "Source" = "https://github.com/RayLam2022/rlmc"
