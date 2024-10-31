@@ -2,24 +2,28 @@ import time
 
 import numpy as np
 
-ii=2000
-jj=2000
+ii=200
+jj=300
 
 def forloop(ii=200,jj=200):
     collection=[]
+    collection2=[]
     for i in range(ii):
         for j in range(jj):
             if i%2==0 and j%2!=0:
 
                 collection.append([i+2,j*1.3])
+                collection2.append([i+2,j*1.3])
             else:
                 collection.append([i*2,j+1])
-    return collection
+    return collection,collection2
 
 s1=time.time()
-c=forloop(ii,jj)
+c,c2=forloop(ii,jj)
 c=np.array(c)
 c=c.reshape((ii,jj,2))
+c2=np.array(c2)
+c2=c2.reshape((-1,2))
 #print(c)
 print(time.time()-s1)
 
@@ -49,12 +53,20 @@ def numpyloop(ii=200,jj=200):
     array[:,:,1][mask_inversed]=array[:,:,1][mask_inversed]+1
     #print('--------------------')
     #print(array)
-    return array
+    return array,mask_combined,mask_inversed
     
 
 s2=time.time()
-np_c=numpyloop(ii,jj)
+np_c,mask_combined,mask_inversed=numpyloop(ii,jj)
+np_c2=np_c[mask_combined]
 print(time.time()-s2)
 print('*********************')
+
+print(np_c.shape)
 gap=np.around(np_c-c, decimals=2)
 print(np.all(gap==0))
+
+
+print(np_c2.shape)
+gap2=np.around(np_c2-c2, decimals=2)
+print(np.all(gap2==0))
