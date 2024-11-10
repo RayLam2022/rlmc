@@ -53,6 +53,7 @@ dependencies = [
     "pydantic",
     "tifffile",
     "psutil",
+    "networkx",
 ]
 
 # Optional dependencies --------------------

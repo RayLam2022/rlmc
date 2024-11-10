@@ -2,8 +2,8 @@ import time
 
 import numpy as np
 
-ii=200
-jj=300
+ii=20
+jj=30
 
 def forloop(ii=200,jj=200):
     collection=[]
@@ -70,3 +70,6 @@ print(np.all(gap==0))
 print(np_c2.shape)
 gap2=np.around(np_c2-c2, decimals=2)
 print(np.all(gap2==0))
+
+np_c[:,:,1]=np.clip(np_c[:,:,1],1,29)
+print(np_c)
