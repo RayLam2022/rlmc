@@ -84,6 +84,11 @@ torch = [
     "thop",
     "supervision",
     "einops",
+    "zhconv",
+    "zhon",
+    "pypinyin",
+    "safetensors",
+    "librosa",
 ]
 
 paddle = [
