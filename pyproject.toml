@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "rlmc"
 dynamic = ["version"]
-description = "Python utils for AI"
+description = "Python utils for AI 🚀"
 readme = "README.md"
 requires-python = ">=3.8"
 license = { "text" = "Apache-2.0" }
@@ -38,7 +38,6 @@ dependencies = [
     "tqdm",
     "numpy",
     "huggingface-hub",
-    "pandas",
     "scipy",
     "scikit-learn",
     "opencv-python",
@@ -123,6 +122,8 @@ chart=[
     "pyecharts",
     "streamlit",
     "streamlit-echarts",
+    "fastexcel",
+    "polars",
 ]
 
 video=[
