@@ -107,33 +107,92 @@ class Response(dict):
 class Agent:
     def __init__(
         self,
-        agents: List["Agent"],
-        history: List[Response],
-        response_dict:Response,
         attributes: AgentAttributes,
         function: Callable,
-        max_turns:int=float("inf"),
-    ):
-        self.agents = agents
+        role: Literal["user", "assistant", "function_call"] = "assistant",
+    ) -> None:
+
         self.attributes = attributes
         self.agent_name = self.attributes.name
         self.func = function
+        self.role = role
 
-        self.history = history
-        self.response_dict = response_dict
-        self.max_turns = max_turns
-
-    def run(self):
+    def gen(
+        self,
+    ) -> Generator[
+        Tuple[str, Response, List[Response]],
+        Tuple[Dict[str, "Agent"], int, List[Response]],
+        None,
+    ]:
+        active_agent_name = None
+        response_dict = None
+        history = None
         while True:
-            info = ""
-            rprint(f"[green]{info}")
-            time.sleep(0.5)
+            agents_dict, response_id, history = (
+                yield active_agent_name,
+                response_dict,
+                history,
+            )
+            response_dict = dict()
+            response_dict["response_id"] = response_id
+            response_dict["agent_name"] = self.agent_name
+            response_dict["agent_role"] = self.role
 
-    def _handle_agent(self, response: Response):
-        self.history.append(response)
+            # agent生成内容
+            resp = f"{self.agent_name}: xbb"
+            time.sleep(0.5) 
 
-    def _handle_history(self, response_dict: Response):
-        self.history.append(response_dict)
+            response_dict["response"] = resp
+            response_dict = Response(**response_dict)
+            logger.info(f"{resp}")
+
+            active_agent_name = self._switch_agent(agents_dict)
+            logger.info(f"choice:{active_agent_name}")
+
+            history.append(response_dict)
+
+    def _switch_agent(self, agents_dict: Dict[str, "Agent"]) -> str:
+        """_summary_
+
+        Args:
+            agents_dict (Dict[str,Agent]): _description_
+
+        Returns:
+            str: active_agent_name
+        """
+        active_agent_name = random.choice(list(agents_dict.keys()))
+        return active_agent_name
+
+
+class Hornet:
+    def __init__(
+        self,
+        agents: List[Agent],
+        max_turns: int = float("inf"),
+    ) -> None:
+        self.agents_dict = dict()
+        for agent in agents:
+            generator = agent.gen()
+            generator.send(None)
+            self.agents_dict[agent.agent_name] = generator
+
+        self.max_turns = max_turns
+        self.history = []
+
+    def run(self, start_agent_name: str) -> Tuple[Response, List[Response]]:
+        counter = 0
+        active_agent_name = start_agent_name
+        while counter < self.max_turns:
+            logger.debug(counter)
+            active_agent = self.agents_dict[active_agent_name]
+            response_id = counter
+            active_agent_name, response_dict, self.history = active_agent.send(
+                (self.agents_dict, response_id, self.history)
+            )
+
+            counter += 1
+        last_response_dict = response_dict
+        return last_response_dict, self.history
 
 
 def add(a, b):
@@ -153,94 +212,52 @@ def add2(a, b):
 
 
 if __name__ == "__main__":
-    a = Response(response_id=1, agent_name="a", response="ss")
-    print(a)
+    try:
+        address = Address(
+            nationality="American", street="123", city="New York", zip_code="10001"
+        )
+        attributes = {
+            "username": "A",
+            "gender": "male",
+            "birthday": datetime.datetime.strptime("2000-11-11", "%Y-%m-%d"),
+            "health_status": "healthy",
+            "state": "alive",
+            "character": "friendly",
+            "hobby": "reading",
+            "height": 180,
+            "weight": 75,
+            "education_level": "bachelor",
+            "skill": "programming",
+            "staff": "engineer",
+            "address": address,
+            "language": "English",
+            "instruction": "Please help me find the book I lost.",
+            "target": "book",
+            "e_mail": "john@example.com",
+        }
+        attrib = AgentAttributes(**attributes)
+    except ValidationError as e:
+        rprint(f"[red]数据验证错误：{e.errors()}")
+        sys.exit(1)
 
-    # try:
-    #     address = Address(
-    #         nationality="American", street="123", city="New York", zip_code="10001"
-    #     )
-    #     attributes = {
-    #         "username": "A",
-    #         "gender": "male",
-    #         "birthday": datetime.datetime.strptime("2000-11-11", "%Y-%m-%d"),
-    #         "health_status": "healthy",
-    #         "state": "alive",
-    #         "character": "friendly",
-    #         "hobby": "reading",
-    #         "height": 180,
-    #         "weight": 75,
-    #         "education_level": "bachelor",
-    #         "skill": "programming",
-    #         "staff": "engineer",
-    #         "address": address,
-    #         "language": "English",
-    #         "instruction": "Please help me find the book I lost.",
-    #         "target": "book",
-    #         "e_mail": "john@example.com",
-    #     }
-    #     attrib = AgentAttributes(**attributes)
-    # except ValidationError as e:
-    #     rprint(f"[red]数据验证错误：{e.errors()}")
-    #     sys.exit(1)
+    agent_a = Agent(
+        attributes=attrib,
+        function=add,
+    )
+    attributes["username"] = "B"
+    attrib_b = AgentAttributes(**attributes)
+    agent_b = Agent(
+        attributes=attrib_b,
+        function=multi,
+    )
+    attributes["username"] = "C"
+    attrib_c = AgentAttributes(**attributes)
+    agent_c = Agent(
+        attributes=attrib_c,
+        function=sub,
+    )
 
-    # agent_a = Agent(
-    #     mp_signal=mp_signal,
-    #     mp_lock=mp_lock,
-    #     send_queue=send_queue,
-    #     rec_queue=rec_queue,
-    #     mgr_dict=mgr_dict,
-    #     result_dict=result_dict,
-    #     attributes=attrib,
-    #     function=add,
-    # )
-    # attributes["username"] = "B"
-    # attrib = AgentAttributes(**attributes)
-    # agent_b = Agent(
-    #     mp_signal=mp_signal,
-    #     mp_lock=mp_lock,
-    #     send_queue=send_queue,
-    #     rec_queue=rec_queue,
-    #     mgr_dict=mgr_dict,
-    #     result_dict=result_dict,
-    #     attributes=attrib,
-    #     function=multi,
-    # )
-    # attributes["username"] = "C"
-    # attrib = AgentAttributes(**attributes)
-    # agent_c = Agent(
-    #     mp_signal=mp_signal,
-    #     mp_lock=mp_lock,
-    #     send_queue=send_queue,
-    #     rec_queue=rec_queue,
-    #     mgr_dict=mgr_dict,
-    #     result_dict=result_dict,
-    #     attributes=attrib,
-    #     function=sub,
-    # )
-    # attributes["username"] = "D"
-    # attrib = AgentAttributes(**attributes)
-    # agent_d = Agent(
-    #     mp_signal=mp_signal,
-    #     mp_lock=mp_lock,
-    #     send_queue=send_queue,
-    #     rec_queue=rec_queue,
-    #     mgr_dict=mgr_dict,
-    #     result_dict=result_dict,
-    #     attributes=attrib,
-    #     function=add2,
-    # )
-
-    # regulator = Regulator(
-    #     workflow=workflow,
-    #     mp_signal=mp_signal,
-    #     mp_lock=mp_lock,
-    #     send_queue=send_queue,
-    #     rec_queue=rec_queue,
-    #     mgr_dict=mgr_dict,
-    #     result_dict=result_dict,
-    #     agents=[agent_a, agent_b, agent_c, agent_d],
-    # )
-    # results, final_result = regulator.run()
-    # rprint(f"[green]Results:{results}")
-    # rprint(f"[green]Final result:{final_result}")
+    hornet = Hornet([agent_a, agent_b, agent_c], max_turns=6)
+    last_resp, history = hornet.run("A")
+    rprint(f"[green]Results:{history}")
+    rprint(f"[green]Final result:{last_resp}")
