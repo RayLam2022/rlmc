@@ -30,6 +30,8 @@ rrule = Console().rule
 
 
 __all__ = [
+    "Hornet",
+    "Response",
     "Agent",
     "AgentAttributes",
     "Address",
