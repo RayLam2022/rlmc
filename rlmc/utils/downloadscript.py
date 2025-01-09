@@ -72,6 +72,7 @@ class HfDownload:
         logger.info(f"************ Start downloading {self.repo_id} ************")
         snapshot_download(
             repo_id=self.repo_id,
+            repo_type=self.repo_type,
             cache_dir=self.local_dir,
             local_dir=self.local_dir,
             local_dir_use_symlinks=self.local_dir_use_symlinks,
