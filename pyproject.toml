@@ -5,14 +5,9 @@ description = "Python utils for AI projects 🚀"
 authors = [
     {name = "RayLam2022",email = "1027196450@qq.com"}
 ]
-license = {text = "Apache-2.0"}
+license = { file = "LICENSE" }
 readme = "README.md"
-packages = [
-    { include = "rlmc",exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"] }
-]
-include = [
-    { path = "medusa-example.ini" }
-]
+
 requires-python = ">=3.12,<4"
 dependencies = [
     "rich (>=13.9.4,<14.0.0)",
@@ -47,8 +42,21 @@ priority = "primary"
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0", "Cython", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+packages = [
+    { include = "rlmc", format = ["sdist", "wheel"]},
+    { include = "rltools", format = ["sdist", "wheel"] },
+    { include = "rltests", format = ["sdist"]},
+    {include = "examples", format = ["sdist"]},
+    # {include = "assets", format = ["sdist"]}  要有__init__.py才视为package
+]
+include = ["assets"]
+exclude=["__pycache__/*","**/__pycache__",".vscode/*","build/*","dist/*","*egg-info","**/mypy_cache","mypy_cache/*",".git/*","*.env",".ipynb_checkpoints/*","**/.ipynb_checkpoints"]
+
 
 # paddle = [
 #     "paddlepaddle",
@@ -143,7 +151,32 @@ torchsummary = "^1.5.1"
 thop = "^0.1.1.post2209072238"
 
 
-[[tool.poetry.scripts]]
-mic= { reference = "rltools.mic:main", type = "console" }
+
+[tool.poetry.group.build.dependencies]
+setuptools = "^75.8.0"
+cython = "^3.0.11"
+
+[tool.poetry.build]
+script = "setup.py"
+
+[tool.poetry.scripts]
+asr_realtime="rltools.asr_turbo:main"
+asr_file="rltools.asr_media:main"
+chatbot="rltools.call_qianfan:main"
+clearcache= "rltools.clear_cache:clear_cache"
+testcuda = "rltools.cuda_test:cudatest"
+deltemp = "rltools.del_jupyter_temp:del_jupyter_temp"
+downloadmodel="rltools.download_model:main"
+findtool= "rltools.findtool:find"
+genhash= "rltools.gen_hash:gen_hash"
+handcontrol="rltools.handcontrol:main"
+managesource= "rltools.manage_source:manage_source"
+mic= "rltools.mic:main"
+cutvideo="rltools.moviepy_cut_video:main"
+ocr= "rltools.ocr:main"
+sysinfo= "rltools.systeminfos:general_info"
+gpuinfo= "rltools.systeminfos:gpu_info"
+takephoto="rltools.take_photo:main"
+findimg= "rltools.tsi:main"
 
 
