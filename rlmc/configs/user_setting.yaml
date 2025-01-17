@@ -1,0 +1,8 @@
+XDG_CACHE_HOME:  # hf_cache
+  /root/autodl-tmp
+
+HF_ENDPOINT: 
+  https://huggingface.co
+  #https://hf-mirror.com
+
+

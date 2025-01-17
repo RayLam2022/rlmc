@@ -1,0 +1,55 @@
+cuda:
+  https://developer.nvidia.com/cuda-toolkit-archive
+
+cudnn:
+  https://developer.nvidia.com/rdp/cudnn-download
+
+nvidia-geforce-driver:
+  https://www.nvidia.cn/geforce/drivers
+
+gpu-version:
+  https://developer.nvidia.com/video-encode-and-decode-gpu-support-matrix-new
+
+torch:
+  https://download.pytorch.org/whl/torch_stable.html
+
+jax:
+  https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+paddle:
+  - https://www.paddlepaddle.org.cn
+  - https://www.paddlepaddle.org.cn/whl/stable.html
+
+pypi:
+  https://pypi.org
+
+get-pip.py:
+  https://bootstrap.pypa.io/get-pip.py
+
+miniconda:
+  https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda
+
+gitbash:
+  http://git-scm.com
+
+github:
+  https://github.com
+  #https://mirror.ghproxy.com/
+
+导osm地图:
+  https://www.openstreetmap.org
+
+wsl2升级包:
+  https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+vnc:
+  - Ubuntu: http://aivc.ks3-cn-beijing.ksyun.com/packages/turbovnc/turbovnc_2.2.5_amd64.deb
+  - MacOS: http://aivc.ks3-cn-beijing.ksyun.com/packages/turbovnc/TurboVNC-2.2.5.dmg
+  - Windows: http://aivc.ks3-cn-beijing.ksyun.com/packages/turbovnc/TurboVNC-2.2.5-x64.exe
+
+Platform-Tools(Android):
+  https://developer.android.google.cn/studio/releases/platform-tools?hl=zh_cn
+
+
+emoji:
+  https://www.webfx.com/tools/emoji-cheat-sheet/

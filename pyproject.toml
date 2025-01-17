@@ -7,6 +7,12 @@ authors = [
 ]
 license = {text = "Apache-2.0"}
 readme = "README.md"
+packages = [
+    { include = "rlmc",exclude=["*__pycache__*","*ipynb_checkpoints*","*vscode*","","build.*","dist.*","*egg-info","*.mypy_cache","*.git.*"] }
+]
+include = [
+    { path = "medusa-example.ini" }
+]
 requires-python = ">=3.12,<4"
 dependencies = [
     "rich (>=13.9.4,<14.0.0)",
@@ -138,6 +144,6 @@ thop = "^0.1.1.post2209072238"
 
 
 [[tool.poetry.scripts]]
-mic= "rltools.mic:main"
+mic= { reference = "rltools.mic:main", type = "console" }
 
 
