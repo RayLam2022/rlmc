@@ -5,9 +5,6 @@
 @Contact :   1027196450@qq.com
 """
 
-import sys
-
-if '.' not in sys.path: sys.path.append(".")
 
 from typing import Any, Union, Callable, Iterable, List, Dict
 import multiprocessing as mp
@@ -65,6 +62,8 @@ def test_unit_no_return(a, b):
 
 
 if __name__ == "__main__":
+    import os
+    os.environ['PYTHONPATH']='.'
 
     a = [i for i in range(100)]
     b = [i + 1 for i in range(100)]

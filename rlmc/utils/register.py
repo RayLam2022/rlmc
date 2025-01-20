@@ -5,11 +5,6 @@
 @Contact :   1027196450@qq.com
 """
 
-import sys
-
-if "." not in sys.path:
-    sys.path.append(".")
-
 from typing import Any, NoReturn, Union, Callable, Iterable, List, Dict, ValuesView, ItemsView, KeysView
 
 from rlmc.utils.logger import Logger
