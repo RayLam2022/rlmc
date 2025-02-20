@@ -15,15 +15,15 @@ import faiss
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
-parser = argparse.ArgumentParser("text_search_image")
+parser = argparse.ArgumentParser("image_search_image")
 parser.add_argument(
     "-r",
     "--img_root",
     required=True,
 )
 parser.add_argument(
-    "-t",
-    "--text_for_matching",
+    "-m",
+    "--reference_image_for_matching",
     required=True,
 )
 parser.add_argument(
@@ -107,19 +107,23 @@ def clipv(root: str):
     print("clip vectorized." + "\n")
 
 
-def search_vec(text: str, root: str, alternative: int = 5):
+def search_vec(ref_image: str, root: str, alternative: int = 5):
 
-    text_tokenized = clip.tokenize([text]).to(device)
+    img_id = generate_id(ref_image)
+    img = preprocess(Image.open(ref_image)).unsqueeze(0).to(device)
     with torch.no_grad():
-        text_feat = model.encode_text(text_tokenized)
-    text_feat_np = text_feat.cpu().numpy()
+        img_feat = model.encode_image(img)
+    img_feat_np = img_feat.cpu().numpy()
+    norms = np.linalg.norm(img_feat_np, axis=1, keepdims=True)
+    img_feat_np /= norms
+
     faiss_index_file = os.path.join(root, "faissidx.idx")
     index = faiss.read_index(faiss_index_file)
-    norm = np.linalg.norm(text_feat_np, axis=1, keepdims=True)
-    text_feat_np /= norm
+    norm = np.linalg.norm(img_feat_np, axis=1, keepdims=True)
+    img_feat_np /= norm
 
     db = os.path.join(root, "imgsnames.db")
-    D, I = index.search(text_feat_np, alternative)
+    D, I = index.search(img_feat_np, alternative)
     img_paths = []
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
@@ -177,7 +181,7 @@ def main() -> None:
             clipv(args.img_root)
         else:
             ...
-    search_vec(args.text_for_matching, args.img_root, args.alternative)
+    search_vec(args.reference_image_for_matching, args.img_root, args.alternative)
 
 
 if __name__ == "__main__":
