@@ -51,6 +51,7 @@ class HfDownload:
         is_login: bool = False,
         hf_token: str = "hf_JiIBOPMbYRjssOTAsdWo",
         repo_type: Literal["model", "dataset"] = "model",
+        allow_patterns: List[str] = ["*"],
         ignore_patterns: List[str] = ["*.h5", "*safetensors", "*msgpack"],
         force_download: bool = False,
         resume_download: bool = True,  # 断点续传
@@ -63,6 +64,7 @@ class HfDownload:
         self.local_dir = local_dir
         self.local_dir_use_symlinks = local_dir_use_symlinks
         self.repo_type = repo_type
+        self.allow_patterns = allow_patterns
         self.ignore_patterns = ignore_patterns
         self.force_download = force_download
         self.resume_download = resume_download
@@ -76,6 +78,7 @@ class HfDownload:
             cache_dir=self.local_dir,
             local_dir=self.local_dir,
             local_dir_use_symlinks=self.local_dir_use_symlinks,
+            allow_patterns=self.allow_patterns,
             ignore_patterns=self.ignore_patterns,
             force_download=self.force_download,
             resume_download=self.resume_download,
@@ -97,7 +100,7 @@ class MsDownload:
     def __init__(
         self,
         repo_id: str,
-        cache_dir: str='./MscopeCache',
+        cache_dir: str = "./MscopeCache",
         ignore_file_pattern: List[str] = ["*.h5", "*safetensors", "*msgpack"],
     ) -> None:
         self.repo_id = repo_id
