@@ -2,13 +2,10 @@
 name = "rlmc"
 version = "1.2.3"
 description = "Python utils for AI projects 🚀"
-authors = [
-    {name = "RayLam2022",email = "1027196450@qq.com"}
-]
-license = { file = "LICENSE" }
-readme = "README.md"
-
+authors = [{ name = "RayLam2022", email = "1027196450@qq.com" }]
 requires-python = ">=3.12,<4"
+readme = "README.md"
+license = { file = "LICENSE" }
 dependencies = [
     "rich (>=13.9.4,<14.0.0)",
     "python-dotenv (>=1.0.1,<2.0.0)",
@@ -37,149 +34,156 @@ dependencies = [
     "librosa (>=0.11.0,<0.12.0)",
 ]
 
-
-[[tool.poetry.source]]
-name = "mirrors"
-url = "https://mirrors.aliyun.com/pypi/simple/"
-priority = "primary"
-
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0", "Cython", "setuptools", "wheel"]
-build-backend = "poetry.core.masonry.api"
-
-
-[tool.poetry]
-packages = [
-    { include = "rlmc", format = ["sdist", "wheel"]},
-    { include = "rltools", format = ["sdist", "wheel"] },
-    { include = "rltests", format = ["sdist"]},
-    {include = "examples", format = ["sdist"]},
-    # {include = "assets", format = ["sdist"]}  要有__init__.py才视为package
-]
-include = ["assets"]
-exclude=["__pycache__/*","**/__pycache__",".vscode/*","build/*","dist/*","*egg-info","**/mypy_cache","mypy_cache/*",".git/*","*.env",".ipynb_checkpoints/*","**/.ipynb_checkpoints"]
-
-
-# paddle = [
-#     "paddlepaddle",
-#     "paddlehub"
-# ]
-
-# jax=[
-#     "jax",
-#     "jaxlib"
-# ]
-
-# handcontrol=[
-#     "pycaw",
-#     "mediapipe",  # numpy要小于2.0，与其他冲突，handcontrol要另外处理版本问题
-#     "comtypes",
-# ]
-
-# game=[
-#     "pygame",
-#     "gym",
-# ]
-
-# tensorflow = [
-#     "tensorflow-gpu",
-#     "keras"
-# ]
-
-
-[tool.poetry.group.dev.dependencies]
-    # "build",
-    # "twine"
-pytest = "^8.3.4"
-mypy = "^1.13.0"
-
-
-[tool.poetry.group.download.dependencies]
-modelscope = "^1.22.2"
-codewithgpu = "^0.2.8"
-
-
-[tool.poetry.group.web.dependencies]
-# gradio>4.0.0
-beautifulsoup4 = "^4.12.3"
-aiofiles = "^24.1.0"
-aiohttp = "^3.11.11"
-jupyterlab = "^4.3.4"
-selenium = "^4.27.1"
-fastapi = "^0.115.6"
-
-
-[tool.poetry.group.video.dependencies]
-av = "^14.0.1"
-pyaudio = "^0.2.14"
-wave = "^0.0.2"
-srt = "^3.5.3"
-moviepy = "^2.1.2"
-
-
-[tool.poetry.group.chart.dependencies]
-matplotlib = "^3.10.0"
-pyecharts = "^2.0.7"
-streamlit = "^1.41.1"
-streamlit-echarts = "^0.4.0"
-fastexcel = "^0.12.1"
-polars = "^1.20.0"
-hvplot = "^0.11.2"
-xlsxwriter = "^3.2.0"
-
-
-[tool.poetry.group.assistant.dependencies]
-# poetry not supporting PEP 517 builds 只能pip install librosa
-torch = {path = "D:/torch-2.5.0+cu124-cp312-cp312-win_amd64.whl"}
-torchvision = {url = "https://download.pytorch.org/whl/cu124/torchvision-0.20.0%2Bcu124-cp312-cp312-win_amd64.whl#sha256=e0c79e00469a6ee4982e52d86ea18a29a61e583cce07ba75efd11917dc8d6925"}
-torchaudio = {url = "https://download.pytorch.org/whl/cu124/torchaudio-2.5.0%2Bcu124-cp312-cp312-win_amd64.whl#sha256=0ce88068a8880da5cad7bff3cc28a12d8f797e597bacb9a292e1f2f8164ff0cb"}
-xformers = {url = "https://download.pytorch.org/whl/cu124/xformers-0.0.28.post2-cp312-cp312-win_amd64.whl#sha256=a8f52e4519640f58c92a2b1e1ad0e1c479b8406eb50f56920d97c3143039f0d2"}
-supervision = "<0.24"  # 会安装opencv-python-headless，要卸载opencv-python，再重装opencv-python
-pyttsx3 = "^2.98"
-qianfan = "^0.4.12.2"
-duckduckgo-search = "^7.2.1"
-pyaudio = "^0.2.14"
-chromadb = "^0.6.3"
-pdfplumber = "^0.11.5"
-accelerate = "^1.2.1"
-transformers = "^4.48.0"
-langchain = "^0.3.14"
-langchain-community = "^0.3.14"
-networkx = "^3.4.2"
-timm = "^1.0.13"
-einops = "^0.8.0"
-segmentation-models-pytorch = "^0.4.0"
-torchsummary = "^1.5.1"
-thop = "^0.1.1.post2209072238"
-
-
-
-[tool.poetry.group.build.dependencies]
-setuptools = "^75.8.0"
-cython = "^3.0.11"
-
-[tool.poetry.build]
-script = "setup.py"
-
-[tool.poetry.scripts]
-asr_realtime="rltools.asr_turbo:main"
-asr_file="rltools.asr_media:main"
-chatbot="rltools.call_qianfan:main"
-clearcache= "rltools.clear_cache:clear_cache"
+[project.scripts]
+asr_realtime = "rltools.asr_turbo:main"
+asr_file = "rltools.asr_media:main"
+chatbot = "rltools.call_qianfan:main"
+clearcache = "rltools.clear_cache:clear_cache"
 testcuda = "rltools.cuda_test:cudatest"
 deltemp = "rltools.del_jupyter_temp:del_jupyter_temp"
-downloadmodel="rltools.download_model:main"
-findtool= "rltools.findtool:find"
-genhash= "rltools.gen_hash:gen_hash"
-handcontrol="rltools.handcontrol:main"
-managesource= "rltools.manage_source:manage_source"
-mic= "rltools.mic:main"
-cutvideo="rltools.moviepy_cut_video:main"
-ocr= "rltools.ocr:main"
-sysinfo= "rltools.systeminfos:general_info"
-gpuinfo= "rltools.systeminfos:gpu_info"
-takephoto="rltools.take_photo:main"
-findimg= "rltools.tsi:main"
+downloadmodel = "rltools.download_model:main"
+findtool = "rltools.findtool:find"
+genhash = "rltools.gen_hash:gen_hash"
+handcontrol = "rltools.handcontrol:main"
+managesource = "rltools.manage_source:manage_source"
+mic = "rltools.mic:main"
+cutvideo = "rltools.moviepy_cut_video:main"
+ocr = "rltools.ocr:main"
+sysinfo = "rltools.systeminfos:general_info"
+gpuinfo = "rltools.systeminfos:gpu_info"
+takephoto = "rltools.take_photo:main"
+findimg = "rltools.tsi:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4,<9",
+    "mypy>=1.13.0,<2",
+]
+download = [
+    "modelscope>=1.22.2,<2",
+    "codewithgpu>=0.2.8,<0.3",
+]
+web = [
+    "beautifulsoup4>=4.12.3,<5",
+    "aiofiles>=24.1.0,<25",
+    "aiohttp>=3.11.11,<4",
+    "jupyterlab>=4.3.4,<5",
+    "selenium>=4.27.1,<5",
+    "fastapi>=0.115.6,<0.116",
+]
+video = [
+    "av>=14.0.1,<15",
+    "pyaudio>=0.2.14,<0.3",
+    "wave>=0.0.2,<0.0.3",
+    "srt>=3.5.3,<4",
+    "moviepy>=2.1.2,<3",
+]
+chart = [
+    "matplotlib>=3.10.0,<4",
+    "pyecharts>=2.0.7,<3",
+    "streamlit>=1.41.1,<2",
+    "streamlit-echarts>=0.4.0,<0.5",
+    "fastexcel>=0.12.1,<0.13",
+    "polars>=1.20.0,<2",
+    "hvplot>=0.11.2,<0.12",
+    "xlsxwriter>=3.2.0,<4",
+]
+assistant = [
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "xformers",
+    "supervision<0.24",
+    "pyttsx3~=2.98",
+    "qianfan>=0.4.12.2,<0.5",
+    "duckduckgo-search>=7.2.1,<8",
+    "pyaudio>=0.2.14,<0.3",
+    "chromadb>=0.6.3,<0.7",
+    "pdfplumber>=0.11.5,<0.12",
+    "accelerate>=1.2.1,<2",
+    "transformers>=4.48.0,<5",
+    "langchain>=0.3.14,<0.4",
+    "langchain-community>=0.3.14,<0.4",
+    "networkx>=3.4.2,<4",
+    "timm>=1.0.13,<2",
+    "einops>=0.8.0,<0.9",
+    "segmentation-models-pytorch>=0.4.0,<0.5",
+    "torchsummary>=1.5.1,<2",
+    "thop>=0.1.1.post2209072238,<0.2",
+]
+build = [
+    "setuptools>=75.8.0,<76",
+    "cython>=3.0.11,<4",
+]
+
+[tool.uv]
+default-groups = [
+    "dev",
+    "download",
+    "web",
+    "video",
+    "chart",
+    "assistant",
+    "build",
+]
+
+[[tool.uv.index]]
+name = "mirrors"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
+
+[tool.uv.sources]
+torch = { path = "D:/torch-2.5.0+cu124-cp312-cp312-win_amd64.whl" }
+torchvision = { url = "https://download.pytorch.org/whl/cu124/torchvision-0.20.0%2Bcu124-cp312-cp312-win_amd64.whl#sha256=e0c79e00469a6ee4982e52d86ea18a29a61e583cce07ba75efd11917dc8d6925" }
+torchaudio = { url = "https://download.pytorch.org/whl/cu124/torchaudio-2.5.0%2Bcu124-cp312-cp312-win_amd64.whl#sha256=0ce88068a8880da5cad7bff3cc28a12d8f797e597bacb9a292e1f2f8164ff0cb" }
+xformers = { url = "https://download.pytorch.org/whl/cu124/xformers-0.0.28.post2-cp312-cp312-win_amd64.whl#sha256=a8f52e4519640f58c92a2b1e1ad0e1c479b8406eb50f56920d97c3143039f0d2" }
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "rlmc",
+    "rltools",
+    "rltests",
+    "examples",
+    "assets",
+]
+exclude = [
+    "__pycache__/*",
+    "**/__pycache__",
+    ".vscode/*",
+    "build/*",
+    "dist/*",
+    "*egg-info",
+    "**/mypy_cache",
+    "mypy_cache/*",
+    ".git/*",
+    "*.env",
+    ".ipynb_checkpoints/*",
+    "**/.ipynb_checkpoints",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "rlmc",
+    "rltools",
+    "assets",
+]
+exclude = [
+    "__pycache__/*",
+    "**/__pycache__",
+    ".vscode/*",
+    "build/*",
+    "dist/*",
+    "*egg-info",
+    "**/mypy_cache",
+    "mypy_cache/*",
+    ".git/*",
+    "*.env",
+    ".ipynb_checkpoints/*",
+    "**/.ipynb_checkpoints",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
